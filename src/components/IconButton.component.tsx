@@ -9,7 +9,7 @@ const IconButton: FC<IProps> = ({ onClick, children }) => {
   return (
     <button
       onClick={onClick}
-      className="rounded-full p-3 hover:opacity-50 bg-primary-transparent transition-all duration-300"
+      className="rounded-full p-3 desktop:hover:opacity-50 bg-primary-transparent transition-all duration-300"
     >
       {children}
     </button>

@@ -8,7 +8,7 @@ import "./index.css";
 import App from "./App";
 
 // Providers
-import { ThemeProvider } from "./providers";
+import { SidebarProvider, ThemeProvider } from "./providers";
 
 const app = document.getElementById("root");
 
@@ -17,7 +17,9 @@ const root = createRoot(app as HTMLElement);
 root.render(
   <BrowserRouter>
     <ThemeProvider>
-      <App />
+      <SidebarProvider>
+        <App />
+      </SidebarProvider>
     </ThemeProvider>
   </BrowserRouter>
 );
