@@ -7,6 +7,8 @@ module.exports = {
       "primary-transparent": "#f37c903a",
       white: "#ffffff",
       black: "#000000",
+      lightgray: "#ececec",
+      gray: "#cccccc",
     },
     screens: {
       desktop: { min: "1100px" },

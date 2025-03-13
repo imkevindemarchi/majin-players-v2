@@ -1,4 +1,4 @@
-import { JSX, useContext } from "react";
+import { FC, JSX, useContext } from "react";
 import { Link, NavigateFunction, useLocation, useNavigate } from "react-router";
 
 // Assets
@@ -18,7 +18,7 @@ import { SunIcon, MoonIcon } from "../assets/icons";
 // Types
 import { TThemeContext } from "../providers/Theme.provider";
 
-const Sidebar = () => {
+const Sidebar: FC = () => {
   const navigate: NavigateFunction = useNavigate();
   const currentPathSection: string = useLocation().pathname.split("/")[1];
   const { isDarkMode, onStateChange: onThemeChange }: TThemeContext =

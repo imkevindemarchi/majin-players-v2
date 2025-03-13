@@ -1,4 +1,4 @@
-import { MouseEventHandler } from "react";
+import { FC, MouseEventHandler } from "react";
 
 interface IProps {
   onClick: MouseEventHandler<HTMLButtonElement>;
@@ -6,7 +6,7 @@ interface IProps {
   isDarkMode: boolean;
 }
 
-const Hamburger = ({ onClick, isActive, isDarkMode }: IProps) => {
+const Hamburger: FC<IProps> = ({ onClick, isActive, isDarkMode }: IProps) => {
   const lines: number[] = [1, 2, 3];
 
   return (

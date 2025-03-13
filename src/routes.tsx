@@ -1,40 +1,45 @@
-import { JSX } from "react";
-
 // Pages
-import { Home } from "./pages";
+import { ReactNode } from "react";
+import { Login, Home } from "./pages";
 
 export type IRoute = {
   path: string;
   name: string;
-  element: () => JSX.Element;
+  element: ReactNode;
   isHidden?: boolean;
 };
 
 export const ROUTES: IRoute[] = [
   {
+    path: "/log-in",
+    name: "Log In",
+    element: <Login />,
+    isHidden: true,
+  },
+  {
     path: "/",
     name: "Home",
-    element: Home,
+    element: <Home />,
     isHidden: true,
   },
   {
     path: "/players",
     name: "Giocatori",
-    element: Home,
+    element: <Home />,
   },
   {
     path: "/equipments",
     name: "Equipaggiamenti",
-    element: Home,
+    element: <Home />,
   },
   {
     path: "/sponsors",
     name: "Sponsor",
-    element: Home,
+    element: <Home />,
   },
   {
     path: "/contacts",
     name: "Contatti",
-    element: Home,
+    element: <Home />,
   },
 ];
