@@ -9,6 +9,7 @@ module.exports = {
       black: "#000000",
     },
     screens: {
+      desktop: { min: "1100px" },
       mobile: { max: "800px" },
     },
   },
