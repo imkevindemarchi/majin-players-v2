@@ -37,7 +37,7 @@ const Navbar: FC = () => {
   );
 
   const routes: JSX.Element = (
-    <div className="flex mobile:hidden">
+    <div className="flex">
       {ROUTES.map((route: IRoute, index: number) => {
         const isRouteHidden: boolean = route.isHidden ? true : false;
         const routePathSection: string = route.path.split("/")[1];
@@ -82,14 +82,14 @@ const Navbar: FC = () => {
   );
 
   return (
-    <div className="w-full h-32 flex items-center px-10 justify-between py-2 mobile:justify-center mobile:items-center mobile:px-0">
+    <div className="w-full h-32 flex items-center px-10 justify-between py-2 mobile:justify-center mobile:items-center mobile:px-0 mobile:hidden">
       <div className="h-full flex justify-center items-center">
         <div className="h-full w-full flex items-center gap-10">
           {logo}
           {routes}
         </div>
       </div>
-      <div className="bg-slate-600 h-full flex justify-center items-center mobile:hidden">
+      <div className="bg-slate-600 h-full flex justify-center items-center">
         {themeIcon}
       </div>
     </div>
