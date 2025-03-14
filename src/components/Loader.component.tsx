@@ -26,7 +26,7 @@ const Loader: FC = () => {
       <img
         src={logoImg}
         alt={t("imgNotFound")}
-        className="w-60"
+        className="w-60 mobile:w-40"
         style={{ animation: "animateLogo  linear 1s infinite alternate" }}
       />
     </div>
