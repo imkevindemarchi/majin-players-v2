@@ -1,18 +1,23 @@
-import { FC, FormEvent, JSX, useState } from "react";
+import { FC, FormEvent, JSX, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 // Assets
 import logoImg from "../assets/images/logo.png";
 
 // Components
-import { Input, Button } from "../components";
+import { Input, Button, IconButton } from "../components";
+
+// Contexts
+import { ThemeContext, TThemeContext } from "../providers/Theme.provider";
 
 // Icons
 import {
   ClosedEyeIcon,
   EmailIcon,
   LockIcon,
+  MoonIcon,
   OpenedEyeIcon,
+  SunIcon,
 } from "../assets/icons";
 
 // Utils
@@ -34,6 +39,8 @@ const Login: FC = () => {
   const [formData, setFormData] = useState<IFormData>(initialState);
   const [passwordType, setPasswordType] = useState<TPassword>("password");
   const { t } = useTranslation();
+  const { isDarkMode, onStateChange: onThemeChange }: TThemeContext =
+    useContext(ThemeContext) as TThemeContext;
 
   setPageTitle("Log In");
 
@@ -83,7 +90,8 @@ const Login: FC = () => {
         value={formData?.email}
         onChange={(value: string) => onInputChange("email", value)}
         icon={<EmailIcon className="text-primary text-2xl" />}
-        placeholder="E-mail"
+        placeholder={t("email")}
+        isDarkMode={isDarkMode}
       />
       <Input
         type={passwordType}
@@ -103,12 +111,17 @@ const Login: FC = () => {
             />
           )
         }
-        placeholder="Password"
+        placeholder={t("password")}
+        isDarkMode={isDarkMode}
       />
-      <Button type="submit" disabled={isBtnDisabled}>
+      <Button type="submit" disabled={isBtnDisabled} isDarkMode={isDarkMode}>
         <span
-          className={`text-lg uppercase ${
-            isBtnDisabled ? "text-gray" : "text-white"
+          className={`text-lg uppercase transition-all duration-300 ${
+            isBtnDisabled && isDarkMode
+              ? "text-darkgray2"
+              : isBtnDisabled
+              ? "text-gray"
+              : "text-white"
           }`}
         >
           Log In
@@ -117,21 +130,26 @@ const Login: FC = () => {
     </form>
   );
 
+  const themeIcon: JSX.Element = (
+    <IconButton onClick={onThemeChange}>
+      {isDarkMode ? (
+        <MoonIcon className="text-primary text-2xl" />
+      ) : (
+        <SunIcon className="text-primary text-2xl" />
+      )}
+    </IconButton>
+  );
+
   const firstContainer: JSX.Element = (
     <div className="w-[65%] mobile:w-[90%] h-full flex justify-center items-center flex-col gap-10">
       {logo}
+      {themeIcon}
       {form}
     </div>
   );
 
   const secondContainer: JSX.Element = (
-    <div
-      style={{
-        backgroundImage:
-          "linear-gradient(to top right, #FFFFFF 0%, #f37c90 50%, #f37c90 100%)",
-      }}
-      className="w-[35%] mobile:hidden h-full flex justify-center items-center"
-    >
+    <div className="w-[35%] mobile:hidden h-full flex justify-center items-center transition-all duration-300 bg-primary">
       <span className="text-white font-bold text-[4em]">
         {process.env.REACT_APP_WEBSITE_NAME}
       </span>
@@ -139,7 +157,7 @@ const Login: FC = () => {
   );
 
   return (
-    <div className="w-full h-[100vh] mobile:h-[70vh] flex mobile:justify-center bg-white">
+    <div className="w-full h-[100vh] mobile:h-[80vh] flex mobile:justify-center">
       {firstContainer}
       {secondContainer}
     </div>

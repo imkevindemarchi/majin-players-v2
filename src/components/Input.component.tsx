@@ -7,6 +7,7 @@ interface IProps {
   endIcon?: JSX.Element;
   placeholder: string;
   type?: "text" | "password";
+  isDarkMode?: boolean;
 }
 
 const Input: FC<IProps> = ({
@@ -16,13 +17,18 @@ const Input: FC<IProps> = ({
   placeholder,
   endIcon,
   type = "text",
+  isDarkMode,
 }) => {
   const inputRef = useRef<HTMLDivElement>(null);
 
   return (
     <div
       ref={inputRef}
-      className="rounded-full border-lightgray border-2 px-5 py-3 transition-all duration-300 flex items-center justify-between w-96 overflow-hidde mobile:w-full"
+      className={`rounded-full border-2 px-5 py-3 transition-all duration-300 flex items-center justify-between w-96 overflow-hidde mobile:w-full ${
+        isDarkMode
+          ? "border-darkgray text-white"
+          : "border-lightgray text-black"
+      }`}
     >
       <div className="flex gap-2 items-center w-full">
         {icon}
@@ -39,7 +45,9 @@ const Input: FC<IProps> = ({
           }}
           onBlur={() => {
             if (inputRef.current) {
-              inputRef.current.style.borderColor = "#ececec";
+              inputRef.current.style.borderColor = isDarkMode
+                ? "#4d4d4d"
+                : "#ececec";
             }
           }}
           placeholder={placeholder}
