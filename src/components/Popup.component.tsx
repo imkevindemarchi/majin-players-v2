@@ -4,7 +4,7 @@ import React, { FC, useContext } from "react";
 import { PopupContext, TPopupContext } from "../providers/Popup.provider";
 
 // Icons
-import { CloseIcon, ErrorIcon } from "../assets/icons";
+import { CheckIcon, CloseIcon, ErrorIcon, WarningIcon } from "../assets/icons";
 
 const Popup: FC = () => {
   const { state, onClose }: TPopupContext = useContext(
@@ -26,7 +26,9 @@ const Popup: FC = () => {
       `}
     >
       <div className="flex gap-2">
-        <ErrorIcon className="text-2xl" />
+        {isSuccess && <CheckIcon className="text-2xl" />}
+        {isWarning && <WarningIcon className="text-2xl" />}
+        {isError && <ErrorIcon className="text-2xl" />}
         <span className="text-base">{message}</span>
       </div>
       <CloseIcon
