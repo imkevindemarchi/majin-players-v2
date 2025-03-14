@@ -1,5 +1,6 @@
 import { FC, JSX, useContext } from "react";
 import { Link, NavigateFunction, useLocation, useNavigate } from "react-router";
+import { useTranslation } from "react-i18next";
 
 // Assets
 import logoImg from "../assets/images/logo.png";
@@ -22,6 +23,7 @@ const Navbar: FC = () => {
   const currentPathSection: string = useLocation().pathname.split("/")[1];
   const { isDarkMode, onStateChange: onThemeChange }: TThemeContext =
     useContext(ThemeContext) as TThemeContext;
+  const { t } = useTranslation();
 
   function goToHome(): void {
     navigate("/");
@@ -30,7 +32,7 @@ const Navbar: FC = () => {
   const logo: JSX.Element = (
     <img
       src={logoImg}
-      alt="Impossibile visualizzare l'immagine."
+      alt={t("imgNotFound")}
       className="w-full h-full cursor-pointer hover:opacity-50 transition-all duration-300 mobile:w-auto"
       onClick={goToHome}
     />

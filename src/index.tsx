@@ -1,5 +1,6 @@
 import { BrowserRouter } from "react-router";
 import { createRoot } from "react-dom/client";
+import "./i18n.ts";
 
 // Assets
 import "./index.css";
