@@ -1,14 +1,15 @@
 import { FC, JSX, useContext } from "react";
+import { useLocation } from "react-router";
 
 // Components
 import Navbar from "./Navbar.component";
 import Hamburger from "./Hamburger.component";
 import Sidebar from "./Sidebar.component";
+import Popup from "./Popup.component";
 
 // Contexts
 import { ThemeContext, TThemeContext } from "../providers/Theme.provider";
 import { SidebarContext, TSidebarContext } from "../providers/Sidebar.provider";
-import { useLocation } from "react-router";
 
 interface IProps {
   children: JSX.Element;
@@ -48,9 +49,11 @@ const Layout: FC<IProps> = ({ children }) => {
     </div>
   );
 
+  const popup: JSX.Element = <Popup />;
+
   const layout: JSX.Element = (
     <div
-      className={`transition-all duration-300 min-h-[100vh] ${
+      className={`transition-all duration-300 min-h-[100vh] relative ${
         isDarkMode ? "bg-black" : "bg-white"
       }`}
     >
@@ -64,6 +67,7 @@ const Layout: FC<IProps> = ({ children }) => {
       >
         {children}
       </div>
+      {popup}
     </div>
   );
 
