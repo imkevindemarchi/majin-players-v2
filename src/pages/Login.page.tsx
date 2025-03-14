@@ -1,4 +1,5 @@
 import { FC, FormEvent, JSX, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 // Assets
 import logoImg from "../assets/images/logo.png";
@@ -32,6 +33,7 @@ type TPassword = "text" | "password";
 const Login: FC = () => {
   const [formData, setFormData] = useState<IFormData>(initialState);
   const [passwordType, setPasswordType] = useState<TPassword>("password");
+  const { t } = useTranslation();
 
   setPageTitle("Log In");
 
@@ -42,11 +44,7 @@ const Login: FC = () => {
   };
 
   const logo: JSX.Element = (
-    <img
-      src={logoImg}
-      alt="Impossibile visualizzare l'immagine."
-      className="w-40"
-    />
+    <img src={logoImg} alt={t("imgNotFound")} className="w-40" />
   );
 
   const onPasswordTypeChange = (): void => {

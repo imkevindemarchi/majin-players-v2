@@ -1,5 +1,6 @@
 import { FC, JSX, useContext } from "react";
 import { Link, NavigateFunction, useLocation, useNavigate } from "react-router";
+import { useTranslation } from "react-i18next";
 
 // Assets
 import logoImg from "../assets/images/logo.png";
@@ -25,6 +26,7 @@ const Sidebar: FC = () => {
     useContext(ThemeContext) as TThemeContext;
   const { isOpen, onStateChange: onSidebarStateChange }: TSidebarContext =
     useContext(SidebarContext) as TSidebarContext;
+  const { t } = useTranslation();
 
   function goToHome(): void {
     navigate("/");
@@ -34,7 +36,7 @@ const Sidebar: FC = () => {
   const logo: JSX.Element = (
     <img
       src={logoImg}
-      alt="Impossibile visualizzare l'immagine."
+      alt={t("imgNotFound")}
       className="w-32"
       onClick={goToHome}
     />
