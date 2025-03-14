@@ -1,5 +1,11 @@
 {
   "translation": {
-    "imgNotFound": "Impossibile visualizzare l'immagine."
+    "imgNotFound": "Impossibile visualizzare l'immagine.",
+    "italian": "Italiano",
+    "english": "Inglese",
+    "players": "Giocatori",
+    "equipments": "Equipaggiamenti",
+    "sponsors": "Sponsor",
+    "contacts": "Contatti"
   }
 }

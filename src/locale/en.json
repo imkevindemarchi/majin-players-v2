@@ -1,5 +1,11 @@
 {
   "translation": {
-    "imgNotFound": "Unable to display image."
+    "imgNotFound": "Unable to display image.",
+    "italian": "Italian",
+    "english": "English",
+    "players": "Players",
+    "equipments": "Equipments",
+    "sponsors": "Sponsors",
+    "contacts": "Contacts"
   }
 }

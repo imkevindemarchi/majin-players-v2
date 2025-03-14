@@ -24,22 +24,22 @@ export const ROUTES: IRoute[] = [
   },
   {
     path: "/players",
-    name: "Giocatori",
+    name: "players",
     element: <Home />,
   },
   {
     path: "/equipments",
-    name: "Equipaggiamenti",
+    name: "equipments",
     element: <Home />,
   },
   {
     path: "/sponsors",
-    name: "Sponsor",
+    name: "sponsors",
     element: <Home />,
   },
   {
     path: "/contacts",
-    name: "Contatti",
+    name: "contacts",
     element: <Home />,
   },
 ];

@@ -8,6 +8,7 @@ import { IRoute, ROUTES } from "../routes";
 
 // Components
 import IconButton from "./IconButton.component";
+import LanguageSelector from "./LanguageSelector.component";
 
 // Contexts
 import { ThemeContext } from "../providers";
@@ -19,6 +20,9 @@ import { SunIcon, MoonIcon } from "../assets/icons";
 // Types
 import { TThemeContext } from "../providers/Theme.provider";
 
+// Utils
+import { setToStorage } from "../utils";
+
 const Sidebar: FC = () => {
   const navigate: NavigateFunction = useNavigate();
   const currentPathSection: string = useLocation().pathname.split("/")[1];
@@ -26,7 +30,10 @@ const Sidebar: FC = () => {
     useContext(ThemeContext) as TThemeContext;
   const { isOpen, onStateChange: onSidebarStateChange }: TSidebarContext =
     useContext(SidebarContext) as TSidebarContext;
-  const { t } = useTranslation();
+  const {
+    t,
+    i18n: { language, changeLanguage },
+  } = useTranslation();
 
   function goToHome(): void {
     navigate("/");
@@ -69,13 +76,26 @@ const Sidebar: FC = () => {
                   isRouteActive ? "text-white" : "text-primary"
                 }`}
               >
-                {route.name}
+                {t(route.name)}
               </span>
             </Link>
           )
         );
       })}
     </div>
+  );
+
+  function onLanguageChange(countryCode: string): void {
+    changeLanguage(countryCode);
+    setToStorage("language", countryCode);
+  }
+
+  const languageSelector: JSX.Element = (
+    <LanguageSelector
+      value={language}
+      onChange={onLanguageChange}
+      isDarkMode={isDarkMode}
+    />
   );
 
   const themeIcon: JSX.Element = (
@@ -97,6 +117,7 @@ const Sidebar: FC = () => {
     >
       {logo}
       {routes}
+      {languageSelector}
       {themeIcon}
     </div>
   );
