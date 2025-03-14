@@ -139,7 +139,7 @@ const Login: FC = () => {
   );
 
   return (
-    <div className="w-full h-[100vh] mobile:h-[70vh] flex mobile:justify-center">
+    <div className="w-full h-[100vh] mobile:h-[70vh] flex mobile:justify-center bg-white">
       {firstContainer}
       {secondContainer}
     </div>
