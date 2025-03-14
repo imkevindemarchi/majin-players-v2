@@ -6,6 +6,8 @@
     "players": "Players",
     "equipments": "Equipments",
     "sponsors": "Sponsors",
-    "contacts": "Contacts"
+    "contacts": "Contacts",
+    "email": "E-mail",
+    "password": "Password"
   }
 }
