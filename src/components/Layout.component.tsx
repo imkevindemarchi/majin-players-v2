@@ -10,6 +10,7 @@ import Popup from "./Popup.component";
 // Contexts
 import { ThemeContext, TThemeContext } from "../providers/Theme.provider";
 import { SidebarContext, TSidebarContext } from "../providers/Sidebar.provider";
+import Loader from "./Loader.component";
 
 interface IProps {
   children: JSX.Element;
@@ -51,6 +52,8 @@ const Layout: FC<IProps> = ({ children }) => {
 
   const popup: JSX.Element = <Popup />;
 
+  const loader: JSX.Element = <Loader />;
+
   const layout: JSX.Element = (
     <div
       className={`transition-all duration-300 min-h-[100vh] relative ${
@@ -71,7 +74,12 @@ const Layout: FC<IProps> = ({ children }) => {
     </div>
   );
 
-  return isLoginPage ? loginLayout : layout;
+  return (
+    <div className="w-full h-full relative">
+      {isLoginPage ? loginLayout : layout}
+      {loader}
+    </div>
+  );
 };
 
 export default Layout;

@@ -13,6 +13,8 @@ module.exports = {
       red: "#ff0000",
       green: "#008000",
       orange: "#ffa500",
+      "white-transparent": "#ffffff8d",
+      "black-transparent": "#0000008d",
     },
     screens: {
       desktop: { min: "1100px" },
