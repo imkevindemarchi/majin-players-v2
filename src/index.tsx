@@ -9,7 +9,12 @@ import "./i18n.ts";
 import App from "./App";
 
 // Providers
-import { PopupProvider, SidebarProvider, ThemeProvider } from "./providers";
+import {
+  LoaderProvider,
+  PopupProvider,
+  SidebarProvider,
+  ThemeProvider,
+} from "./providers";
 
 const app = document.getElementById("root");
 
@@ -20,7 +25,9 @@ root.render(
     <ThemeProvider>
       <SidebarProvider>
         <PopupProvider>
-          <App />
+          <LoaderProvider>
+            <App />
+          </LoaderProvider>
         </PopupProvider>
       </SidebarProvider>
     </ThemeProvider>

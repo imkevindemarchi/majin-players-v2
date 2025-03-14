@@ -7,3 +7,4 @@ export { default as Input } from "./Input.component";
 export { default as Button } from "./Button.component";
 export { default as LanguageSelector } from "./LanguageSelector.component";
 export { default as Popup } from "./Popup.component";
+export { default as Loader } from "./Loader.component";
