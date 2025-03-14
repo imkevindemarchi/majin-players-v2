@@ -10,6 +10,9 @@ module.exports = {
       lightgray: "#ececec",
       gray: "#cccccc",
       darkgray: "#4d4d4d",
+      red: "#ff0000",
+      green: "#008000",
+      orange: "#ffa500",
     },
     screens: {
       desktop: { min: "1100px" },

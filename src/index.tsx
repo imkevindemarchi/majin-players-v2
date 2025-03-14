@@ -1,15 +1,15 @@
 import { BrowserRouter } from "react-router";
 import { createRoot } from "react-dom/client";
-import "./i18n.ts";
 
 // Assets
 import "./index.css";
+import "./i18n.ts";
 
 // Components
 import App from "./App";
 
 // Providers
-import { SidebarProvider, ThemeProvider } from "./providers";
+import { PopupProvider, SidebarProvider, ThemeProvider } from "./providers";
 
 const app = document.getElementById("root");
 
@@ -19,7 +19,9 @@ root.render(
   <BrowserRouter>
     <ThemeProvider>
       <SidebarProvider>
-        <App />
+        <PopupProvider>
+          <App />
+        </PopupProvider>
       </SidebarProvider>
     </ThemeProvider>
   </BrowserRouter>
