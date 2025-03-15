@@ -6,11 +6,11 @@ import Navbar from "./Navbar.component";
 import Hamburger from "./Hamburger.component";
 import Sidebar from "./Sidebar.component";
 import Popup from "./Popup.component";
+import Loader from "./Loader.component";
 
 // Contexts
 import { ThemeContext, TThemeContext } from "../providers/Theme.provider";
 import { SidebarContext, TSidebarContext } from "../providers/Sidebar.provider";
-import Loader from "./Loader.component";
 
 interface IProps {
   children: JSX.Element;
@@ -70,7 +70,6 @@ const Layout: FC<IProps> = ({ children }) => {
       >
         {children}
       </div>
-      {popup}
     </div>
   );
 
@@ -78,6 +77,7 @@ const Layout: FC<IProps> = ({ children }) => {
     <div className="w-full h-full relative">
       {isLoginPage ? loginLayout : layout}
       {loader}
+      {popup}
     </div>
   );
 };

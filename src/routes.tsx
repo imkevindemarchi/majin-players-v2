@@ -43,3 +43,12 @@ export const ROUTES: IRoute[] = [
     element: <Home />,
   },
 ];
+
+export const ADMIN_ROUTES: IRoute[] = [
+  {
+    path: "/admin",
+    name: "Dashboard",
+    element: <Home />,
+    isHidden: true,
+  },
+];

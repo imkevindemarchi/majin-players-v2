@@ -6,7 +6,7 @@ interface IProps {
 
 export type TLoaderContext = {
   isLoading: boolean;
-  onStateChange: () => void;
+  setState: (value: boolean) => void;
 };
 
 export const LoaderContext = createContext<TLoaderContext | null>(null);
@@ -16,12 +16,8 @@ export const LoaderProvider = ({ children }: IProps): JSX.Element => {
 
   const isLoading: boolean = state;
 
-  function onStateChange(): void {
-    setState(!state);
-  }
-
   return (
-    <LoaderContext.Provider value={{ isLoading, onStateChange }}>
+    <LoaderContext.Provider value={{ isLoading, setState }}>
       {children}
     </LoaderContext.Provider>
   );
