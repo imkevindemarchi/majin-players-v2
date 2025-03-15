@@ -10,6 +10,7 @@ import App from "./App";
 
 // Providers
 import {
+  AuthProvider,
   LoaderProvider,
   PopupProvider,
   SidebarProvider,
@@ -26,7 +27,9 @@ root.render(
       <SidebarProvider>
         <PopupProvider>
           <LoaderProvider>
-            <App />
+            <AuthProvider>
+              <App />
+            </AuthProvider>
           </LoaderProvider>
         </PopupProvider>
       </SidebarProvider>

@@ -1,5 +1,9 @@
 import { FC, FormEvent, JSX, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { NavigateFunction, useNavigate } from "react-router";
+
+// Api
+import { AUTH_API } from "../api";
 
 // Assets
 import logoImg from "../assets/images/logo.png";
@@ -9,6 +13,8 @@ import { Input, Button, IconButton } from "../components";
 
 // Contexts
 import { ThemeContext, TThemeContext } from "../providers/Theme.provider";
+import { LoaderContext, TLoaderContext } from "../providers/loader.provider";
+import { PopupContext, TPopupContext } from "../providers/Popup.provider";
 
 // Icons
 import {
@@ -20,8 +26,12 @@ import {
   SunIcon,
 } from "../assets/icons";
 
+// Types
+import { THTTPResponse } from "../types";
+
 // Utils
-import { validateEmail, setPageTitle } from "../utils";
+import { validateEmail, setPageTitle, setToStorage } from "../utils";
+import { AuthContext, TAuthContext } from "../providers/auth.provider";
 
 interface IFormData {
   email: string | null;
@@ -41,6 +51,16 @@ const Login: FC = () => {
   const { t } = useTranslation();
   const { isDarkMode, onStateChange: onThemeChange }: TThemeContext =
     useContext(ThemeContext) as TThemeContext;
+  const { setState: setIsLoading }: TLoaderContext = useContext(
+    LoaderContext
+  ) as TLoaderContext;
+  const { onOpen: openPopup }: TPopupContext = useContext(
+    PopupContext
+  ) as TPopupContext;
+  const navigate: NavigateFunction = useNavigate();
+  const { setIsUserAuthenticated }: TAuthContext = useContext(
+    AuthContext
+  ) as TAuthContext;
 
   setPageTitle("Log In");
 
@@ -67,12 +87,26 @@ const Login: FC = () => {
     }
   };
 
-  // TODO:
-  function onSubmit(event: FormEvent<HTMLFormElement>): void {
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+    const email: string = formData?.email as string;
+    const password: string = formData?.password as string;
     event.preventDefault();
-    const isEmailValid: boolean = validateEmail(formData?.email as string);
+    setIsLoading(true);
+
+    const isEmailValid: boolean = validateEmail(email);
     if (isEmailValid) {
+      await Promise.resolve(AUTH_API.login(email, password)).then(
+        (response: THTTPResponse) => {
+          if (response.hasSuccess) {
+            navigate("/admin");
+            setToStorage("token", response.data?.access_token);
+            setIsUserAuthenticated(true);
+          } else openPopup(t("loginError"), "error");
+        }
+      );
     }
+
+    setIsLoading(false);
   }
 
   function isValid(value: string): boolean {
