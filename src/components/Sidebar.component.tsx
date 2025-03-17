@@ -2,6 +2,9 @@ import { FC, JSX, useContext } from "react";
 import { Link, NavigateFunction, useLocation, useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
 
+// Api
+import { AUTH_API } from "../api";
+
 // Assets
 import logoImg from "../assets/images/logo.png";
 import { IRoute, ROUTES } from "../routes";
@@ -13,19 +16,22 @@ import LanguageSelector from "./LanguageSelector.component";
 // Contexts
 import { ThemeContext } from "../providers";
 import { SidebarContext, TSidebarContext } from "../providers/Sidebar.provider";
+import { LoaderContext, TLoaderContext } from "../providers/loader.provider";
+import { AuthContext, TAuthContext } from "../providers/auth.provider";
+import { PopupContext, TPopupContext } from "../providers/Popup.provider";
 
 // Icons
-import { SunIcon, MoonIcon } from "../assets/icons";
+import { SunIcon, MoonIcon, LogoutIcon } from "../assets/icons";
 
 // Types
 import { TThemeContext } from "../providers/Theme.provider";
+import { THTTPResponse } from "../types";
 
 // Utils
-import { setToStorage } from "../utils";
+import { removeFromStorage, setToStorage } from "../utils";
 
 const Sidebar: FC = () => {
   const navigate: NavigateFunction = useNavigate();
-  const currentPathSection: string = useLocation().pathname.split("/")[1];
   const { isDarkMode, onStateChange: onThemeChange }: TThemeContext =
     useContext(ThemeContext) as TThemeContext;
   const { isOpen, onStateChange: onSidebarStateChange }: TSidebarContext =
@@ -34,9 +40,21 @@ const Sidebar: FC = () => {
     t,
     i18n: { language, changeLanguage },
   } = useTranslation();
+  const { setState: setIsLoading }: TLoaderContext = useContext(
+    LoaderContext
+  ) as TLoaderContext;
+  const { setIsUserAuthenticated }: TAuthContext = useContext(
+    AuthContext
+  ) as TAuthContext;
+  const { onOpen: openPopup }: TPopupContext = useContext(
+    PopupContext
+  ) as TPopupContext;
+
+  const currentPathSection: string = useLocation().pathname.split("/")[1];
+  const isAdminSection: boolean = currentPathSection.split("/")[0] === "admin";
 
   function goToHome(): void {
-    navigate("/");
+    navigate(isAdminSection ? "/admin" : "/");
     onSidebarStateChange();
   }
 
@@ -108,17 +126,43 @@ const Sidebar: FC = () => {
     </IconButton>
   );
 
+  async function onLogout() {
+    setIsLoading(true);
+
+    await Promise.resolve(AUTH_API.logout()).then((response: THTTPResponse) => {
+      if (response.hasSuccess) {
+        navigate("/log-in");
+        removeFromStorage("token");
+        setIsUserAuthenticated(false);
+      } else openPopup(t("logoutError"), "error");
+    });
+    onSidebarStateChange();
+
+    setIsLoading(false);
+  }
+
+  const logoutIcon: JSX.Element = (
+    <LogoutIcon
+      onClick={onLogout}
+      className="text-primary text-2xl cursor-pointer hover:opacity-50 transition-all duration-300"
+    />
+  );
+
   return (
     <div
       className={`fixed left-0 w-full h-full flex justify-center items-center flex-col gap-10 desktop:hidden transition-all duration-300
         ${isDarkMode ? "bg-black" : "bg-white"}
         ${isOpen ? "top-0 opacity-100" : "top-[-100%] opacity-0"}
       `}
+      style={{ zIndex: "900" }}
     >
       {logo}
       {routes}
       {languageSelector}
-      {themeIcon}
+      <div className="flex gap-5 items-center">
+        {themeIcon}
+        {isAdminSection && logoutIcon}
+      </div>
     </div>
   );
 };

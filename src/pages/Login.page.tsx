@@ -15,6 +15,7 @@ import { Input, Button, IconButton } from "../components";
 import { ThemeContext, TThemeContext } from "../providers/Theme.provider";
 import { LoaderContext, TLoaderContext } from "../providers/loader.provider";
 import { PopupContext, TPopupContext } from "../providers/Popup.provider";
+import { AuthContext, TAuthContext } from "../providers/auth.provider";
 
 // Icons
 import {
@@ -31,7 +32,6 @@ import { THTTPResponse } from "../types";
 
 // Utils
 import { validateEmail, setPageTitle, setToStorage } from "../utils";
-import { AuthContext, TAuthContext } from "../providers/auth.provider";
 
 interface IFormData {
   email: string | null;

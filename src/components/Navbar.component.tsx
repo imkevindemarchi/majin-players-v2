@@ -2,6 +2,9 @@ import { FC, JSX, useContext } from "react";
 import { Link, NavigateFunction, useLocation, useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
 
+// Api
+import { AUTH_API } from "../api";
+
 // Assets
 import logoImg from "../assets/images/logo.png";
 import { IRoute, ROUTES } from "../routes";
@@ -12,28 +15,43 @@ import LanguageSelector from "./LanguageSelector.component";
 
 // Contexts
 import { ThemeContext } from "../providers";
+import { AuthContext, TAuthContext } from "../providers/auth.provider";
+import { LoaderContext, TLoaderContext } from "../providers/loader.provider";
 
 // Icons
-import { SunIcon, MoonIcon } from "../assets/icons";
+import { SunIcon, MoonIcon, LogoutIcon } from "../assets/icons";
 
 // Types
 import { TThemeContext } from "../providers/Theme.provider";
+import { THTTPResponse } from "../types";
 
 // Utils
-import { setToStorage } from "../utils";
+import { removeFromStorage, setToStorage } from "../utils";
+import { PopupContext, TPopupContext } from "../providers/Popup.provider";
 
 const Navbar: FC = () => {
   const navigate: NavigateFunction = useNavigate();
-  const currentPathSection: string = useLocation().pathname.split("/")[1];
   const { isDarkMode, onStateChange: onThemeChange }: TThemeContext =
     useContext(ThemeContext) as TThemeContext;
   const {
     t,
     i18n: { language, changeLanguage },
   } = useTranslation();
+  const { setIsUserAuthenticated }: TAuthContext = useContext(
+    AuthContext
+  ) as TAuthContext;
+  const { setState: setIsLoading }: TLoaderContext = useContext(
+    LoaderContext
+  ) as TLoaderContext;
+  const { onOpen: openPopup }: TPopupContext = useContext(
+    PopupContext
+  ) as TPopupContext;
+
+  const currentPathSection: string = useLocation().pathname.split("/")[1];
+  const isAdminSection: boolean = currentPathSection.split("/")[0] === "admin";
 
   function goToHome(): void {
-    navigate("/");
+    navigate(isAdminSection ? "/admin" : "/");
   }
 
   const logo: JSX.Element = (
@@ -103,8 +121,33 @@ const Navbar: FC = () => {
     </IconButton>
   );
 
+  async function onLogout() {
+    setIsLoading(true);
+
+    await Promise.resolve(AUTH_API.logout()).then((response: THTTPResponse) => {
+      if (response.hasSuccess) {
+        navigate("/log-in");
+        removeFromStorage("token");
+        setIsUserAuthenticated(false);
+      } else openPopup(t("logoutError"), "error");
+    });
+
+    setIsLoading(false);
+  }
+
+  const logoutIcon: JSX.Element = (
+    <LogoutIcon
+      onClick={onLogout}
+      className="text-primary text-2xl cursor-pointer hover:opacity-50 transition-all duration-300"
+    />
+  );
+
   return (
-    <div className="w-full h-32 flex items-center px-10 justify-between py-2 mobile:justify-center mobile:items-center mobile:px-0 mobile:hidden">
+    <div
+      className={`w-full h-32 flex items-center px-10 justify-between py-2 mobile:justify-center mobile:items-center mobile:px-0 mobile:hidden transition-all duration-300 ${
+        isDarkMode ? "bg-black" : "bg-white"
+      }`}
+    >
       <div className="h-full flex justify-center items-center">
         <div className="h-full w-full flex items-center gap-10">
           {logo}
@@ -114,6 +157,7 @@ const Navbar: FC = () => {
       <div className="h-full flex items-center gap-5">
         {languageSelector}
         {themeIcon}
+        {isAdminSection && logoutIcon}
       </div>
     </div>
   );

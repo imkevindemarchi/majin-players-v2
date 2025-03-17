@@ -13,3 +13,9 @@ export function setToStorage(propLabel: string, data: any): void {
 
   localStorage.setItem(name, elabData);
 }
+
+export function removeFromStorage(propLabel: string): void {
+  const name: string = `${process.env.REACT_APP_WEBSITE_NAME} - ${propLabel}`;
+
+  localStorage.removeItem(name);
+}

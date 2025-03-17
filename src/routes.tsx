@@ -1,5 +1,7 @@
-// Pages
 import { ReactNode } from "react";
+
+// Pages
+import { Dashboard } from "./pages/admin";
 import { Login, Home } from "./pages";
 
 export type IRoute = {
@@ -48,7 +50,7 @@ export const ADMIN_ROUTES: IRoute[] = [
   {
     path: "/admin",
     name: "Dashboard",
-    element: <Home />,
+    element: <Dashboard />,
     isHidden: true,
   },
 ];
