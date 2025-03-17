@@ -56,19 +56,19 @@ const Layout: FC<IProps> = ({ children }) => {
 
   const layout: JSX.Element = (
     <div
-      className={`transition-all duration-300 min-h-[100vh] relative ${
-        isDarkMode ? "bg-black" : "bg-white"
+      className={`transition-all duration-300 min-h-[100vh] relative w-full h-full ${
+        isDarkMode ? "bg-darkgray3" : "bg-lightgray2"
       }`}
     >
       {navbar}
       {hamburger}
       {sidebar}
       <div
-        className={`transition-all duration-300 ${
+        className={`transition-all duration-300 w-full h-full ${
           isSidebarOpen && "opacity-0"
         }`}
       >
-        {children}
+        <div className="px-60 py-10 h-full mobile:px-5 mobile:py-20">{children}</div>
       </div>
     </div>
   );

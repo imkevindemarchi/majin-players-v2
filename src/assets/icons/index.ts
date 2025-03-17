@@ -8,3 +8,4 @@ export { Error as ErrorIcon } from "./error.icon";
 export { Close as CloseIcon } from "./close.icon";
 export { Check as CheckIcon } from "./check.icon";
 export { Warning as WarningIcon } from "./warning.icon";
+export { Logout as LogoutIcon } from "./logout.icon";

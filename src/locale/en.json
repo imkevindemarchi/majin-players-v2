@@ -9,6 +9,23 @@
     "contacts": "Contacts",
     "email": "E-mail",
     "password": "Password",
-    "loginError": "Unable to log in"
+    "loginError": "Unable to log in",
+    "dashboard": "Dashboard",
+    "logoutError": "Unable to log out",
+    "january": "January",
+    "february": "February",
+    "march": "March",
+    "april": "April",
+    "may": "May",
+    "june": "June",
+    "july": "July",
+    "august": "August",
+    "september": "September",
+    "october": "October",
+    "november": "November",
+    "december": "December",
+    "top": "Top",
+    "totalTops": "Total tops",
+    "totalPlayers": "Total players"
   }
 }

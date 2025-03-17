@@ -51,4 +51,21 @@ export const AUTH_API = {
       };
     }
   },
+
+  logout: async (): Promise<THTTPResponse> => {
+    try {
+      const res: any = await supabase.auth.signOut();
+      if (!res || res?.error)
+        return {
+          hasSuccess: false,
+        };
+
+      return { hasSuccess: true };
+    } catch (error) {
+      console.error("🚀 ~ error:", error);
+      return {
+        hasSuccess: false,
+      };
+    }
+  },
 };
