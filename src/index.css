@@ -9,9 +9,8 @@
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-
-body {
-  overflow-x: hidden;
+html {
+  overflow-x: hidden !important;
 }
 
 @keyframes animateLogo {
