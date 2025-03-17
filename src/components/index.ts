@@ -11,3 +11,4 @@ export { default as Loader } from "./Loader.component";
 export { default as LineChart } from "./LineChart.component";
 export { default as Card } from "./Card.component";
 export { default as DoughnutChart } from "./DoughnutChart.component";
+export { default as AdminLoader } from "./AdminLoader.component";

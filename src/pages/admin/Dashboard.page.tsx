@@ -5,23 +5,27 @@ import { useTranslation } from "react-i18next";
 import { MONTHS } from "../../assets/constants";
 
 // Components
-import { Card, DoughnutChart, LineChart } from "../../components";
+import { AdminLoader, Card, DoughnutChart, LineChart } from "../../components";
 
 // Contexts
 import { ThemeContext, TThemeContext } from "../../providers/Theme.provider";
+import { LoaderContext, TLoaderContext } from "../../providers/loader.provider";
 
 // Types
 import { TLineChartData } from "../../components/LineChart.component";
+import { TDoughnutChartData } from "../../components/DoughnutChart.component";
 
 // Utils
 import { setPageTitle } from "../../utils";
-import { TDoughnutChartData } from "../../components/DoughnutChart.component";
 
 const Dashboard: FC = () => {
   const { t } = useTranslation();
   const { isDarkMode }: TThemeContext = useContext(
     ThemeContext
   ) as TThemeContext;
+  const { isLoading }: TLoaderContext = useContext(
+    LoaderContext
+  ) as TLoaderContext;
 
   const pageTitle: string = t("dashboard");
 
@@ -115,14 +119,20 @@ const Dashboard: FC = () => {
   return (
     <div className="w-full h-full flex flex-col gap-5">
       {title}
-      <div className="flex flex-row w-full gap-5 mobile:flex-col">
-        <div className="w-[40%] flex flex-row justify-between flex-wrap gap-5 mobile:w-full">
-          <div className="h-72 w-[30vh] mobile:w-full mobile:h-40">{totalTopsComponent}</div>
-          <div className="h-72 w-[30vh] mobile:w-full">{bestDecks}</div>
-          <div className="w-full">{totalPlayersComponent}</div>
+      {isLoading ? (
+        <AdminLoader />
+      ) : (
+        <div className="flex flex-row w-full gap-5 mobile:flex-col">
+          <div className="w-[40%] flex flex-row justify-between flex-wrap gap-5 mobile:w-full">
+            <div className="h-72 w-[30vh] mobile:w-full mobile:h-40">
+              {totalTopsComponent}
+            </div>
+            <div className="h-72 w-[30vh] mobile:w-full">{bestDecks}</div>
+            <div className="w-full">{totalPlayersComponent}</div>
+          </div>
+          <div className="w-[60%] mobile:w-full">{tops}</div>
         </div>
-        <div className="w-[60%] mobile:w-full">{tops}</div>
-      </div>
+      )}
     </div>
   );
 };
