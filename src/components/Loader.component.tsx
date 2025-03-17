@@ -1,5 +1,6 @@
 import React, { FC, useContext } from "react";
 import { useTranslation } from "react-i18next";
+import { useLocation } from "react-router";
 
 // Assets
 import logoImg from "../assets/images/logo.png";
@@ -17,7 +18,10 @@ const Loader: FC = () => {
     LoaderContext
   ) as TLoaderContext;
 
-  return isLoading ? (
+  const currentPathSection: string = useLocation().pathname.split("/")[1];
+  const isAdminSection: boolean = currentPathSection.split("/")[0] === "admin";
+
+  return isLoading && !isAdminSection ? (
     <div
       className={`absolute top-0 left-0 w-full h-full flex justify-center items-center ${
         isDarkMode ? "bg-black-transparent" : "bg-white-transparent"
