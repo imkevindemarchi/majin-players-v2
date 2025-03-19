@@ -7,7 +7,7 @@ import { AUTH_API } from "../api";
 
 // Assets
 import logoImg from "../assets/images/logo.png";
-import { IRoute, ROUTES } from "../routes";
+import { ADMIN_ROUTES, IRoute, ROUTES } from "../routes";
 
 // Components
 import IconButton from "./IconButton.component";
@@ -50,8 +50,10 @@ const Sidebar: FC = () => {
     PopupContext
   ) as TPopupContext;
 
-  const currentPathSection: string = useLocation().pathname.split("/")[1];
-  const isAdminSection: boolean = currentPathSection.split("/")[0] === "admin";
+  const currentPaths: string[] = useLocation().pathname.split("/");
+  const isAdminSection: boolean = currentPaths[1] === "admin";
+  const currentPathSection: string = currentPaths[isAdminSection ? 2 : 1];
+  const routes: IRoute[] = isAdminSection ? ADMIN_ROUTES : ROUTES;
 
   function goToHome(): void {
     navigate(isAdminSection ? "/admin" : "/");
@@ -67,11 +69,12 @@ const Sidebar: FC = () => {
     />
   );
 
-  const routes: JSX.Element = (
+  const routesComponent: JSX.Element = (
     <div className="flex flex-col justify-center items-center">
-      {ROUTES.map((route: IRoute, index: number) => {
+      {routes.map((route: IRoute, index: number) => {
         const isRouteHidden: boolean = route.isHidden ? true : false;
-        const routePathSection: string = route.path.split("/")[1];
+        const routePathSection: string =
+          route.path.split("/")[isAdminSection ? 2 : 1];
         const isRouteActive: boolean = routePathSection === currentPathSection;
 
         return (
@@ -85,7 +88,7 @@ const Sidebar: FC = () => {
               } 
               ${
                 isRouteActive
-                  ? "hover:cursor-default"
+                  ? "hover:cursor-default pointer-events-none"
                   : "hover:bg-primary-transparent"
               }`}
             >
@@ -157,7 +160,7 @@ const Sidebar: FC = () => {
       style={{ zIndex: "900" }}
     >
       {logo}
-      {routes}
+      {routesComponent}
       {languageSelector}
       <div className="flex gap-5 items-center">
         {themeIcon}

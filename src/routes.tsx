@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
 // Pages
-import { Dashboard } from "./pages/admin";
+import { Dashboard, AdminPlayers } from "./pages/admin";
 import { Login, Home } from "./pages";
 
 export type IRoute = {
@@ -14,13 +14,13 @@ export type IRoute = {
 export const ROUTES: IRoute[] = [
   {
     path: "/log-in",
-    name: "Log In",
+    name: "login",
     element: <Login />,
     isHidden: true,
   },
   {
     path: "/",
-    name: "Home",
+    name: "home",
     element: <Home />,
     isHidden: true,
   },
@@ -49,8 +49,13 @@ export const ROUTES: IRoute[] = [
 export const ADMIN_ROUTES: IRoute[] = [
   {
     path: "/admin",
-    name: "Dashboard",
+    name: "dashboard",
     element: <Dashboard />,
     isHidden: true,
+  },
+  {
+    path: "/admin/players",
+    name: "players",
+    element: <AdminPlayers />,
   },
 ];

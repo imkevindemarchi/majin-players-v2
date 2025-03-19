@@ -1,5 +1,5 @@
-import { ReactNode, useContext } from "react";
-import { Navigate, Route, Routes } from "react-router";
+import { useContext, useEffect } from "react";
+import { Navigate, Route, Routes, useLocation } from "react-router";
 
 // Assets
 import { ADMIN_ROUTES, IRoute, ROUTES } from "./routes";
@@ -10,19 +10,11 @@ import { Layout } from "./components";
 // Contexts
 import { AuthContext, TAuthContext } from "./providers/auth.provider";
 
-interface IProtectedRoute {
-  children: ReactNode;
-}
-
 const App = () => {
   const { isUserAuthenticated }: TAuthContext = useContext(
     AuthContext
   ) as TAuthContext;
-
-  const ProtectedRoute = ({ children }: IProtectedRoute): any => {
-    if (isUserAuthenticated) return children;
-    else return <Navigate to="/log-in" replace />;
-  };
+  const { pathname } = useLocation();
 
   const routeElement = (route: IRoute): any =>
     route.path === "/log-in" && isUserAuthenticated ? (
@@ -30,6 +22,18 @@ const App = () => {
     ) : (
       route.element
     );
+
+  const adminRouteElement = (route: IRoute): any => {
+    return isUserAuthenticated ? (
+      route.element
+    ) : (
+      <Navigate to="/log-in" replace />
+    );
+  };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return (
     <Layout>
@@ -48,7 +52,7 @@ const App = () => {
             <Route
               key={index}
               path={adminRoute.path}
-              element={<ProtectedRoute>{adminRoute.element}</ProtectedRoute>}
+              element={adminRouteElement(adminRoute)}
             />
           );
         })}

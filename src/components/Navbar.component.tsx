@@ -7,7 +7,7 @@ import { AUTH_API } from "../api";
 
 // Assets
 import logoImg from "../assets/images/logo.png";
-import { IRoute, ROUTES } from "../routes";
+import { ADMIN_ROUTES, IRoute, ROUTES } from "../routes";
 
 // Components
 import IconButton from "./IconButton.component";
@@ -47,8 +47,10 @@ const Navbar: FC = () => {
     PopupContext
   ) as TPopupContext;
 
-  const currentPathSection: string = useLocation().pathname.split("/")[1];
-  const isAdminSection: boolean = currentPathSection.split("/")[0] === "admin";
+  const currentPaths: string[] = useLocation().pathname.split("/");
+  const isAdminSection: boolean = currentPaths[1] === "admin";
+  const currentPathSection: string = currentPaths[isAdminSection ? 2 : 1];
+  const routes: IRoute[] = isAdminSection ? ADMIN_ROUTES : ROUTES;
 
   function goToHome(): void {
     navigate(isAdminSection ? "/admin" : "/");
@@ -63,11 +65,12 @@ const Navbar: FC = () => {
     />
   );
 
-  const routes: JSX.Element = (
+  const routesComponent: JSX.Element = (
     <div className="flex">
-      {ROUTES.map((route: IRoute, index: number) => {
+      {routes.map((route: IRoute, index: number) => {
         const isRouteHidden: boolean = route.isHidden ? true : false;
-        const routePathSection: string = route.path.split("/")[1];
+        const routePathSection: string =
+          route.path.split("/")[isAdminSection ? 2 : 1];
         const isRouteActive: boolean = routePathSection === currentPathSection;
 
         return (
@@ -80,7 +83,7 @@ const Navbar: FC = () => {
               }
               ${
                 isRouteActive
-                  ? "hover:cursor-default"
+                  ? "hover:cursor-default pointer-events-none"
                   : "hover:bg-primary-transparent"
               }`}
             >
@@ -151,7 +154,7 @@ const Navbar: FC = () => {
       <div className="h-full flex justify-center items-center">
         <div className="h-full w-full flex items-center gap-10">
           {logo}
-          {routes}
+          {routesComponent}
         </div>
       </div>
       <div className="h-full flex items-center gap-5">

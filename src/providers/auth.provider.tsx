@@ -6,7 +6,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { useLocation } from "react-router";
+import { NavigateFunction, useLocation, useNavigate } from "react-router";
 
 // Api
 import { AUTH_API } from "../api";
@@ -18,7 +18,7 @@ import { LoaderContext, TLoaderContext } from "./loader.provider";
 import { THTTPResponse } from "../types";
 
 // Utils
-import { getFromStorage, setToStorage } from "../utils";
+import { getFromStorage, removeFromStorage, setToStorage } from "../utils";
 
 interface IProps {
   children: ReactNode;
@@ -40,18 +40,30 @@ export const AuthProvider = ({ children }: IProps): JSX.Element => {
   ) as TLoaderContext;
   const currentPathSection: string = useLocation().pathname.split("/")[1];
   const isAdminSection: boolean = currentPathSection.split("/")[0] === "admin";
+  const navigate: NavigateFunction = useNavigate();
+
+  function onLogout(): void {
+    navigate("/log-in");
+    removeFromStorage("token");
+    setIsUserAuthenticated(false);
+  }
 
   async function onLoad() {
     setIsLoading(true);
 
-    await Promise.resolve(AUTH_API.checkSession()).then(
-      (response: THTTPResponse) => {
-        if (response.hasSuccess) {
-          setToStorage("token", response.data?.access_token);
-          setIsUserAuthenticated(true);
-        } else setIsUserAuthenticated(false);
-      }
-    );
+    try {
+      await Promise.resolve(AUTH_API.checkSession()).then(
+        (response: THTTPResponse) => {
+          if (response.hasSuccess) {
+            setToStorage("token", response.data?.access_token);
+            setIsUserAuthenticated(true);
+          } else onLogout();
+        }
+      );
+    } catch (error) {
+      console.error("🚀 ~ error:", error);
+      onLogout();
+    }
 
     setIsLoading(false);
   }

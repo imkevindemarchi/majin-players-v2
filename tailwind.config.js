@@ -12,11 +12,11 @@ module.exports = {
       gray: "#cccccc",
       darkgray: "#4d4d4d",
       darkgray2: "#777777",
-      darkgray3: "#1f1f1f",
+      darkgray3: "#080808",
       red: "#ff0000",
       green: "#008000",
       orange: "#ffa500",
-      "white-transparent": "#ffffff8d",
+      "white-transparent": "#4f4f4f8d",
       "black-transparent": "#0000008d",
     },
     screens: {

@@ -26,6 +26,22 @@
     "december": "December",
     "top": "Top",
     "totalTops": "Total tops",
-    "totalPlayers": "Total players"
+    "totalPlayers": "Total players",
+    "login": "Log In",
+    "home": "Home",
+    "unableLoadPlayers": "Unable to load players",
+    "name": "Name",
+    "surname": "Surname",
+    "birthDate": "Birth date",
+    "noData": "No data available...",
+    "total": "Total",
+    "unableLoadTops": "Unable to load tops",
+    "invalidEmail": "Enter a valid e-mail address",
+    "deletePlayer": "Delete player",
+    "confirmToDelete": "Confirm you want to delete {{name}}?",
+    "yes": "Yes",
+    "no": "No",
+    "unableDeletePlayer": "Unable to delete the player",
+    "playerDeleted": "Player successfully deleted"
   }
 }

@@ -93,17 +93,22 @@ const Login: FC = () => {
     event.preventDefault();
     setIsLoading(true);
 
-    const isEmailValid: boolean = validateEmail(email);
-    if (isEmailValid) {
-      await Promise.resolve(AUTH_API.login(email, password)).then(
-        (response: THTTPResponse) => {
-          if (response.hasSuccess) {
-            navigate("/admin");
-            setToStorage("token", response.data?.access_token);
-            setIsUserAuthenticated(true);
-          } else openPopup(t("loginError"), "error");
-        }
-      );
+    try {
+      const isEmailValid: boolean = validateEmail(email);
+      if (isEmailValid) {
+        await Promise.resolve(AUTH_API.login(email, password)).then(
+          (response: THTTPResponse) => {
+            if (response.hasSuccess) {
+              navigate("/admin");
+              setToStorage("token", response.data?.access_token);
+              setIsUserAuthenticated(true);
+            } else openPopup(t("loginError"), "error");
+          }
+        );
+      } else openPopup(t("invalidEmail"), "warning");
+    } catch (error) {
+      console.error("🚀 ~ error:", error);
+      openPopup(t("loginError"), "error");
     }
 
     setIsLoading(false);
