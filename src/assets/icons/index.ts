@@ -9,3 +9,8 @@ export { Close as CloseIcon } from "./close.icon";
 export { Check as CheckIcon } from "./check.icon";
 export { Warning as WarningIcon } from "./warning.icon";
 export { Logout as LogoutIcon } from "./logout.icon";
+export { Search as SearchIcon } from "./search.icon";
+export { Add as AddIcon } from "./add.icon";
+export { ArrowLeft as ArrowLeftIcon } from "./arrow-left.icon";
+export { ArrowRight as ArrowRightIcon } from "./arrow-right.icon";
+export { Delete as DeleteIcon } from "./delete.icon";

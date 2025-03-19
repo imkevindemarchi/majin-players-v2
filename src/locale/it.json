@@ -26,6 +26,22 @@
     "december": "Dicembre",
     "top": "Top",
     "totalTops": "Top totali",
-    "totalPlayers": "Totale giocatori"
+    "totalPlayers": "Totale giocatori",
+    "login": "Log In",
+    "home": "Home",
+    "unableLoadPlayers": "Impossibile caricare i giocatori",
+    "name": "Nome",
+    "surname": "Cognome",
+    "birthDate": "Data di nascita",
+    "noData": "Nessun dato disponibile...",
+    "total": "Totale",
+    "unableLoadTops": "Impossibile caricare le top",
+    "invalidEmail": "Inserire una e-mail valida",
+    "deletePlayer": "Elimina giocatore",
+    "confirmToDelete": "Confermi di voler eliminare {{name}}?",
+    "yes": "Sì",
+    "no": "No",
+    "unableDeletePlayer": "Impossibile eliminare il giocatore",
+    "playerDeleted": "Giocatore eliminato con successo"
   }
 }

@@ -22,17 +22,17 @@ const app = document.getElementById("root");
 const root = createRoot(app as HTMLElement);
 
 root.render(
-  <BrowserRouter>
-    <ThemeProvider>
-      <SidebarProvider>
-        <PopupProvider>
-          <LoaderProvider>
+  <LoaderProvider>
+    <BrowserRouter>
+      <ThemeProvider>
+        <SidebarProvider>
+          <PopupProvider>
             <AuthProvider>
               <App />
             </AuthProvider>
-          </LoaderProvider>
-        </PopupProvider>
-      </SidebarProvider>
-    </ThemeProvider>
-  </BrowserRouter>
+          </PopupProvider>
+        </SidebarProvider>
+      </ThemeProvider>
+    </BrowserRouter>
+  </LoaderProvider>
 );
