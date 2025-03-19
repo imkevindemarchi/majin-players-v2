@@ -14,3 +14,4 @@ export { default as DoughnutChart } from "./DoughnutChart.component";
 export { default as Table } from "./Table.component";
 export { default as Modal } from "./Modal.component";
 export { default as Backdrop } from "./Backdrop.component";
+export { default as Breadcrumb } from "./Breadcrumb.component";

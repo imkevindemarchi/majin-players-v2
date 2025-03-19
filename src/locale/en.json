@@ -42,6 +42,8 @@
     "yes": "Yes",
     "no": "No",
     "unableDeletePlayer": "Unable to delete the player",
-    "playerDeleted": "Player successfully deleted"
+    "playerDeleted": "Player successfully deleted",
+    "new": "New",
+    "player": "Player"
   }
 }
