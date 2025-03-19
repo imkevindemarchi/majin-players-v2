@@ -42,6 +42,8 @@
     "yes": "Sì",
     "no": "No",
     "unableDeletePlayer": "Impossibile eliminare il giocatore",
-    "playerDeleted": "Giocatore eliminato con successo"
+    "playerDeleted": "Giocatore eliminato con successo",
+    "new": "Nuovo",
+    "player": "Giocatore"
   }
 }
