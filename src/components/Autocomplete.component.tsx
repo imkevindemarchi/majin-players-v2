@@ -30,7 +30,7 @@ const Autocomplete: FC<IProps> = ({
   data,
 }) => {
   const inputRef = useRef<any>(null);
-  const [state, setState] = useState<string>(value?.label);
+  const [state, setState] = useState<string | null>(value?.label);
   const [dropdown, setDropdown] = useState<boolean>(false);
 
   useClickOutside(inputRef, () => {
@@ -39,7 +39,9 @@ const Autocomplete: FC<IProps> = ({
   });
 
   const filteredData: TValue[] = data.filter((element: TValue) => {
-    return element.label.toLowerCase().startsWith(state?.toLowerCase());
+    return element.label
+      .toLowerCase()
+      .startsWith(state?.toLowerCase() as string);
   });
   const elabData: TValue[] = state && state.trim() !== "" ? filteredData : data;
 
@@ -50,7 +52,8 @@ const Autocomplete: FC<IProps> = ({
   }
 
   useEffect(() => {
-    setState(value?.label);
+    if (value?.label) setState(value?.label);
+    else setState(null);
   }, [value]);
 
   useEffect(() => {
@@ -73,7 +76,7 @@ const Autocomplete: FC<IProps> = ({
         {icon}
         <input
           type={type}
-          value={state}
+          value={state || ""}
           onChange={(event: ChangeEvent<HTMLInputElement>) =>
             setState(event.target.value)
           }
