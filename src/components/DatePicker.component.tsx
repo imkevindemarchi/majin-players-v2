@@ -99,7 +99,7 @@ const DatePicker: FC<IProps> = ({
       </div>
       {endIcon}
       <div
-        className={`absolute overflow-hidden top-0 transition-all duration-300 opacity-0 pointer-events-none rounded-lg shadow-xl mobile:w-[40vh] ${
+        className={`absolute overflow-hidden top-0 transition-all duration-300 opacity-0 pointer-events-none rounded-lg shadow-xl ${
           dropdown && "top-14 opacity-100 pointer-events-auto overflow-hidden"
         } ${isDarkMode ? "bg-darkgray" : "bg-lightgray"}`}
         style={{
