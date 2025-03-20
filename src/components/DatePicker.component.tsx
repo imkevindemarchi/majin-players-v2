@@ -2,12 +2,13 @@ import { FC, JSX, useEffect, useRef, useState } from "react";
 import { Calendar, DateValue } from "@heroui/react";
 import { useTranslation } from "react-i18next";
 import { I18nProvider } from "@react-aria/i18n";
+import { CalendarDate, parseDate } from "@internationalized/date";
 
 // Hoos
 import { useClickOutside } from "../hooks";
 
 // Utils
-import { formatDateFromDb } from "../utils";
+import { formatDateForDatepicker } from "../utils";
 
 interface IProps {
   value: DateValue | null;
@@ -31,9 +32,7 @@ const DatePicker: FC<IProps> = ({
   width,
 }) => {
   const inputRef = useRef<any>(null);
-  const [state, setState] = useState<string | null>(
-    formatDateFromDb(value as DateValue)
-  );
+  const [state, setState] = useState<CalendarDate | null>(null);
   const [dropdown, setDropdown] = useState<boolean>(false);
 
   const {
@@ -52,6 +51,20 @@ const DatePicker: FC<IProps> = ({
     }
   }
 
+  function elabInputValue(): string {
+    if (state) {
+      const day: number = state.day;
+      const month: number = state.month;
+      const year: number = state.year;
+      const elabDay: string = day < 10 ? `0${day}` : day.toString();
+      const elabMonth: string = month < 10 ? `0${month}` : month.toString();
+
+      const elabDate: string = `${elabDay}/${elabMonth}/${year}`;
+
+      return elabDate;
+    } else return "";
+  }
+
   useEffect(() => {
     onBorderColorChange();
 
@@ -59,7 +72,7 @@ const DatePicker: FC<IProps> = ({
   }, [isDarkMode]);
 
   useEffect(() => {
-    setState(formatDateFromDb(value as DateValue));
+    value && setState(parseDate(formatDateForDatepicker(value as DateValue)));
   }, [value]);
 
   return (
@@ -76,7 +89,7 @@ const DatePicker: FC<IProps> = ({
         {icon}
         <input
           type={type}
-          value={state as string}
+          value={elabInputValue()}
           readOnly
           onFocus={() => {
             setDropdown(true);
@@ -109,7 +122,7 @@ const DatePicker: FC<IProps> = ({
       >
         <I18nProvider locale={locale}>
           <Calendar
-            value={value}
+            value={state}
             onChange={(value: DateValue) => {
               setDropdown(false);
               onChange(value);

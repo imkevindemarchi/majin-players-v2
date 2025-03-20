@@ -18,3 +18,4 @@ export { default as Breadcrumb } from "./Breadcrumb.component";
 export { default as Autocomplete } from "./Autocomplete.component";
 export { default as Textarea } from "./Textarea.component";
 export { default as DatePicker } from "./DatePicker.component";
+export { default as ImageSelector } from "./ImageSelector.component";
