@@ -39,7 +39,7 @@ interface ITable {
   name: string;
 }
 
-const Players: FC = () => {
+const AdminPlayers: FC = () => {
   const { t } = useTranslation();
   const { state: isLoading, setState: setIsLoading }: TLoaderContext =
     useContext(LoaderContext) as TLoaderContext;
@@ -93,7 +93,7 @@ const Players: FC = () => {
     setIsLoading(false);
   }
 
-  async function onGoPreviousPage(): Promise<void> {
+  async function tableOnGoPreviousPage(): Promise<void> {
     setTable((prevState) => {
       return {
         ...prevState,
@@ -104,7 +104,7 @@ const Players: FC = () => {
     });
   }
 
-  async function onGoNextPage(): Promise<void> {
+  async function tableOnGoNextPage(): Promise<void> {
     setTable((prevState) => {
       return {
         ...prevState,
@@ -115,10 +115,55 @@ const Players: FC = () => {
     });
   }
 
-  async function onDelete(rowData: any): Promise<void> {
+  async function tableOnDelete(rowData: any): Promise<void> {
     setDeleteModal(true);
     setSelectedPlayer(rowData);
   }
+
+  async function onDelete(): Promise<any> {
+    setDeleteModal(false);
+    setIsLoading(true);
+
+    await Promise.resolve(PLAYER_API.delete(selectedPlayerId)).then(
+      (response: THTTPResponse) => {
+        if (response && response.hasSuccess) {
+          openOpup(t("playerDeleted"), "success");
+          getData();
+        } else openOpup(t("unableDeletePlayer"), "error");
+      }
+    );
+
+    setIsLoading(false);
+  }
+
+  function tableOnRowClick(rowData: any): void {
+    navigate(`${pathname}/edit/${rowData.id}`);
+  }
+
+  const title: JSX.Element = (
+    <span className="text-primary text-2xl">{pageTitle}</span>
+  );
+
+  const deleteModalComponent: JSX.Element = (
+    <Modal
+      title={t("deletePlayer")}
+      isOpen={deleteModal}
+      onClose={() => setDeleteModal(false)}
+      onSubmit={onDelete}
+      onCancel={() => setDeleteModal(false)}
+      submitBtnText={t("yes")}
+      cancelBtnText={t("no")}
+      isDarkMode={isDarkMode}
+    >
+      <span
+        className={`transition-all duration-300 ${
+          isDarkMode ? "text-white" : "text-black"
+        }`}
+      >
+        {t("confirmToDelete", { name: selectedPlayer?.name })}
+      </span>
+    </Modal>
+  );
 
   useEffect(() => {
     getData();
@@ -136,47 +181,6 @@ const Players: FC = () => {
 
     // eslint-disable-next-line
   }, [table.name, table.from, table.to, table.page]);
-
-  const title: JSX.Element = (
-    <span className="text-primary text-2xl">{pageTitle}</span>
-  );
-
-  async function onDeletePlayer(): Promise<any> {
-    setDeleteModal(false);
-    setIsLoading(true);
-
-    await Promise.resolve(PLAYER_API.delete(selectedPlayerId)).then(
-      (response: THTTPResponse) => {
-        if (response && response.hasSuccess) {
-          openOpup(t("playerDeleted"), "success");
-          getData();
-        } else openOpup(t("unableDeletePlayer"), "error");
-      }
-    );
-
-    setIsLoading(false);
-  }
-
-  const deleteModalComponent: JSX.Element = (
-    <Modal
-      title={t("deletePlayer")}
-      isOpen={deleteModal}
-      onClose={() => setDeleteModal(false)}
-      onSubmit={onDeletePlayer}
-      onCancel={() => setDeleteModal(false)}
-      submitBtnText={t("yes")}
-      cancelBtnText={t("no")}
-      isDarkMode={isDarkMode}
-    >
-      <span
-        className={`transition-all duration-300 ${
-          isDarkMode ? "text-white" : "text-black"
-        }`}
-      >
-        {t("confirmToDelete", { name: selectedPlayer?.name })}
-      </span>
-    </Modal>
-  );
 
   return (
     <>
@@ -220,11 +224,12 @@ const Players: FC = () => {
               columns={talbeColumns}
               isDarkMode={isDarkMode}
               total={table.total}
-              onGoPreviousPage={onGoPreviousPage}
-              onGoNextPage={onGoNextPage}
+              onGoPreviousPage={tableOnGoPreviousPage}
+              onGoNextPage={tableOnGoNextPage}
               info={table}
               isLoading={isLoading}
-              onDelete={onDelete}
+              onDelete={tableOnDelete}
+              onRowClick={tableOnRowClick}
             />
           </Card>
         </div>
@@ -234,4 +239,4 @@ const Players: FC = () => {
   );
 };
 
-export default Players;
+export default AdminPlayers;

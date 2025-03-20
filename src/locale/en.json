@@ -44,6 +44,14 @@
     "unableDeletePlayer": "Unable to delete the player",
     "playerDeleted": "Player successfully deleted",
     "new": "New",
-    "player": "Player"
+    "player": "Player",
+    "newPlayer": "New player",
+    "edit": "Edit",
+    "editPlayer": "Edit player",
+    "favouriteCard": "Favourite card",
+    "instagramLink": "Instagram link",
+    "favouriteDeck": "Favourite deck",
+    "unableLoadDecks": "Unable to load decks",
+    "description": "Description"
   }
 }

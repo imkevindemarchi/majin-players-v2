@@ -44,6 +44,14 @@
     "unableDeletePlayer": "Impossibile eliminare il giocatore",
     "playerDeleted": "Giocatore eliminato con successo",
     "new": "Nuovo",
-    "player": "Giocatore"
+    "player": "Giocatore",
+    "newPlayer": "Nuovo giocatore",
+    "edit": "Modifica",
+    "editPlayer": "Modifica giocatore",
+    "favouriteCard": "Carta preferita",
+    "instagramLink": "Link Instagram",
+    "favouriteDeck": "Deck preferito",
+    "unableLoadDecks": "Impossibile caricare i deck",
+    "description": "Descrizione"
   }
 }

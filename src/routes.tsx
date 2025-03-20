@@ -64,4 +64,10 @@ export const ADMIN_ROUTES: IRoute[] = [
     element: <AdminPlayer />,
     isHidden: true,
   },
+  {
+    path: "/admin/players/edit/:playerId",
+    name: "player",
+    element: <AdminPlayer />,
+    isHidden: true,
+  },
 ];
