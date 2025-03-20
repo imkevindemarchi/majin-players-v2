@@ -14,3 +14,6 @@ export { Add as AddIcon } from "./add.icon";
 export { ArrowLeft as ArrowLeftIcon } from "./arrow-left.icon";
 export { ArrowRight as ArrowRightIcon } from "./arrow-right.icon";
 export { Delete as DeleteIcon } from "./delete.icon";
+export { Save as SaveIcon } from "./save.icon";
+export { Reset as ResetIcon } from "./reset.icon";
+export { Image as ImageIcon } from "./image.icon";

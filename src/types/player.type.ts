@@ -6,8 +6,7 @@ export type TPlayer = {
   id: string | null;
   name: string | null;
   surname: string | null;
-  image: string | null;
-  birthDate: DateValue | null;
+  birthDate?: Date | DateValue | null;
   email?: string | null;
   favouriteCard?: string | null;
   favouriteDeck?: TDeck | null;

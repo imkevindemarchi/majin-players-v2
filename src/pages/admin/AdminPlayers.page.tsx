@@ -5,9 +5,10 @@ import {
   useNavigate,
   useSearchParams,
 } from "react-router";
+import { DateValue } from "@heroui/react";
 
 // Api
-import { PLAYER_API } from "../../api";
+import { IMAGES_API, PLAYER_API } from "../../api";
 
 // Assets
 import { useTranslation } from "react-i18next";
@@ -29,7 +30,7 @@ import { TPlayer } from "../../types/player.type";
 import { TColumn } from "../../components/Table.component";
 
 // Utils
-import { setPageTitle } from "../../utils";
+import { formatDateForDatepicker, setPageTitle } from "../../utils";
 
 interface ITable {
   from: number;
@@ -43,7 +44,7 @@ const AdminPlayers: FC = () => {
   const { t } = useTranslation();
   const { state: isLoading, setState: setIsLoading }: TLoaderContext =
     useContext(LoaderContext) as TLoaderContext;
-  const { onOpen: openOpup }: TPopupContext = useContext(
+  const { onOpen: openPopup }: TPopupContext = useContext(
     PopupContext
   ) as TPopupContext;
   const [tableData, setTableData] = useState<TPlayer[] | null>(null);
@@ -83,11 +84,17 @@ const AdminPlayers: FC = () => {
       PLAYER_API.getAllWithFilters(table.from, table.to, table.name)
     ).then((response: THTTPResponse) => {
       if (response && response.hasSuccess) {
-        setTableData(response.data);
+        const elabData: TPlayer[] = response.data.map((player: TPlayer) => {
+          return {
+            ...player,
+            birthDate: formatDateForDatepicker(player.birthDate as DateValue),
+          };
+        });
+        setTableData(elabData);
         setTable((prevState) => {
           return { ...prevState, total: response?.totalRecords as number };
         });
-      } else openOpup(t("unableLoadPlayers"), "error");
+      } else openPopup(t("unableLoadPlayers"), "error");
     });
 
     setIsLoading(false);
@@ -125,11 +132,17 @@ const AdminPlayers: FC = () => {
     setIsLoading(true);
 
     await Promise.resolve(PLAYER_API.delete(selectedPlayerId)).then(
-      (response: THTTPResponse) => {
-        if (response && response.hasSuccess) {
-          openOpup(t("playerDeleted"), "success");
-          getData();
-        } else openOpup(t("unableDeletePlayer"), "error");
+      async (playerRes: THTTPResponse) => {
+        if (playerRes && playerRes.hasSuccess)
+          await Promise.resolve(IMAGES_API.delete(selectedPlayerId)).then(
+            (imageRes: THTTPResponse) => {
+              if (imageRes && imageRes.hasSuccess) {
+                openPopup(t("playerDeleted"), "success");
+                getData();
+              }
+            }
+          );
+        else openPopup(t("unableDeletePlayer"), "error");
       }
     );
 

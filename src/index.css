@@ -15,6 +15,11 @@ html {
 
 body {
   overflow-x: hidden !important;
+  overflow-y: hidden !important;
+}
+
+input[type="file"] {
+  display: none;
 }
 
 /* Calendar */

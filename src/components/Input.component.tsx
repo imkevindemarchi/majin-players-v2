@@ -13,6 +13,7 @@ interface IProps {
   isDarkMode?: boolean;
   onSearch?: () => Promise<any>;
   width?: string;
+  errorMessage?: string;
 }
 
 const Input: FC<IProps> = ({
@@ -25,6 +26,7 @@ const Input: FC<IProps> = ({
   isDarkMode,
   onSearch,
   width,
+  errorMessage,
 }) => {
   const inputRef = useRef<HTMLDivElement>(null);
   const [isValueChanged, setIsValueChanged] = useState<boolean>(false);
@@ -32,9 +34,19 @@ const Input: FC<IProps> = ({
 
   function onBorderColorChange(): void {
     if (inputRef.current) {
-      inputRef.current.style.borderColor = isDarkMode ? "#4d4d4d" : "#ececec";
+      inputRef.current.style.borderColor = errorMessage
+        ? "#ff0000"
+        : isDarkMode
+        ? "#4d4d4d"
+        : "#ececec";
     }
   }
+
+  const error: JSX.Element = errorMessage ? (
+    <span className="text-red">{errorMessage}</span>
+  ) : (
+    <></>
+  );
 
   useEffect(() => {
     const timeOut: NodeJS.Timeout = setTimeout(async () => {
@@ -53,50 +65,51 @@ const Input: FC<IProps> = ({
     onBorderColorChange();
 
     // eslint-disable-next-line
-  }, [isDarkMode]);
+  }, [isDarkMode, errorMessage]);
 
   return (
-    <div
-      ref={inputRef}
-      className={`rounded-full border-2 px-5 py-3 transition-all duration-300 flex items-center justify-between w-96 overflow-hidde mobile:w-full ${
-        isDarkMode
-          ? "border-darkgray text-white"
-          : "border-lightgray text-black"
-      }`}
-      style={{ width }}
-    >
-      <div className="flex gap-2 items-center w-full">
-        {icon}
-        <input
-          type={type}
-          value={value || ""}
-          onChange={(event: ChangeEvent<HTMLInputElement>) => {
-            onChange(event.target.value);
-            if (onSearch) {
-              setIsValueChanged(true);
-              setIsLoading(true);
-            }
-          }}
-          onFocus={() => {
-            if (inputRef.current) {
-              inputRef.current.style.borderColor = process.env
-                .REACT_APP_PRIMARY_COLOR as string;
-            }
-          }}
-          onBlur={() => onBorderColorChange()}
-          placeholder={placeholder}
-          style={{ backgroundColor: "transparent" }}
-          className="border-none outline-none text-base w-full"
-        />
+    <div className="flex flex-col gap-2 mobile:w-full">
+      <div
+        ref={inputRef}
+        className="rounded-full border-2 px-5 py-3 transition-all duration-300 flex items-center justify-between w-96 overflow-hidde mobile:w-full"
+        style={{ width }}
+      >
+        <div className="flex gap-2 items-center w-full">
+          {icon}
+          <input
+            type={type}
+            value={value || ""}
+            onChange={(event: ChangeEvent<HTMLInputElement>) => {
+              onChange(event.target.value);
+              if (onSearch) {
+                setIsValueChanged(true);
+                setIsLoading(true);
+              }
+            }}
+            onFocus={() => {
+              if (inputRef.current) {
+                inputRef.current.style.borderColor = process.env
+                  .REACT_APP_PRIMARY_COLOR as string;
+              }
+            }}
+            onBlur={() => onBorderColorChange()}
+            placeholder={placeholder}
+            style={{ backgroundColor: "transparent" }}
+            className={`border-none outline-none text-base w-full ${
+              isDarkMode ? "text-white" : "text-black"
+            }`}
+          />
+        </div>
+        {endIcon}
+        {isLoading && (
+          <Spinner
+            size={20}
+            color={process.env.REACT_APP_PRIMARY_COLOR}
+            className="ml-2"
+          />
+        )}
       </div>
-      {endIcon}
-      {isLoading && (
-        <Spinner
-          size={20}
-          color={process.env.REACT_APP_PRIMARY_COLOR}
-          className="ml-2"
-        />
-      )}
+      {error}
     </div>
   );
 };

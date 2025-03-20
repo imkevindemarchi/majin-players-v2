@@ -52,6 +52,18 @@
     "instagramLink": "Instagram link",
     "favouriteDeck": "Favourite deck",
     "unableLoadDecks": "Unable to load decks",
-    "description": "Description"
+    "description": "Description",
+    "save": "Save",
+    "cancel": "Cancel",
+    "selectProfileImage": "Select the profile image",
+    "requiredField": "Required field*",
+    "invalidData": "Invalid data",
+    "unableCreatePlayer": "Unable to create the player",
+    "playerSuccessfullyCreated": "Player successfully created",
+    "unableLoadImage": "Unable to load the image",
+    "unableLoadPlayer": "Unable to load the player",
+    "playerSuccessfullyUpdated": "Player successfully updated",
+    "unableRemoveImage": "Unable to remove the image",
+    "unableUpdatePlayer": "Unable to create the player"
   }
 }

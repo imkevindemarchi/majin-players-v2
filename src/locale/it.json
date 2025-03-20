@@ -52,6 +52,19 @@
     "instagramLink": "Link Instagram",
     "favouriteDeck": "Deck preferito",
     "unableLoadDecks": "Impossibile caricare i deck",
-    "description": "Descrizione"
+    "description": "Descrizione",
+    "save": "Salva",
+    "cancel": "Annulla",
+    "selectProfileImage": "Seleziona la foto del profilo",
+    "requiredField": "Campo obbligatorio*",
+    "invalidData": "Dati non validi",
+    "unableCreatePlayer": "Impossibile creare il giocatore",
+    "playerSuccessfullyCreated": "Giocatore creato con successo",
+    "unableLoadImage": "Impossibile caricare l'immagine",
+    "unableLoadPlayer": "Impossibile caricare il giocatore",
+    "playerSuccessfullyUpdated": "Giocatore aggiornato con successo",
+    "unableRemoveImage": "Impossibile eliminare l'immagine",
+    "unableUpdatePlayer": "Impossibile aggiornare il giocatore",
+    "changeProfileImage": "Cambia foto profilo"
   }
 }

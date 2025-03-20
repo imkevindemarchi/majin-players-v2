@@ -57,7 +57,7 @@ const Dashboard: FC = () => {
   ) as TLoaderContext;
   const [totalTops, setTotalTops] = useState<number | null>(null);
   const [totalPlayers, setTotalPlayers] = useState<number | null>(null);
-  const { onOpen: openOpup }: TPopupContext = useContext(
+  const { onOpen: openPopup }: TPopupContext = useContext(
     PopupContext
   ) as TPopupContext;
   const [doughnutChartLabels, setDoughnutChartLabels] = useState<
@@ -202,13 +202,13 @@ const Dashboard: FC = () => {
           setCurrentYearLineChartData(currentYearTopsForMonth);
 
           setTotalTops(response[0]?.totalRecords as number);
-        } else openOpup(t("unableLoadTops"), "error");
+        } else openPopup(t("unableLoadTops"), "error");
 
         if (response[1] && response[1].hasSuccess) {
           setTotalPlayers(response[1]?.totalRecords as number);
 
           setTotalPlayers(response[1]?.totalRecords as number);
-        } else openOpup(t("unableLoadPlayers"), "error");
+        } else openPopup(t("unableLoadPlayers"), "error");
       }
     );
 
