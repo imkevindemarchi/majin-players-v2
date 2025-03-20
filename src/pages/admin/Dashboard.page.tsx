@@ -151,7 +151,7 @@ const Dashboard: FC = () => {
     return data;
   }
 
-  async function getData(): Promise<any> {
+  async function getData(): Promise<void> {
     setIsLoading(true);
 
     await Promise.all([TOP_API.getAll(), PLAYER_API.getAll()]).then(

@@ -32,7 +32,7 @@ import { TColumn } from "../../components/Table.component";
 // Utils
 import { formatDateForDatepicker, setPageTitle } from "../../utils";
 
-interface ITable {
+interface ITableData {
   from: number;
   to: number;
   total: number;
@@ -52,14 +52,14 @@ const AdminPlayers: FC = () => {
     ThemeContext
   ) as TThemeContext;
   const [searchParams, setSearchParams] = useSearchParams({});
-  const tableDefaultState: ITable = {
+  const tableDefaultState: ITableData = {
     from: parseInt(searchParams.get("from") as string) || 0,
     to: parseInt(searchParams.get("to") as string) || 4,
     total: parseInt(searchParams.get("total") as string) || 0,
     page: parseInt(searchParams.get("page") as string) || 1,
     name: searchParams.get("name") || "",
   };
-  const [table, setTable] = useState<ITable>(tableDefaultState);
+  const [table, setTable] = useState<ITableData>(tableDefaultState);
   const navigate: NavigateFunction = useNavigate();
   const { pathname } = useLocation();
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
@@ -77,7 +77,7 @@ const AdminPlayers: FC = () => {
     { key: "email", value: t("email") },
   ];
 
-  async function getData(): Promise<any> {
+  async function getData(): Promise<void> {
     setIsLoading(true);
 
     await Promise.resolve(
@@ -127,7 +127,7 @@ const AdminPlayers: FC = () => {
     setSelectedPlayer(rowData);
   }
 
-  async function onDelete(): Promise<any> {
+  async function onDelete(): Promise<void> {
     setDeleteModal(false);
     setIsLoading(true);
 

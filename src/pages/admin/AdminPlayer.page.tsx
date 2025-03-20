@@ -99,7 +99,7 @@ const AdminPlayer = () => {
 
   setPageTitle(isEditMode ? t("editPlayer") : t("newPlayer"));
 
-  async function getData(): Promise<any> {
+  async function getData(): Promise<void> {
     setIsLoading(true);
 
     await Promise.resolve(DECK_API.getAll()).then((response: THTTPResponse) => {

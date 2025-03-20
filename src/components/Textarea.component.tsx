@@ -10,7 +10,7 @@ interface IProps {
   endIcon?: JSX.Element;
   placeholder: string;
   isDarkMode?: boolean;
-  onSearch?: () => Promise<any>;
+  onSearch?: () => Promise<void>;
   width?: string;
 }
 

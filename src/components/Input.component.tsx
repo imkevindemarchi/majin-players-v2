@@ -11,7 +11,7 @@ interface IProps {
   placeholder: string;
   type?: "text" | "password";
   isDarkMode?: boolean;
-  onSearch?: () => Promise<any>;
+  onSearch?: () => Promise<void>;
   width?: string;
   errorMessage?: string;
 }
