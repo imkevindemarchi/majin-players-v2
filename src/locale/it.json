@@ -65,6 +65,11 @@
     "playerSuccessfullyUpdated": "Giocatore aggiornato con successo",
     "unableRemoveImage": "Impossibile eliminare l'immagine",
     "unableUpdatePlayer": "Impossibile aggiornare il giocatore",
-    "changeProfileImage": "Cambia foto profilo"
+    "changeProfileImage": "Cambia foto profilo",
+    "label": "Label",
+    "decks": "Decks",
+    "deckDeleted": "Deck eliminato con successo",
+    "unableDeleteDeck": "Impossibile eliminare il deck",
+    "deleteDeck": "Elimina deck"
   }
 }
