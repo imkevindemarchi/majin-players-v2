@@ -24,6 +24,7 @@ interface IProps {
   info: IInfo;
   isLoading: boolean;
   onDelete?: (data: any) => void;
+  onRowClick?: (data: any) => void;
 }
 
 function approximateByExcess(number: number): number {
@@ -40,6 +41,7 @@ const Table: FC<IProps> = ({
   info,
   isLoading,
   onDelete,
+  onRowClick,
 }) => {
   const { t } = useTranslation();
 
@@ -73,14 +75,18 @@ const Table: FC<IProps> = ({
             return (
               <tr
                 key={index}
+                onClick={() => onRowClick && onRowClick(item)}
                 className={`transition-all duration-300 hover:bg-primary-transparent border-b-2 ${
                   isDarkMode ? "border-darkgray" : "border-lightgray"
-                }`}
+                } ${onRowClick && "cursor-pointer"}`}
               >
                 {onDelete && (
                   <td className="mobile:p-2">
                     <DeleteIcon
-                      onClick={() => onDelete(item)}
+                      onClick={(event: any) => {
+                        event.stopPropagation();
+                        onDelete(item);
+                      }}
                       className="text-2xl text-primary cursor-pointer hover:opacity-50 transition-all duration-300 mobile:text-3xl"
                     />
                   </td>

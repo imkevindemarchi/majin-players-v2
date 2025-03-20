@@ -1,15 +1,16 @@
 // Types
+import { DateValue } from "@heroui/react";
 import { TDeck } from "./deck.type";
 
 export type TPlayer = {
-  id: string;
-  name: string;
-  surname: string;
-  image: string;
-  birthDate: Date;
-  email?: string;
-  favouriteCard?: string;
-  favouriteDeck?: TDeck;
-  instagramLink?: string;
-  description?: string;
+  id: string | null;
+  name: string | null;
+  surname: string | null;
+  image: string | null;
+  birthDate: DateValue | null;
+  email?: string | null;
+  favouriteCard?: string | null;
+  favouriteDeck?: TDeck | null;
+  instagramLink?: string | null;
+  description?: string | null;
 };

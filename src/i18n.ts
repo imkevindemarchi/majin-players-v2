@@ -21,7 +21,7 @@ i18n.use(initReactI18next).init({
     it: { ...itJSON },
     en: { ...enJSON },
   },
-  lng: getFromStorage("language") || "it",
+  lng: language || "it",
 });
 
 export default i18n;

@@ -62,6 +62,10 @@ const Login: FC = () => {
     AuthContext
   ) as TAuthContext;
 
+  const isBtnDisabled: boolean =
+    !isValid(formData?.email as string) ||
+    !isValid(formData?.password as string);
+
   setPageTitle("Log In");
 
   const onInputChange = (propLabel: string, value: string): void => {
@@ -69,10 +73,6 @@ const Login: FC = () => {
       return { ...prevState, [propLabel]: value };
     });
   };
-
-  const logo: JSX.Element = (
-    <img src={logoImg} alt={t("imgNotFound")} className="w-40" />
-  );
 
   const onPasswordTypeChange = (): void => {
     switch (passwordType) {
@@ -119,9 +119,9 @@ const Login: FC = () => {
     else return false;
   }
 
-  const isBtnDisabled: boolean =
-    !isValid(formData?.email as string) ||
-    !isValid(formData?.password as string);
+  const logo: JSX.Element = (
+    <img src={logoImg} alt={t("imgNotFound")} className="w-40" />
+  );
 
   const form: JSX.Element = (
     <form onSubmit={onSubmit} className="flex flex-col gap-3 mobile:w-full">

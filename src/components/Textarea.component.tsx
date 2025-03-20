@@ -9,19 +9,17 @@ interface IProps {
   icon?: JSX.Element;
   endIcon?: JSX.Element;
   placeholder: string;
-  type?: "text" | "password";
   isDarkMode?: boolean;
   onSearch?: () => Promise<any>;
   width?: string;
 }
 
-const Input: FC<IProps> = ({
+const Textarea: FC<IProps> = ({
   value,
   onChange,
   icon,
   placeholder,
   endIcon,
-  type = "text",
   isDarkMode,
   onSearch,
   width,
@@ -29,12 +27,6 @@ const Input: FC<IProps> = ({
   const inputRef = useRef<HTMLDivElement>(null);
   const [isValueChanged, setIsValueChanged] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  function onBorderColorChange(): void {
-    if (inputRef.current) {
-      inputRef.current.style.borderColor = isDarkMode ? "#4d4d4d" : "#ececec";
-    }
-  }
 
   useEffect(() => {
     const timeOut: NodeJS.Timeout = setTimeout(async () => {
@@ -49,6 +41,12 @@ const Input: FC<IProps> = ({
     // eslint-disable-next-line
   }, [value]);
 
+  function onBorderColorChange(): void {
+    if (inputRef.current) {
+      inputRef.current.style.borderColor = isDarkMode ? "#4d4d4d" : "#ececec";
+    }
+  }
+
   useEffect(() => {
     onBorderColorChange();
 
@@ -58,7 +56,7 @@ const Input: FC<IProps> = ({
   return (
     <div
       ref={inputRef}
-      className={`rounded-full border-2 px-5 py-3 transition-all duration-300 flex items-center justify-between w-96 overflow-hidde mobile:w-full ${
+      className={`rounded-xl border-2 px-5 py-3 transition-all duration-300 flex items-center justify-between w-96 overflow-hidde mobile:w-full ${
         isDarkMode
           ? "border-darkgray text-white"
           : "border-lightgray text-black"
@@ -67,10 +65,9 @@ const Input: FC<IProps> = ({
     >
       <div className="flex gap-2 items-center w-full">
         {icon}
-        <input
-          type={type}
+        <textarea
           value={value || ""}
-          onChange={(event: ChangeEvent<HTMLInputElement>) => {
+          onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
             onChange(event.target.value);
             if (onSearch) {
               setIsValueChanged(true);
@@ -83,7 +80,13 @@ const Input: FC<IProps> = ({
                 .REACT_APP_PRIMARY_COLOR as string;
             }
           }}
-          onBlur={() => onBorderColorChange()}
+          onBlur={() => {
+            if (inputRef.current) {
+              inputRef.current.style.borderColor = isDarkMode
+                ? "#4d4d4d"
+                : "#ececec";
+            }
+          }}
           placeholder={placeholder}
           style={{ backgroundColor: "transparent" }}
           className="border-none outline-none text-base w-full"
@@ -101,4 +104,4 @@ const Input: FC<IProps> = ({
   );
 };
 
-export default Input;
+export default Textarea;

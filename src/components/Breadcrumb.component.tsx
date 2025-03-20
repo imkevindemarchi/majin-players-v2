@@ -14,9 +14,16 @@ const Breadcrumb: FC<IProps> = ({ isDarkMode }) => {
   const { t } = useTranslation();
 
   const splittedPathname = pathname.split("/").slice(2);
+  const hasEdit: boolean = splittedPathname.find(
+    (path: string) => path === "edit"
+  )
+    ? true
+    : false;
+  hasEdit && splittedPathname.pop();
 
   let paths: string[] = pathname.split("/");
   paths.pop();
+
   const previousPage: string = paths.join("/");
 
   return (
