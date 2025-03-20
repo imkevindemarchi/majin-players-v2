@@ -23,6 +23,7 @@ const Breadcrumb: FC<IProps> = ({ isDarkMode }) => {
 
   let paths: string[] = pathname.split("/");
   paths.pop();
+  hasEdit && paths.pop();
 
   const previousPage: string = paths.join("/");
 
