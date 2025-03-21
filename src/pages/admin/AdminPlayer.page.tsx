@@ -246,7 +246,7 @@ const AdminPlayer = () => {
   const breadcrumb: JSX.Element = <Breadcrumb isDarkMode={isDarkMode} />;
 
   const buttons: JSX.Element = (
-    <div className={`flex justify-end`}>
+    <div className="flex justify-end">
       <div className="flex gap-5 mobile:w-full mobile:justify-between">
         <Button onClick={onCancel} styleType="secondary">
           <div className="flex items-center gap-2">
