@@ -7,7 +7,7 @@ import {
 } from "react-router";
 
 // Api
-import { DECK_API } from "../../api";
+import { TOURNAMENT_API } from "../../api";
 
 // Assets
 import { useTranslation } from "react-i18next";
@@ -25,7 +25,7 @@ import { AddIcon, SearchIcon } from "../../assets/icons";
 
 // Types
 import { THTTPResponse } from "../../types";
-import { TDeck } from "../../types/deck.type";
+import { TTournament } from "../../types/tournament.type";
 import { TColumn } from "../../components/Table.component";
 
 // Utils
@@ -39,14 +39,14 @@ interface ITableData {
   label: string;
 }
 
-const AdminDecks: FC = () => {
+const AdminTournaments: FC = () => {
   const { t } = useTranslation();
   const { state: isLoading, setState: setIsLoading }: TLoaderContext =
     useContext(LoaderContext) as TLoaderContext;
   const { onOpen: openPopup }: TPopupContext = useContext(
     PopupContext
   ) as TPopupContext;
-  const [tableData, setTableData] = useState<TDeck[] | null>(null);
+  const [tableData, setTableData] = useState<TTournament[] | null>(null);
   const { isDarkMode }: TThemeContext = useContext(
     ThemeContext
   ) as TThemeContext;
@@ -62,10 +62,11 @@ const AdminDecks: FC = () => {
   const navigate: NavigateFunction = useNavigate();
   const { pathname } = useLocation();
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
-  const [selectedDeck, setSelectedDeck] = useState<TDeck | null>(null);
+  const [selectedTournament, setSelectedTorunament] =
+    useState<TTournament | null>(null);
 
-  const pageTitle: string = t("decks");
-  const selectedDeckId: string = selectedDeck?.id as string;
+  const pageTitle: string = t("tournaments");
+  const selectedTournamentId: string = selectedTournament?.id as string;
 
   setPageTitle(pageTitle);
 
@@ -75,14 +76,14 @@ const AdminDecks: FC = () => {
     setIsLoading(true);
 
     await Promise.resolve(
-      DECK_API.getAllWithFilters(table.from, table.to, table.label)
+      TOURNAMENT_API.getAllWithFilters(table.from, table.to, table.label)
     ).then((response: THTTPResponse) => {
       if (response && response.hasSuccess) {
         setTableData(response.data);
         setTable((prevState) => {
           return { ...prevState, total: response?.totalRecords as number };
         });
-      } else openPopup(t("unableLoadDecks"), "error");
+      } else openPopup(t("unableLoadTournaments"), "error");
     });
 
     setIsLoading(false);
@@ -112,19 +113,19 @@ const AdminDecks: FC = () => {
 
   async function tableOnDelete(rowData: any): Promise<void> {
     setDeleteModal(true);
-    setSelectedDeck(rowData);
+    setSelectedTorunament(rowData);
   }
 
   async function onDelete(): Promise<void> {
     setDeleteModal(false);
     setIsLoading(true);
 
-    await Promise.resolve(DECK_API.delete(selectedDeckId)).then(
-      async (deckRes: THTTPResponse) => {
-        if (deckRes && deckRes.hasSuccess) {
-          openPopup(t("deckDeleted"), "success");
+    await Promise.resolve(TOURNAMENT_API.delete(selectedTournamentId)).then(
+      async (tournament: THTTPResponse) => {
+        if (tournament && tournament.hasSuccess) {
+          openPopup(t("torunamentDeleted"), "success");
           getData();
-        } else openPopup(t("unableDeleteDeck"), "error");
+        } else openPopup(t("unableDeleteTournament"), "error");
       }
     );
 
@@ -141,7 +142,7 @@ const AdminDecks: FC = () => {
 
   const deleteModalComponent: JSX.Element = (
     <Modal
-      title={t("deleteDeck")}
+      title={t("deleteTournament")}
       isOpen={deleteModal}
       onClose={() => setDeleteModal(false)}
       onSubmit={onDelete}
@@ -155,7 +156,7 @@ const AdminDecks: FC = () => {
           isDarkMode ? "text-white" : "text-black"
         }`}
       >
-        {t("confirmToDelete", { name: selectedDeck?.label })}
+        {t("confirmToDelete", { name: selectedTournament?.label })}
       </span>
     </Modal>
   );
@@ -234,4 +235,4 @@ const AdminDecks: FC = () => {
   );
 };
 
-export default AdminDecks;
+export default AdminTournaments;
