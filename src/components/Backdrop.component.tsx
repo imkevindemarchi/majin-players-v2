@@ -9,7 +9,7 @@ interface IProps {
 const Backdrop: FC<IProps> = ({ isDarkMode, hideBackground, children }) => {
   return (
     <div
-      className={`absolute top-0 left-0 w-full h-full flex justify-center items-center ${
+      className={`fixed top-0 left-0 w-full h-full flex justify-center items-center ${
         isDarkMode && !hideBackground
           ? "bg-white-transparent"
           : !hideBackground && "bg-black-transparent"
