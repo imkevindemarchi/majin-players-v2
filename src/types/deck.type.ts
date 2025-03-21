@@ -1,4 +1,4 @@
 export type TDeck = {
-  id: string;
-  label: string;
+  id: string | null;
+  label: string | null;
 };
