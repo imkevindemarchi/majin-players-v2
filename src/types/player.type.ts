@@ -1,5 +1,6 @@
-// Types
 import { DateValue } from "@heroui/react";
+
+// Types
 import { TDeck } from "./deck.type";
 
 export type TPlayer = {

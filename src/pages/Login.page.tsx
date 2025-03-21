@@ -153,7 +153,12 @@ const Login: FC = () => {
         placeholder={t("password")}
         isDarkMode={isDarkMode}
       />
-      <Button type="submit" disabled={isBtnDisabled} isDarkMode={isDarkMode}>
+      <Button
+        type="submit"
+        disabled={isBtnDisabled}
+        isDarkMode={isDarkMode}
+        width="100%"
+      >
         <span
           className={`text-lg uppercase transition-all duration-300 ${
             isBtnDisabled && isDarkMode

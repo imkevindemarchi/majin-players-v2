@@ -56,7 +56,7 @@ const Layout: FC<IProps> = ({ children }) => {
 
   const layout: JSX.Element = (
     <div
-      className={`transition-all duration-300 min-h-[100vh] relative w-full h-full ${
+      className={`transition-all duration-300 min-h-[100vh] relative w-full h-full pb-40 ${
         isDarkMode ? "bg-darkgray3" : "bg-lightgray2"
       }`}
     >

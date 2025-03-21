@@ -65,7 +65,6 @@ const AdminTournament = () => {
     if (isEditMode)
       await Promise.resolve(TOURNAMENT_API.get(tournamentId as string)).then(
         (response: THTTPResponse) => {
-          console.log("🚀 ~ response:", response);
           if (response && response.hasSuccess) setFormData(response.data);
           else openPopup(t("unableLoadTournament"), "error");
         }

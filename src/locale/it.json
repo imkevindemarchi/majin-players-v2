@@ -104,6 +104,15 @@
     "equipmentSuccessfullyCreated": "Equipaggiamento creato con successo",
     "unableCreateEquipment": "Impossibile creare l'equipaggiamento",
     "equipment": "Equipaggiamento",
-    "selectImage": "Seleziona la foto"
+    "selectImage": "Seleziona la foto",
+    "playerTops": "Top giocatore",
+    "noRegisteredTops": "Nessuna top registrata",
+    "date": "Data",
+    "rating": "Posizione",
+    "location": "Luogo",
+    "topSuccessfullyAdded": "Top aggiunta con successo",
+    "unableAddTop": "Impossibile aggiungere la top",
+    "topRemoved": "Top rimossa con successo",
+    "unableRemoveTop": "Impossibile rimuovere la top"
   }
 }

@@ -16,6 +16,7 @@ interface IProps {
   onSearch?: () => Promise<void>;
   width?: string;
   data: TValue[];
+  errorMessage?: string;
 }
 
 const Autocomplete: FC<IProps> = ({
@@ -28,10 +29,17 @@ const Autocomplete: FC<IProps> = ({
   isDarkMode,
   width,
   data,
+  errorMessage,
 }) => {
   const inputRef = useRef<any>(null);
   const [state, setState] = useState<string | null>(value?.label);
   const [dropdown, setDropdown] = useState<boolean>(false);
+
+  const error: JSX.Element = errorMessage ? (
+    <span className="text-red">{errorMessage}</span>
+  ) : (
+    <></>
+  );
 
   useClickOutside(inputRef, () => {
     setDropdown(false);
@@ -47,7 +55,11 @@ const Autocomplete: FC<IProps> = ({
 
   function onBorderColorChange(): void {
     if (inputRef.current) {
-      inputRef.current.style.borderColor = isDarkMode ? "#4d4d4d" : "#ececec";
+      inputRef.current.style.borderColor = errorMessage
+        ? "#ff0000"
+        : isDarkMode
+        ? "#4d4d4d"
+        : "#ececec";
     }
   }
 
@@ -60,73 +72,76 @@ const Autocomplete: FC<IProps> = ({
     onBorderColorChange();
 
     // eslint-disable-next-line
-  }, [isDarkMode]);
+  }, [isDarkMode, errorMessage]);
 
   return (
-    <div
-      ref={inputRef}
-      className={`rounded-full border-2 px-5 py-3 transition-all duration-300 flex items-center justify-between w-96 overflow-hidde mobile:w-full relative ${
-        isDarkMode
-          ? "border-darkgray text-white"
-          : "border-lightgray text-black"
-      }`}
-      style={{ width }}
-    >
-      <div className="flex gap-2 items-center w-full">
-        {icon}
-        <input
-          type={type}
-          value={state || ""}
-          onChange={(event: ChangeEvent<HTMLInputElement>) =>
-            setState(event.target.value)
-          }
-          onFocus={() => {
-            setDropdown(true);
-            if (inputRef.current) {
-              inputRef.current.style.borderColor = process.env
-                .REACT_APP_PRIMARY_COLOR as string;
-            }
-          }}
-          onBlur={() => {
-            if (inputRef.current) {
-              inputRef.current.style.borderColor = isDarkMode
-                ? "#4d4d4d"
-                : "#ececec";
-            }
-          }}
-          placeholder={placeholder}
-          style={{ backgroundColor: "transparent" }}
-          className="border-none outline-none text-base w-full"
-        />
-      </div>
-      {endIcon}
+    <div className="flex flex-col gap-2 mobile:w-full">
       <div
-        className={`absolute w-full top-0 transition-all duration-300 opacity-0 pointer-events-none rounded-lg shadow-xl max-h-80 overflow-y-scroll ${
-          dropdown && "top-14 opacity-100 pointer-events-auto overflow-hidden"
-        } ${isDarkMode ? "bg-darkgray" : "bg-lightgray"}`}
-        style={{
-          left: "50%",
-          transform: "translate(-50%, 0)",
-          zIndex: "900",
-        }}
+        ref={inputRef}
+        className={`rounded-full border-2 px-5 py-3 transition-all duration-300 flex items-center justify-between w-96 overflow-hidde mobile:w-full relative ${
+          isDarkMode
+            ? "border-darkgray text-white"
+            : "border-lightgray text-black"
+        }`}
+        style={{ width }}
       >
-        {elabData.map((element: TValue, index: number) => {
-          return (
-            <div
-              key={index}
-              onClick={() => {
-                onChange(element);
-                setDropdown(false);
-              }}
-              className={`transition-all duration-300 hover:bg-primary-transparent cursor-pointer px-5 py-2 ${
-                isDarkMode ? "border-darkgray3" : "border-gray"
-              }`}
-            >
-              <span className="text-sm">{element.label}</span>
-            </div>
-          );
-        })}
+        <div className="flex gap-2 items-center w-full">
+          {icon}
+          <input
+            type={type}
+            value={state || ""}
+            onChange={(event: ChangeEvent<HTMLInputElement>) =>
+              setState(event.target.value)
+            }
+            onFocus={() => {
+              setDropdown(true);
+              if (inputRef.current) {
+                inputRef.current.style.borderColor = process.env
+                  .REACT_APP_PRIMARY_COLOR as string;
+              }
+            }}
+            onBlur={() => {
+              if (inputRef.current) {
+                inputRef.current.style.borderColor = isDarkMode
+                  ? "#4d4d4d"
+                  : "#ececec";
+              }
+            }}
+            placeholder={placeholder}
+            style={{ backgroundColor: "transparent" }}
+            className="border-none outline-none text-base w-full"
+          />
+        </div>
+        {endIcon}
+        <div
+          className={`absolute w-full top-0 transition-all duration-300 opacity-0 pointer-events-none rounded-lg shadow-xl max-h-80 overflow-y-scroll ${
+            dropdown && "top-14 opacity-100 pointer-events-auto overflow-hidden"
+          } ${isDarkMode ? "bg-darkgray" : "bg-lightgray"}`}
+          style={{
+            left: "50%",
+            transform: "translate(-50%, 0)",
+            zIndex: "900",
+          }}
+        >
+          {elabData.map((element: TValue, index: number) => {
+            return (
+              <div
+                key={index}
+                onClick={() => {
+                  onChange(element);
+                  setDropdown(false);
+                }}
+                className={`transition-all duration-300 hover:bg-primary-transparent cursor-pointer px-5 py-2 ${
+                  isDarkMode ? "border-darkgray3" : "border-gray"
+                }`}
+              >
+                <span className="text-sm">{element.label}</span>
+              </div>
+            );
+          })}
+        </div>
       </div>
+      {error}
     </div>
   );
 };

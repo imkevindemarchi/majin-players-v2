@@ -21,7 +21,7 @@ const Loader: FC<IProps> = ({ isDarkMode }) => {
   ) as TLoaderContext;
 
   return isLoading ? (
-    <Backdrop isDarkMode={isDarkMode}>
+    <Backdrop isDarkMode={isDarkMode} hideBackground>
       <img
         src={logoImg}
         alt={t("imgNotFound")}
