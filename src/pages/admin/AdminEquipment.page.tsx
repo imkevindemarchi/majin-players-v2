@@ -213,7 +213,7 @@ const AdminEquipment = () => {
   const form: JSX.Element = (
     <Card isDarkMode={isDarkMode}>
       <div className="flex flex-col gap-5">
-        <div className="flex gap-2 items-center mobile:flex-col">
+        <div className="flex gap-2 items-center justify-center mobile:flex-col">
           {formData.image && (
             <img
               id="image"
@@ -252,7 +252,7 @@ const AdminEquipment = () => {
         </div>
         <form
           onSubmit={onSave}
-          className="flex flex-row flex-wrap justify-between gap-5"
+          className="flex flex-row flex-wrap justify-center items-center gap-5"
         >
           <div className="w-[31.5%] mobile:w-full">
             <Input

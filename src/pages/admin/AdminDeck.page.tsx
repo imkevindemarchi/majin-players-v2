@@ -181,7 +181,7 @@ const AdminDeck = () => {
               value={formData.label}
               onChange={(value: string) => onInputChange("label", value)}
               isDarkMode={isDarkMode}
-              placeholder={t("label")}
+              placeholder={t("name")}
               width="100%"
               errorMessage={errors?.label?.message}
             />
