@@ -10,6 +10,7 @@ import {
   AdminTournaments,
   AdminTournament,
   AdminEquipments,
+  AdminEquipment,
 } from "./pages/admin";
 import { Login, Home } from "./pages";
 
@@ -117,5 +118,17 @@ export const ADMIN_ROUTES: IRoute[] = [
     path: "/admin/equipments",
     name: "equipments",
     element: <AdminEquipments />,
+  },
+  {
+    path: "/admin/equipments/new",
+    name: "equipments",
+    element: <AdminEquipment />,
+    isHidden: true,
+  },
+  {
+    path: "/admin/equipments/edit/:equipmentId",
+    name: "equipments",
+    element: <AdminEquipment />,
+    isHidden: true,
   },
 ];
