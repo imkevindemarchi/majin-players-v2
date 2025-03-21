@@ -3,7 +3,7 @@ import { ChangeEvent, FC, JSX, useEffect, useRef, useState } from "react";
 // Spinner
 import { useClickOutside } from "../hooks";
 
-type TValue = { id: string; label: string };
+type TValue = { id: string | null; label: string | null };
 
 interface IProps {
   value: TValue;
@@ -39,8 +39,8 @@ const Autocomplete: FC<IProps> = ({
   });
 
   const filteredData: TValue[] = data.filter((element: TValue) => {
-    return element.label
-      .toLowerCase()
+    return element?.label
+      ?.toLowerCase()
       .startsWith(state?.toLowerCase() as string);
   });
   const elabData: TValue[] = state && state.trim() !== "" ? filteredData : data;

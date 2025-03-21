@@ -6,6 +6,7 @@ import {
   AdminPlayers,
   AdminPlayer,
   AdminDecks,
+  AdminDeck,
 } from "./pages/admin";
 import { Login, Home } from "./pages";
 
@@ -79,5 +80,17 @@ export const ADMIN_ROUTES: IRoute[] = [
     path: "/admin/decks",
     name: "decks",
     element: <AdminDecks />,
+  },
+  {
+    path: "/admin/decks/new",
+    name: "deck",
+    element: <AdminDeck />,
+    isHidden: true,
+  },
+  {
+    path: "/admin/decks/edit/:deckId",
+    name: "deck",
+    element: <AdminDeck />,
+    isHidden: true,
   },
 ];

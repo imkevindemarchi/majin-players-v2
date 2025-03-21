@@ -3,6 +3,7 @@ import { supabase } from "../supabase";
 
 // Types
 import { THTTPResponse } from "../types";
+import { TDeck } from "../types/deck.type";
 
 const TABLE = "decks";
 
@@ -53,6 +54,73 @@ export const DECK_API = {
         data,
         hasSuccess: true,
         totalRecords: totalRecords && totalRecords,
+      };
+    } catch (error) {
+      console.error("🚀 ~ error:", error);
+      return {
+        hasSuccess: false,
+      };
+    }
+  },
+
+  get: async (id: string): Promise<any> => {
+    try {
+      const { data, error } = await supabase.from(TABLE).select().eq("id", id);
+
+      if (!data || error)
+        return {
+          hasSuccess: false,
+        };
+
+      return {
+        hasSuccess: true,
+        data: data[0],
+      };
+    } catch (error) {
+      console.error("🚀 ~ error:", error);
+    }
+  },
+
+  create: async (data: Partial<TDeck>): Promise<THTTPResponse> => {
+    try {
+      const { data: response, error } = await supabase
+        .from(TABLE)
+        .insert([data])
+        .select();
+
+      if (!response || error)
+        return {
+          hasSuccess: false,
+        };
+
+      return {
+        hasSuccess: true,
+        data: response[0].id,
+      };
+    } catch (error) {
+      console.error("🚀 ~ error:", error);
+      return {
+        hasSuccess: false,
+      };
+    }
+  },
+
+  update: async (data: Partial<TDeck>, id: string): Promise<THTTPResponse> => {
+    try {
+      const { data: response, error } = await supabase
+        .from(TABLE)
+        .update(data)
+        .eq("id", id)
+        .select();
+
+      if (!response || error)
+        return {
+          hasSuccess: false,
+        };
+
+      return {
+        hasSuccess: true,
+        data: response[0].id,
       };
     } catch (error) {
       console.error("🚀 ~ error:", error);

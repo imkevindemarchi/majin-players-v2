@@ -70,6 +70,13 @@
     "decks": "Decks",
     "deckDeleted": "Deck eliminato con successo",
     "unableDeleteDeck": "Impossibile eliminare il deck",
-    "deleteDeck": "Elimina deck"
+    "deleteDeck": "Elimina deck",
+    "editDeck": "Modifica deck",
+    "newDeck": "Nuovo deck",
+    "deckSuccessfullyUpdated": "Deck aggiornato con successo",
+    "unableUpdateDeck": "Impossibile aggiornare il deck",
+    "deckSuccessfullyCreated": "Deck creato con successo",
+    "unableCreateDeck": "Impossibile creare il deck",
+    "deck": "Deck"
   }
 }
