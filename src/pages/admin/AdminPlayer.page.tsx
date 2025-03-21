@@ -554,7 +554,7 @@ const AdminPlayer = () => {
         onSubmit={onAddTop}
         className="flex flex-row flex-wrap gap-5 justify-around"
       >
-        <div className="w-60">
+        <div className="w-60 mobile:w-full">
           <DatePicker
             value={topFormData.date as DateValue}
             onChange={(value: DateValue) => onTopInputChange("date", value)}
@@ -564,7 +564,7 @@ const AdminPlayer = () => {
             width="100%"
           />
         </div>
-        <div className="w-60">
+        <div className="w-60 mobile:w-full">
           <Input
             value={topFormData.rating as string}
             onChange={(value: string) => onTopInputChange("rating", value)}
@@ -574,7 +574,7 @@ const AdminPlayer = () => {
             width="100%"
           />
         </div>
-        <div className="w-60">
+        <div className="w-60 mobile:w-full">
           <Autocomplete
             value={topFormData.deck as TDeck}
             onChange={(value: TDeck) => onTopInputChange("deck", value)}
@@ -585,7 +585,7 @@ const AdminPlayer = () => {
             width="100%"
           />
         </div>
-        <div className="w-60">
+        <div className="w-60 mobile:w-full">
           <Autocomplete
             value={topFormData.tournament as TTournament}
             onChange={(value: TDeck) => onTopInputChange("tournament", value)}
@@ -596,7 +596,7 @@ const AdminPlayer = () => {
             width="100%"
           />
         </div>
-        <div className="w-60">
+        <div className="w-60 mobile:w-full">
           <Input
             value={topFormData.location as string}
             onChange={(value: string) => onTopInputChange("location", value)}

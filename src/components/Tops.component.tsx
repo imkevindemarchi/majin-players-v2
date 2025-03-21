@@ -61,7 +61,7 @@ const Tops: FC<IProps> = ({ data, isDarkMode, getData }) => {
           <div key={index} className="flex flex-col gap-5">
             <span className="text-primary text-2xl font-bold">{year}</span>
 
-            <div className="pl-10 flex flex-col gap-5">
+            <div className="pl-10 flex flex-col gap-5 mobile:pl-0">
               {data?.map((top: any, index2: number) => {
                 const isTop: boolean = top?.rating
                   ?.toLowerCase()
@@ -77,10 +77,10 @@ const Tops: FC<IProps> = ({ data, isDarkMode, getData }) => {
                 return (
                   isTopVisible && (
                     <div
-                      className="bg-primary-transparent py-2 px-5 rounded-xl flex justify-between"
+                      className="bg-primary-transparent py-2 px-5 rounded-xl flex justify-between mobile:gap-5 items-center"
                       key={index2}
                     >
-                      <div className="flex gap-5 items-center">
+                      <div className="flex gap-5 items-center flex-wrap mobile:gap-1">
                         <span className="text-primary font-bold">{rating}</span>
                         <span
                           className={`transition-all duration-300 ${
@@ -125,7 +125,7 @@ const Tops: FC<IProps> = ({ data, isDarkMode, getData }) => {
                           {top?.location}
                         </span>
                       </div>
-                      <IconButton onClick={() => onDeleteTop(top?.id)}>
+                      <IconButton onClick={() => onDeleteTop(top?.id)} small>
                         <DeleteIcon className="text-primary text-xl" />
                       </IconButton>
                     </div>
