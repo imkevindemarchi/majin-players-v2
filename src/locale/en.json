@@ -94,6 +94,15 @@
     "unableLoadEquipments": "Unable to load equipments",
     "equipmentDeleted": "Equipment successfully deleted",
     "unableDeleteEquipment": "Unable to delete the equipment",
-    "deleteEquipment": "Delete equipment"
+    "deleteEquipment": "Delete equipment",
+    "editEquipment": "Edit equipment",
+    "newEquipment": "New equipment",
+    "unableLoadEquipment": "Unable to load the equipment",
+    "equipmentSuccessfullyUpdated": "Equipment successfully updated",
+    "unableUpdateEquipment": "Unable to create the equipment",
+    "equipmentSuccessfullyCreated": "Equipment successfully created",
+    "unableCreateEquipment": "Unable to create the equipment",
+    "equipment": "Equipment",
+    "selectImage": "Select the image"
   }
 }

@@ -95,6 +95,15 @@
     "unableLoadEquipments": "Impossibile caricare gli equipaggiamenti",
     "equipmentDeleted": "Equipaggiamento eliminato con successo",
     "unableDeleteEquipment": "Impossibile eliminare l'equipaggiamento",
-    "deleteEquipment": "Elimina equipaggiamento"
+    "deleteEquipment": "Elimina equipaggiamento",
+    "editEquipment": "Modifica equipaggiamento",
+    "newEquipment": "Nuovo equipaggiamento",
+    "unableLoadEquipment": "Impossibile caricare l'equipaggiamento",
+    "equipmentSuccessfullyUpdated": "Equipaggiamento aggiornato con successo",
+    "unableUpdateEquipment": "Impossibile aggiornare l'equipaggiamento",
+    "equipmentSuccessfullyCreated": "Equipaggiamento creato con successo",
+    "unableCreateEquipment": "Impossibile creare l'equipaggiamento",
+    "equipment": "Equipaggiamento",
+    "selectImage": "Seleziona la foto"
   }
 }
