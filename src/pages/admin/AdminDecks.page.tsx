@@ -120,10 +120,10 @@ const AdminDecks: FC = () => {
     setIsLoading(true);
 
     await Promise.resolve(DECK_API.delete(selectedDeckId)).then(
-      async (deckRes: THTTPResponse) => {
-        if (deckRes && deckRes.hasSuccess) {
+      async (response: THTTPResponse) => {
+        if (response && response.hasSuccess) {
           openPopup(t("deckDeleted"), "success");
-          getData();
+          await getData();
         } else openPopup(t("unableDeleteDeck"), "error");
       }
     );

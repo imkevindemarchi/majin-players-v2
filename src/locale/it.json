@@ -91,6 +91,10 @@
     "unableUpdateTournament": "Impossibile aggiornare il torneo",
     "tournamentSuccessfullyCreated": "Torneo creato con successo",
     "unableCreateTournament": "Impossibile creare il torneo",
-    "tournament": "Torneo"
+    "tournament": "Torneo",
+    "unableLoadEquipments": "Impossibile caricare gli equipaggiamenti",
+    "equipmentDeleted": "Equipaggiamento eliminato con successo",
+    "unableDeleteEquipment": "Impossibile eliminare l'equipaggiamento",
+    "deleteEquipment": "Elimina equipaggiamento"
   }
 }
