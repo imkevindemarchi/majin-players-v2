@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { NavigateFunction, useNavigate, useParams } from "react-router";
 
 // Api
-import { DECK_API } from "../../api";
+import { TOURNAMENT_API } from "../../api";
 
 // Components
 import { Breadcrumb, Button, Card, Input } from "../../components";
@@ -17,14 +17,14 @@ import { PopupContext, TPopupContext } from "../../providers/Popup.provider";
 import { ResetIcon, SaveIcon } from "../../assets/icons";
 
 // Types
-import { TDeck } from "../../types/deck.type";
+import { TTournament } from "../../types/tournament.type";
 import { THTTPResponse } from "../../types";
 import { TValidation, validateFormField } from "../../utils/validation.util";
 
 // Utils
 import { setPageTitle } from "../../utils";
 
-const defaultState: TDeck = {
+const defaultState: TTournament = {
   id: null,
   label: null,
 };
@@ -39,13 +39,13 @@ const defaultErrorsState: TErrors = {
   },
 };
 
-const AdminDeck = () => {
+const AdminTournament = () => {
   const { isDarkMode }: TThemeContext = useContext(
     ThemeContext
   ) as TThemeContext;
   const { t } = useTranslation();
-  const { deckId } = useParams();
-  const [formData, setFormData] = useState<TDeck>(defaultState);
+  const { tournamentId } = useParams();
+  const [formData, setFormData] = useState<TTournament>(defaultState);
   const { setState: setIsLoading }: TLoaderContext = useContext(
     LoaderContext
   ) as TLoaderContext;
@@ -55,18 +55,19 @@ const AdminDeck = () => {
   const [errors, setErrors] = useState<TErrors>(defaultErrorsState);
   const navigate: NavigateFunction = useNavigate();
 
-  const isEditMode: boolean = deckId ? true : false;
+  const isEditMode: boolean = tournamentId ? true : false;
 
-  setPageTitle(isEditMode ? t("editDeck") : t("newDeck"));
+  setPageTitle(isEditMode ? t("editTournament") : t("newTournament"));
 
   async function getData(): Promise<void> {
     setIsLoading(true);
 
     if (isEditMode)
-      await Promise.resolve(DECK_API.get(deckId as string)).then(
+      await Promise.resolve(TOURNAMENT_API.get(tournamentId as string)).then(
         (response: THTTPResponse) => {
+          console.log("🚀 ~ response:", response);
           if (response && response.hasSuccess) setFormData(response.data);
-          else openPopup(t("unableLoadDeck"), "error");
+          else openPopup(t("unableLoadTournament"), "error");
         }
       );
 
@@ -113,25 +114,25 @@ const AdminDeck = () => {
     else {
       setIsLoading(true);
 
-      const data: Partial<TDeck> = {
+      const data: Partial<TTournament> = {
         label: formData.label,
       };
 
       if (isEditMode)
-        await Promise.resolve(DECK_API.update(data, deckId as string)).then(
-          async (response: THTTPResponse) => {
-            if (response && response.hasSuccess)
-              openPopup(t("deckSuccessfullyUpdated"), "success");
-            else openPopup(t("unableUpdateDeck"), "error");
-          }
-        );
+        await Promise.resolve(
+          TOURNAMENT_API.update(data, tournamentId as string)
+        ).then(async (response: THTTPResponse) => {
+          if (response && response.hasSuccess)
+            openPopup(t("tournamentSuccessfullyUpdated"), "success");
+          else openPopup(t("unableUpdateTournament"), "error");
+        });
       else
-        await Promise.resolve(DECK_API.create(data)).then(
+        await Promise.resolve(TOURNAMENT_API.create(data)).then(
           async (response: THTTPResponse) => {
             if (response && response.hasSuccess) {
-              openPopup(t("deckSuccessfullyCreated"), "success");
-              navigate(`/admin/decks/edit/${response.data}`);
-            } else openPopup(t("unableCreateDeck"), "error");
+              openPopup(t("tournamentSuccessfullyCreated"), "success");
+              navigate(`/admin/tournaments/edit/${response.data}`);
+            } else openPopup(t("unableCreateTournament"), "error");
           }
         );
 
@@ -145,7 +146,7 @@ const AdminDeck = () => {
   }
 
   const title: JSX.Element = (
-    <span className="text-primary text-2xl">{t("deck")}</span>
+    <span className="text-primary text-2xl">{t("tournament")}</span>
   );
 
   const breadcrumb: JSX.Element = <Breadcrumb isDarkMode={isDarkMode} />;
@@ -207,4 +208,4 @@ const AdminDeck = () => {
   );
 };
 
-export default AdminDeck;
+export default AdminTournament;

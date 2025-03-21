@@ -52,6 +52,7 @@
     "instagramLink": "Link Instagram",
     "favouriteDeck": "Deck preferito",
     "unableLoadDecks": "Impossibile caricare i deck",
+    "unableLoadDeck": "Impossibile caricare il deck",
     "description": "Descrizione",
     "save": "Salva",
     "cancel": "Annulla",
@@ -82,6 +83,14 @@
     "torunamentDeleted": "Torneo eliminato con successo",
     "unableDeleteTournament": "Impossibile eliminare il deck",
     "deleteTournament": "Elimina torneo",
-    "tournaments": "Tornei"
+    "tournaments": "Tornei",
+    "editTournament": "Modifica torneo",
+    "newTournament": "Nuovo torneo",
+    "unableLoadTournament": "Impossibile caricare il torneo",
+    "tournamentSuccessfullyUpdated": "Torneo aggiornato con successo",
+    "unableUpdateTournament": "Impossibile aggiornare il torneo",
+    "tournamentSuccessfullyCreated": "Torneo creato con successo",
+    "unableCreateTournament": "Impossibile creare il torneo",
+    "tournament": "Torneo"
   }
 }

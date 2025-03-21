@@ -49,7 +49,7 @@ const Button: FC<IProps> = ({
       disabled={disabled}
       type={type}
       onClick={onClick}
-      className={`rounded-full py-2 border-2 mobile:w-full flex flex-row items-center justify-center gap-1 transition-all duration-300 ${
+      className={`rounded-full py-2 border-2 mobile:w-full w-32 flex flex-row items-center justify-center gap-1 transition-all duration-300 ${
         disabled && isDarkMode
           ? "bg-darkgray border-darkgray cursor-not-allowed"
           : disabled
@@ -64,7 +64,7 @@ const Button: FC<IProps> = ({
       disabled={disabled}
       type={type}
       onClick={onClick}
-      className={`rounded-full py-2 border-2 mobile:w-full flex flex-row items-center justify-center gap-1 transition-all duration-300 ${
+      className={`rounded-full py-2 border-2 mobile:w-full w-32 flex flex-row items-center justify-center gap-1 transition-all duration-300 ${
         disabled && isDarkMode
           ? "bg-darkgray border-darkgray cursor-not-allowed"
           : disabled
