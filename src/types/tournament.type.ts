@@ -1,4 +1,4 @@
 export type TTournament = {
-  id: string;
-  label: string;
+  id: string | null;
+  label: string | null;
 };

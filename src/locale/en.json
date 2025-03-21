@@ -52,6 +52,7 @@
     "instagramLink": "Instagram link",
     "favouriteDeck": "Favourite deck",
     "unableLoadDecks": "Unable to load decks",
+    "unableLoadDeck": "Unable to load the deck",
     "description": "Description",
     "save": "Save",
     "cancel": "Cancel",
@@ -81,6 +82,14 @@
     "torunamentDeleted": "Tournament successfully deleted",
     "unableDeleteTournament": "Unable to delete the tournament",
     "deleteTournament": "Delete tournament",
-    "tournaments": "Tournaments"
+    "tournaments": "Tournaments",
+    "editTournament": "Edit torunament",
+    "newTournament": "New tournament",
+    "unableLoadTournament": "Unable to load the tournament",
+    "tournamentSuccessfullyUpdated": "Tournament successfully updated",
+    "unableUpdateTournament": "Unable to create the tournament",
+    "tournamentSuccessfullyCreated": "Tournament successfully created",
+    "unableCreateTournament": "Unable to create the tournament",
+    "tournament": "Tournament"
   }
 }

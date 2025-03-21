@@ -245,29 +245,22 @@ const AdminPlayer = () => {
 
   const breadcrumb: JSX.Element = <Breadcrumb isDarkMode={isDarkMode} />;
 
-  const saveBtn: JSX.Element = (
-    <div className={`flex justify-end gap-5`}>
-      {!isEditMode && (
-        <Button
-          onClick={onCancel}
-          styleType="secondary"
-          className="w-32 mobile:w-full"
-        >
+  const buttons: JSX.Element = (
+    <div className={`flex justify-end`}>
+      <div className="flex gap-5 mobile:w-full mobile:justify-between">
+        <Button onClick={onCancel} styleType="secondary">
           <div className="flex items-center gap-2">
             <ResetIcon className="text-primary" />
             <span className="text-primary">{t("cancel")}</span>
           </div>
         </Button>
-      )}
-      <Button
-        onClick={onSave}
-        className={`w-32 ${isEditMode ? "mobile:w-44" : "w-full"}`}
-      >
-        <div className="flex items-center gap-2">
-          <SaveIcon className="text-white" />
-          <span className="text-white">{t("save")}</span>
-        </div>
-      </Button>
+        <Button onClick={onSave}>
+          <div className="flex items-center gap-2">
+            <SaveIcon className="text-white" />
+            <span className="text-white">{t("save")}</span>
+          </div>
+        </Button>
+      </div>
     </div>
   );
 
@@ -418,7 +411,7 @@ const AdminPlayer = () => {
     <div className="w-full h-full flex flex-col gap-5">
       {title}
       {breadcrumb}
-      {saveBtn}
+      {buttons}
       {form}
     </div>
   );
