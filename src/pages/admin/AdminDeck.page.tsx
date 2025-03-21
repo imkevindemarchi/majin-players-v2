@@ -167,7 +167,7 @@ const AdminDeck = () => {
       )}
       <Button
         onClick={onSave}
-        className={`w-32 mobile:w-full ${isEditMode && "mobile:w-[50%]"}`}
+        className={`w-32 ${isEditMode ? "mobile:w-44" : "w-full"}`}
       >
         <div className="flex items-center gap-2">
           <SaveIcon className="text-white" />

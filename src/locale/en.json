@@ -76,6 +76,11 @@
     "unableUpdateDeck": "Unable to create the deck",
     "deckSuccessfullyCreated": "Deck successfully created",
     "unableCreateDeck": "Unable to create the deck",
-    "deck": "Deck"
+    "deck": "Deck",
+    "unableLoadTournaments": "Unable to load tournaments",
+    "torunamentDeleted": "Tournament successfully deleted",
+    "unableDeleteTournament": "Unable to delete the tournament",
+    "deleteTournament": "Delete tournament",
+    "tournaments": "Tournaments"
   }
 }
