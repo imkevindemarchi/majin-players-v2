@@ -4,7 +4,13 @@ import { NavigateFunction, useNavigate, useParams } from "react-router";
 import { DateValue } from "@heroui/react";
 
 // Api
-import { DECK_API, IMAGES_API, PLAYER_API } from "../../api";
+import {
+  DECK_API,
+  IMAGES_API,
+  PLAYER_API,
+  TOP_API,
+  TOURNAMENT_API,
+} from "../../api";
 
 // Components
 import {
@@ -16,6 +22,7 @@ import {
   ImageSelector,
   Input,
   Textarea,
+  Tops,
 } from "../../components";
 
 // Contexts
@@ -24,7 +31,7 @@ import { LoaderContext, TLoaderContext } from "../../providers/loader.provider";
 import { PopupContext, TPopupContext } from "../../providers/Popup.provider";
 
 // Icons
-import { ResetIcon, SaveIcon } from "../../assets/icons";
+import { AddIcon, ResetIcon, SaveIcon } from "../../assets/icons";
 
 // Types
 import { TPlayer } from "../../types/player.type";
@@ -32,10 +39,13 @@ import { TDeck } from "../../types/deck.type";
 import { THTTPResponse } from "../../types";
 import {
   TValidation,
+  validateFormObject,
   validateFormEmail,
   validateFormField,
   validateFormImage,
 } from "../../utils/validation.util";
+import { TTop } from "../../types/top.type";
+import { TTournament } from "../../types/tournament.type";
 
 // Utils
 import { setPageTitle } from "../../utils";
@@ -53,6 +63,16 @@ const defaultState: TPlayer & TImage = {
   favouriteDeck: null,
   instagramLink: null,
   description: null,
+};
+
+const topDefaultState: TTop = {
+  id: null,
+  date: null,
+  rating: null,
+  deck: null,
+  tournament: null,
+  location: null,
+  playerId: null,
 };
 
 type TErrors = {
@@ -77,6 +97,32 @@ const defaultErrorsState: TErrors = {
   },
 };
 
+type TTopErrors = {
+  date: TValidation;
+  rating: TValidation;
+  deck: TValidation;
+  tournament: TValidation;
+  location: TValidation;
+};
+
+const defaultTopErrorsState: TTopErrors = {
+  date: {
+    isValid: true,
+  },
+  rating: {
+    isValid: true,
+  },
+  deck: {
+    isValid: true,
+  },
+  tournament: {
+    isValid: true,
+  },
+  location: {
+    isValid: true,
+  },
+};
+
 const AdminPlayer = () => {
   const { isDarkMode }: TThemeContext = useContext(
     ThemeContext
@@ -94,6 +140,10 @@ const AdminPlayer = () => {
   const [errors, setErrors] = useState<TErrors>(defaultErrorsState);
   const [isImageUpdated, setIsImageUpdated] = useState<boolean>(false);
   const navigate: NavigateFunction = useNavigate();
+  const [tops, setTops] = useState<TTop[] | null>(null);
+  const [topFormData, setTopFormData] = useState<TTop>(topDefaultState);
+  const [topErrors, setTopErrors] = useState<TTopErrors>(defaultTopErrorsState);
+  const [tournaments, setTournaments] = useState<TTournament[]>([]);
 
   const isEditMode: boolean = playerId ? true : false;
 
@@ -107,14 +157,25 @@ const AdminPlayer = () => {
       else openPopup(t("unableLoadPlayers"), "error");
     });
 
+    await Promise.resolve(TOURNAMENT_API.getAll()).then(
+      (response: THTTPResponse) => {
+        if (response && response.hasSuccess) setTournaments(response.data);
+        else openPopup(t("unableLoadTournaments"), "error");
+      }
+    );
+
     if (isEditMode)
-      await Promise.resolve(PLAYER_API.get(playerId as string)).then(
-        (response: THTTPResponse) => {
-          if (response && response.hasSuccess)
-            setFormData({ ...response.data, image: response.data.id });
-          else openPopup(t("unableLoadPlayer"), "error");
-        }
-      );
+      await Promise.all([
+        PLAYER_API.get(playerId as string),
+        TOP_API.getAllByPlayer(playerId as string),
+      ]).then((response: THTTPResponse[]) => {
+        if (response[0] && response[0].hasSuccess)
+          setFormData({ ...response[0].data, image: response[0].data.id });
+        else openPopup(t("unableLoadPlayer"), "error");
+
+        if (response[1] && response[1].hasSuccess) setTops(response[1].data);
+        else openPopup(t("unableLoadPlayer"), "error");
+      });
 
     setIsLoading(false);
   }
@@ -239,8 +300,8 @@ const AdminPlayer = () => {
     setErrors(defaultErrorsState);
   }
 
-  const title: JSX.Element = (
-    <span className="text-primary text-2xl">{t("player")}</span>
+  const title = (title: string): JSX.Element => (
+    <span className="text-primary text-2xl">{title}</span>
   );
 
   const breadcrumb: JSX.Element = <Breadcrumb isDarkMode={isDarkMode} />;
@@ -273,7 +334,7 @@ const AdminPlayer = () => {
               id="image"
               src={`${process.env.REACT_APP_SUPABASE_URL}/storage/v1/object/public/images/${formData.id}`}
               alt={t("imgNotFound")}
-              className="w-40 rounded-lg object-contain"
+              className="w-60 rounded-lg object-contain"
             />
           )}
           <ImageSelector
@@ -393,6 +454,169 @@ const AdminPlayer = () => {
     </Card>
   );
 
+  function onTopInputChange(propLabel: string, value: any): void {
+    setTopFormData((prevState: any) => {
+      return { ...prevState, [propLabel]: value };
+    });
+    setTopErrors((prevState: any) => {
+      return { ...prevState, [propLabel]: { isValid: true, message: null } };
+    });
+  }
+
+  function validateTopForm(): boolean {
+    const isDateValid: TValidation = validateFormObject(topFormData.date, t);
+    const isRatingValid: TValidation = validateFormField(
+      topFormData.rating as string,
+      t
+    );
+    const isDeckValid: TValidation = validateFormObject(topFormData.deck, t);
+    const isTournamentValid: TValidation = validateFormObject(
+      topFormData.tournament,
+      t
+    );
+    const isLocationValid: TValidation = validateFormObject(
+      topFormData.location,
+      t
+    );
+
+    const isFormValid: boolean =
+      isDateValid.isValid &&
+      isRatingValid.isValid &&
+      isDeckValid.isValid &&
+      isTournamentValid.isValid &&
+      isLocationValid.isValid;
+
+    if (isFormValid) return true;
+    else {
+      setTopErrors((prevState: any) => ({
+        ...prevState,
+        date: {
+          isValid: isDateValid.isValid,
+          message: isDateValid.message,
+        },
+        rating: {
+          isValid: isRatingValid.isValid,
+          message: isRatingValid.message,
+        },
+        deck: {
+          isValid: isDeckValid.isValid,
+          message: isDeckValid.message,
+        },
+        tournament: {
+          isValid: isTournamentValid.isValid,
+          message: isTournamentValid.message,
+        },
+        location: {
+          isValid: isLocationValid.isValid,
+          message: isLocationValid.message,
+        },
+      }));
+
+      return false;
+    }
+  }
+
+  async function onAddTop(event: FormEvent): Promise<void> {
+    event.preventDefault();
+
+    const isFormValid: boolean = validateTopForm();
+
+    if (!isFormValid) openPopup(t("invalidData"), "warning");
+    else {
+      setIsLoading(true);
+
+      const data: Partial<TTop> = {
+        date: topFormData.date,
+        rating: topFormData.rating,
+        deck: topFormData.deck,
+        tournament: topFormData.tournament,
+        location: topFormData.location,
+        playerId,
+      };
+
+      await Promise.resolve(TOP_API.add(data)).then(
+        async (response: THTTPResponse) => {
+          if (response && response.hasSuccess) {
+            setTopFormData(topDefaultState);
+            openPopup(t("topSuccessfullyAdded"), "success");
+            await getData();
+          } else openPopup(t("unableAddTop"), "error");
+        }
+      );
+
+      setIsLoading(false);
+    }
+  }
+
+  const topsForm: JSX.Element = (
+    <Card isDarkMode={isDarkMode}>
+      <form
+        onSubmit={onAddTop}
+        className="flex flex-row flex-wrap gap-5 justify-around"
+      >
+        <div className="w-60 mobile:w-full">
+          <DatePicker
+            value={topFormData.date as DateValue}
+            onChange={(value: DateValue) => onTopInputChange("date", value)}
+            isDarkMode={isDarkMode}
+            placeholder={t("date")}
+            errorMessage={topErrors?.date?.message}
+            width="100%"
+          />
+        </div>
+        <div className="w-60 mobile:w-full">
+          <Input
+            value={topFormData.rating as string}
+            onChange={(value: string) => onTopInputChange("rating", value)}
+            isDarkMode={isDarkMode}
+            placeholder={t("rating")}
+            errorMessage={topErrors?.rating?.message}
+            width="100%"
+          />
+        </div>
+        <div className="w-60 mobile:w-full">
+          <Autocomplete
+            value={topFormData.deck as TDeck}
+            onChange={(value: TDeck) => onTopInputChange("deck", value)}
+            isDarkMode={isDarkMode}
+            placeholder={t("deck")}
+            data={decks}
+            errorMessage={topErrors?.deck?.message}
+            width="100%"
+          />
+        </div>
+        <div className="w-60 mobile:w-full">
+          <Autocomplete
+            value={topFormData.tournament as TTournament}
+            onChange={(value: TDeck) => onTopInputChange("tournament", value)}
+            isDarkMode={isDarkMode}
+            placeholder={t("tournament")}
+            data={tournaments}
+            errorMessage={topErrors?.tournament?.message}
+            width="100%"
+          />
+        </div>
+        <div className="w-60 mobile:w-full">
+          <Input
+            value={topFormData.location as string}
+            onChange={(value: string) => onTopInputChange("location", value)}
+            isDarkMode={isDarkMode}
+            placeholder={t("location")}
+            errorMessage={topErrors?.location?.message}
+            width="100%"
+          />
+        </div>
+        <Button type="submit" styleType="round">
+          <AddIcon className="text-white text-2xl" />
+        </Button>
+      </form>
+    </Card>
+  );
+
+  const topsComponent: JSX.Element = (
+    <Tops data={tops} isDarkMode={isDarkMode} getData={getData} />
+  );
+
   useEffect(() => {
     if (formData.image && typeof formData.image === "object") {
       let src: string = URL.createObjectURL(formData.image);
@@ -409,10 +633,17 @@ const AdminPlayer = () => {
 
   return (
     <div className="w-full h-full flex flex-col gap-5">
-      {title}
+      {title(t("player"))}
       {breadcrumb}
       {buttons}
       {form}
+      {isEditMode && (
+        <>
+          {title(t("playerTops"))}
+          {topsForm}
+          {topsComponent}
+        </>
+      )}
     </div>
   );
 };

@@ -3,13 +3,16 @@ import React, { FC, ReactNode } from "react";
 interface IProps {
   isDarkMode: boolean;
   children: ReactNode;
+  hideBackground?: boolean;
 }
 
-const Backdrop: FC<IProps> = ({ isDarkMode, children }) => {
+const Backdrop: FC<IProps> = ({ isDarkMode, hideBackground, children }) => {
   return (
     <div
       className={`absolute top-0 left-0 w-full h-full flex justify-center items-center ${
-        isDarkMode ? "bg-white-transparent" : "bg-black-transparent"
+        isDarkMode && !hideBackground
+          ? "bg-white-transparent"
+          : !hideBackground && "bg-black-transparent"
       }`}
     >
       {children}

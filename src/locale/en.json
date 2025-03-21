@@ -66,6 +66,7 @@
     "playerSuccessfullyUpdated": "Player successfully updated",
     "unableRemoveImage": "Unable to remove the image",
     "unableUpdatePlayer": "Unable to create the player",
+    "changeProfileImage": "Change profile image",
     "label": "Label",
     "decks": "Decks",
     "deckDeleted": "Deck successfully deleted",
@@ -103,6 +104,15 @@
     "equipmentSuccessfullyCreated": "Equipment successfully created",
     "unableCreateEquipment": "Unable to create the equipment",
     "equipment": "Equipment",
-    "selectImage": "Select the image"
+    "selectImage": "Select the image",
+    "playerTops": "Player tops",
+    "noRegisteredTops": "No registered tops",
+    "date": "Date",
+    "rating": "Rating",
+    "location": "Location",
+    "topSuccessfullyAdded": "Top successfully added",
+    "unableAddTop": "Unable add the top",
+    "topRemoved": "Top successfully deleted",
+    "unableRemoveTop": "Unable remove the top"
   }
 }

@@ -8,5 +8,6 @@ export {
   validateEmail,
   validateFormField,
   validateFormImage,
+  validateFormObject as validateFormDate,
 } from "./validation.util";
 export { formatDateForDatepicker } from "./format.util";

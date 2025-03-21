@@ -9,6 +9,7 @@ interface IProps {
   onClick?: () => void;
   styleType?: TStyleType;
   className?: string;
+  width?: string;
 }
 
 const Button: FC<IProps> = ({
@@ -18,6 +19,7 @@ const Button: FC<IProps> = ({
   onClick,
   styleType = "primary",
   className,
+  width,
   children,
 }) => {
   return styleType === "round" ? (
@@ -56,6 +58,7 @@ const Button: FC<IProps> = ({
           ? "bg-lightgray border-lightgray cursor-not-allowed"
           : "border-primary desktop:hover:opacity-50"
       } ${className}`}
+      style={{ width }}
     >
       {children}
     </button>
@@ -71,6 +74,7 @@ const Button: FC<IProps> = ({
           ? "bg-lightgray border-lightgray cursor-not-allowed"
           : "bg-primary border-primary desktop:hover:opacity-50"
       } ${className}`}
+      style={{ width }}
     >
       {children}
     </button>

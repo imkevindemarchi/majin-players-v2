@@ -32,6 +32,12 @@ const Input: FC<IProps> = ({
   const [isValueChanged, setIsValueChanged] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const error: JSX.Element = errorMessage ? (
+    <span className="text-red">{errorMessage}</span>
+  ) : (
+    <></>
+  );
+
   function onBorderColorChange(): void {
     if (inputRef.current) {
       inputRef.current.style.borderColor = errorMessage
@@ -41,12 +47,6 @@ const Input: FC<IProps> = ({
         : "#ececec";
     }
   }
-
-  const error: JSX.Element = errorMessage ? (
-    <span className="text-red">{errorMessage}</span>
-  ) : (
-    <></>
-  );
 
   useEffect(() => {
     const timeOut: NodeJS.Timeout = setTimeout(async () => {

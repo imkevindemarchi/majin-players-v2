@@ -46,3 +46,9 @@ export function validateFormImage(image: File, t: TFunction): TValidation {
     ? { isValid: true }
     : { isValid: false, message: t("requiredField") };
 }
+
+export function validateFormObject(field: any, t: TFunction): TValidation {
+  return field
+    ? { isValid: true }
+    : { isValid: false, message: t("requiredField") };
+}

@@ -23,6 +23,7 @@ import { TTop } from "../../types/top.type";
 
 // Utils
 import { setPageTitle } from "../../utils";
+import { DateValue } from "@heroui/react";
 
 type TCurrentTopDeck = {
   valore: any;
@@ -111,23 +112,23 @@ const Dashboard: FC = () => {
   function getCurrentTop3Decks(data: TTop[]): TCurrentTopDeck[] {
     const currentTops: TTop[] = [];
     data.forEach((top: TTop) => {
-      top.date.getFullYear() === new Date().getFullYear() &&
-        currentTops.push(top);
+      const date: DateValue = top.date as DateValue;
+      date?.year === new Date()?.getFullYear() && currentTops.push(top);
     });
 
     const counter: any = {};
     currentTops.forEach((top: TTop) => {
-      const element: string = top.deck.label as string;
+      const element: string = top.deck?.label as string;
       counter[element] = (counter[element] || 0) + 1;
     });
 
     const currentTop3Decks: TCurrentTopDeck[] = [
-      ...new Set(currentTops.map((top: TTop) => top?.deck?.label)),
+      ...new Set(currentTops.map((top: TTop) => top.deck?.label)),
     ]
       .map((value: any) => ({
         valore: value,
         conteggio: counter[value],
-        elementi: currentTops.filter((top: TTop) => top?.deck === value),
+        elementi: currentTops.filter((top: TTop) => top.deck === value),
       }))
       .sort((a, b) => b.conteggio - a.conteggio)
       .slice(0, 3);
@@ -139,7 +140,9 @@ const Dashboard: FC = () => {
     const data: any = {};
 
     tops.forEach((top: TTop) => {
-      const month: number = top.date.getMonth();
+      const date: DateValue = top?.date as DateValue;
+      const month: number = date?.month;
+      console.log("🚀 ~ month:", month);
 
       if (!data[month.toString()]) {
         data[month] = [];
@@ -173,10 +176,16 @@ const Dashboard: FC = () => {
           setDoughnutChartData(currentTop3DecksCounters);
 
           const previousYearTops: TTop[] = response[0].data.filter(
-            (top: TTop) => top.date.getFullYear() === previousYear
+            (top: TTop) => {
+              const topDate: DateValue = top?.date as DateValue;
+              return topDate?.year === previousYear;
+            }
           );
           const currentYearTops: TTop[] = response[0].data.filter(
-            (top: TTop) => top.date.getFullYear() === currentYear
+            (top: TTop) => {
+              const topDate: DateValue = top?.date as DateValue;
+              return topDate?.year === currentYear;
+            }
           );
 
           const splittedPreviousYearTopsForMonth: any =
