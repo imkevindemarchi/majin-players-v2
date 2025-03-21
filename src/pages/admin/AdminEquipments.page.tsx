@@ -7,7 +7,7 @@ import {
 } from "react-router";
 
 // Api
-import { TOURNAMENT_API } from "../../api";
+import { IMAGES_API, EQUIPMENT_API } from "../../api";
 
 // Assets
 import { useTranslation } from "react-i18next";
@@ -25,7 +25,7 @@ import { AddIcon, SearchIcon } from "../../assets/icons";
 
 // Types
 import { THTTPResponse } from "../../types";
-import { TTournament } from "../../types/tournament.type";
+import { TEquipment } from "../../types/equipment.type";
 import { TColumn } from "../../components/Table.component";
 
 // Utils
@@ -39,14 +39,14 @@ interface ITableData {
   label: string;
 }
 
-const AdminTournaments: FC = () => {
+const AdminEquipments: FC = () => {
   const { t } = useTranslation();
   const { state: isLoading, setState: setIsLoading }: TLoaderContext =
     useContext(LoaderContext) as TLoaderContext;
   const { onOpen: openPopup }: TPopupContext = useContext(
     PopupContext
   ) as TPopupContext;
-  const [tableData, setTableData] = useState<TTournament[] | null>(null);
+  const [tableData, setTableData] = useState<TEquipment[] | null>(null);
   const { isDarkMode }: TThemeContext = useContext(
     ThemeContext
   ) as TThemeContext;
@@ -62,11 +62,12 @@ const AdminTournaments: FC = () => {
   const navigate: NavigateFunction = useNavigate();
   const { pathname } = useLocation();
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
-  const [selectedTournament, setSelectedTorunament] =
-    useState<TTournament | null>(null);
+  const [selectedEquipment, setSelectedEquipment] = useState<TEquipment | null>(
+    null
+  );
 
-  const pageTitle: string = t("tournaments");
-  const selectedTournamentId: string = selectedTournament?.id as string;
+  const pageTitle: string = t("equipments");
+  const selectedEquipmentId: string = selectedEquipment?.id as string;
 
   setPageTitle(pageTitle);
 
@@ -76,14 +77,14 @@ const AdminTournaments: FC = () => {
     setIsLoading(true);
 
     await Promise.resolve(
-      TOURNAMENT_API.getAllWithFilters(table.from, table.to, table.label)
+      EQUIPMENT_API.getAllWithFilters(table.from, table.to, table.label)
     ).then((response: THTTPResponse) => {
       if (response && response.hasSuccess) {
         setTableData(response.data);
         setTable((prevState) => {
           return { ...prevState, total: response?.totalRecords as number };
         });
-      } else openPopup(t("unableLoadTournaments"), "error");
+      } else openPopup(t("unableLoadEquipments"), "error");
     });
 
     setIsLoading(false);
@@ -113,19 +114,25 @@ const AdminTournaments: FC = () => {
 
   async function tableOnDelete(rowData: any): Promise<void> {
     setDeleteModal(true);
-    setSelectedTorunament(rowData);
+    setSelectedEquipment(rowData);
   }
 
   async function onDelete(): Promise<void> {
     setDeleteModal(false);
     setIsLoading(true);
 
-    await Promise.resolve(TOURNAMENT_API.delete(selectedTournamentId)).then(
-      async (response: THTTPResponse) => {
-        if (response && response.hasSuccess) {
-          openPopup(t("torunamentDeleted"), "success");
-          await getData();
-        } else openPopup(t("unableDeleteTournament"), "error");
+    await Promise.resolve(EQUIPMENT_API.delete(selectedEquipmentId)).then(
+      async (equipmentRes: THTTPResponse) => {
+        if (equipmentRes && equipmentRes.hasSuccess)
+          await Promise.resolve(IMAGES_API.delete(selectedEquipmentId)).then(
+            (imageRes: THTTPResponse) => {
+              if (imageRes && imageRes.hasSuccess) {
+                openPopup(t("equipmentDeleted"), "success");
+                getData();
+              }
+            }
+          );
+        else openPopup(t("unableDeleteEquipment"), "error");
       }
     );
 
@@ -142,7 +149,7 @@ const AdminTournaments: FC = () => {
 
   const deleteModalComponent: JSX.Element = (
     <Modal
-      title={t("deleteTournament")}
+      title={t("deleteEquipment")}
       isOpen={deleteModal}
       onClose={() => setDeleteModal(false)}
       onSubmit={onDelete}
@@ -156,7 +163,7 @@ const AdminTournaments: FC = () => {
           isDarkMode ? "text-white" : "text-black"
         }`}
       >
-        {t("confirmToDelete", { name: selectedTournament?.label })}
+        {t("confirmToDelete", { name: selectedEquipment?.label })}
       </span>
     </Modal>
   );
@@ -169,7 +176,7 @@ const AdminTournaments: FC = () => {
 
   useEffect(() => {
     setSearchParams({
-      label: table.label,
+      name: table.label,
       from: table.from,
       to: table.to,
       page: table.page,
@@ -235,4 +242,4 @@ const AdminTournaments: FC = () => {
   );
 };
 
-export default AdminTournaments;
+export default AdminEquipments;

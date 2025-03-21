@@ -90,6 +90,10 @@
     "unableUpdateTournament": "Unable to create the tournament",
     "tournamentSuccessfullyCreated": "Tournament successfully created",
     "unableCreateTournament": "Unable to create the tournament",
-    "tournament": "Tournament"
+    "tournament": "Tournament",
+    "unableLoadEquipments": "Unable to load equipments",
+    "equipmentDeleted": "Equipment successfully deleted",
+    "unableDeleteEquipment": "Unable to delete the equipment",
+    "deleteEquipment": "Delete equipment"
   }
 }

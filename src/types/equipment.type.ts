@@ -1,4 +1,4 @@
-export type TTournament = {
+export type TEquipment = {
   id: string | null;
   label: string | null;
 };
