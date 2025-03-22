@@ -142,7 +142,6 @@ const Dashboard: FC = () => {
     tops.forEach((top: TTop) => {
       const date: DateValue = top?.date as DateValue;
       const month: number = date?.month;
-      console.log("🚀 ~ month:", month);
 
       if (!data[month.toString()]) {
         data[month] = [];

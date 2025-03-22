@@ -97,7 +97,7 @@ const Table: FC<IProps> = ({
                   return (
                     <td
                       key={index2}
-                      className="p-2 transition-all duration-300"
+                      className="p-2 transition-all duration-300 whitespace-nowrap"
                     >
                       <span
                         className={`transition-all duration-300 ${

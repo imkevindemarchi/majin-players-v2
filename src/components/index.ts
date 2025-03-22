@@ -20,3 +20,4 @@ export { default as Textarea } from "./Textarea.component";
 export { default as DatePicker } from "./DatePicker.component";
 export { default as ImageSelector } from "./ImageSelector.component";
 export { default as Tops } from "./Tops.component";
+export { default as BackToTopButton } from "./BackToTopButton.component";
