@@ -7,6 +7,7 @@ import Hamburger from "./Hamburger.component";
 import Sidebar from "./Sidebar.component";
 import Popup from "./Popup.component";
 import Loader from "./Loader.component";
+import BackToTopButton from "./BackToTopButton.component";
 
 // Contexts
 import { ThemeContext, TThemeContext } from "../providers/Theme.provider";
@@ -75,11 +76,16 @@ const Layout: FC<IProps> = ({ children }) => {
     </div>
   );
 
+  const backToTopButton: JSX.Element = (
+    <BackToTopButton isDarkMode={isDarkMode} />
+  );
+
   return (
     <div className="w-full h-full relative">
       {isLoginPage ? loginLayout : layout}
       {loader}
       {popup}
+      {backToTopButton}
     </div>
   );
 };

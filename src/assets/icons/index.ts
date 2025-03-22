@@ -17,3 +17,4 @@ export { Delete as DeleteIcon } from "./delete.icon";
 export { Save as SaveIcon } from "./save.icon";
 export { Reset as ResetIcon } from "./reset.icon";
 export { Image as ImageIcon } from "./image.icon";
+export { ArrowUp as ArrowUpIcon } from "./arrow-up.icon";
