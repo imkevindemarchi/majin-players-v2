@@ -71,7 +71,7 @@ const AdminEquipments: FC = () => {
 
   setPageTitle(pageTitle);
 
-  const talbeColumns: TColumn[] = [{ key: "label", value: t("label") }];
+  const talbeColumns: TColumn[] = [{ key: "label", value: t("name") }];
 
   async function getData(): Promise<void> {
     setIsLoading(true);
