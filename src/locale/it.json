@@ -113,6 +113,8 @@
     "topSuccessfullyAdded": "Top aggiunta con successo",
     "unableAddTop": "Impossibile aggiungere la top",
     "topRemoved": "Top rimossa con successo",
-    "unableRemoveTop": "Impossibile rimuovere la top"
+    "unableRemoveTop": "Impossibile rimuovere la top",
+    "deleteTop": "Elimina top",
+    "confirmToDeleteTop": "Confermi di voler eliminare la top?"
   }
 }

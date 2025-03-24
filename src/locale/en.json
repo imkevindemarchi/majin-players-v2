@@ -113,6 +113,8 @@
     "topSuccessfullyAdded": "Top successfully added",
     "unableAddTop": "Unable add the top",
     "topRemoved": "Top successfully deleted",
-    "unableRemoveTop": "Unable remove the top"
+    "unableRemoveTop": "Unable remove the top",
+    "deleteTop": "Delete top",
+    "confirmToDeleteTop": "Confirm you want to delete the top?"
   }
 }
