@@ -1,4 +1,5 @@
 import React, { FC, JSX, useContext, useEffect, useState } from "react";
+import { DateValue } from "@heroui/react";
 
 // Api
 import { TOP_API, PLAYER_API } from "../../api";
@@ -23,30 +24,12 @@ import { TTop } from "../../types/top.type";
 
 // Utils
 import { setPageTitle } from "../../utils";
-import { DateValue } from "@heroui/react";
 
 type TCurrentTopDeck = {
   valore: any;
   conteggio: any;
   elementi: TTop[];
 };
-
-const topsForMonthDefaultState = [
-  {
-    "0": 0,
-    "1": 0,
-    "2": 0,
-    "3": 0,
-    "4": 0,
-    "5": 0,
-    "6": 0,
-    "7": 0,
-    "8": 0,
-    "9": 0,
-    "10": 0,
-    "11": 0,
-  },
-];
 
 const Dashboard: FC = () => {
   const { t } = useTranslation();
@@ -67,9 +50,8 @@ const Dashboard: FC = () => {
   const [doughnutChartData, setDoughnutChartData] = useState<number[] | null>(
     null
   );
-  const [previousYearLineChartData, setPreviousYearLineChartData] = useState<
-    number[] | null
-  >(null);
+  const [previousYearLineChartData, setPreviousYearLineChartData] =
+    useState<any>(null);
   const [currentYearLineChartData, setCurrentYearLineChartData] = useState<
     number[] | null
   >(null);
@@ -192,22 +174,18 @@ const Dashboard: FC = () => {
           const splittedCurrentYearTopsForMonth: any =
             splitTopsForMonth(currentYearTops);
 
-          const previousYearTopsForMonth: any[] = [...topsForMonthDefaultState];
-          const currentYearTopsForMonth: any[] = [...topsForMonthDefaultState];
-
-          Object.entries(splittedPreviousYearTopsForMonth).forEach(
-            ([month, elements]: any) => {
-              previousYearTopsForMonth[month.toString()] = elements.length;
-            }
-          );
-          Object.entries(splittedCurrentYearTopsForMonth).forEach(
-            ([month, elements]: any) => {
-              currentYearTopsForMonth[month.toString()] = elements.length;
-            }
-          );
-
-          setPreviousYearLineChartData(previousYearTopsForMonth);
-          setCurrentYearLineChartData(currentYearTopsForMonth);
+          const previousYearLineChartData: any = {};
+          MONTHS.forEach((month: string, index: number) => {
+            previousYearLineChartData[t(month)] =
+              splittedPreviousYearTopsForMonth[index + 1]?.length;
+          });
+          const currentYearLineChartData: any = {};
+          MONTHS.forEach((month: string, index: number) => {
+            currentYearLineChartData[t(month)] =
+              splittedCurrentYearTopsForMonth[index + 1]?.length;
+          });
+          setPreviousYearLineChartData(previousYearLineChartData);
+          setCurrentYearLineChartData(currentYearLineChartData);
 
           setTotalTops(response[0]?.totalRecords as number);
         } else openPopup(t("unableLoadTops"), "error");
