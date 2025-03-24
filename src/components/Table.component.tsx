@@ -93,12 +93,20 @@ const Table: FC<IProps> = ({
                 )}
                 {columns.map((column: TColumn, index2: number) => {
                   const isEmail: boolean = column.key === "email";
+                  const isImageColumn: boolean = column.key === "image";
 
-                  return (
-                    <td
-                      key={index2}
-                      className="p-2 transition-all duration-300 whitespace-nowrap"
-                    >
+                  return isImageColumn ? (
+                    <td key={index2} className="p-2">
+                      <div className="w-40 flex justify-center items-center p-5 rounded-xl">
+                        <img
+                          src={`${process.env.REACT_APP_SUPABASE_URL}/storage/v1/object/public/images/${item?.id}`}
+                          alt={t("imgNotFound")}
+                          className="w-full h-full"
+                        />
+                      </div>
+                    </td>
+                  ) : (
+                    <td key={index2} className="p-2 whitespace-nowrap">
                       <span
                         className={`transition-all duration-300 ${
                           isEmail

@@ -38,7 +38,7 @@
     "unableLoadTops": "Impossibile caricare le top",
     "invalidEmail": "Inserire una e-mail valida",
     "deletePlayer": "Elimina giocatore",
-    "confirmToDelete": "Confermi di voler eliminare {{name}}?",
+    "confirmToDelete": "Confermi di voler eliminare ''{{name}}''?",
     "yes": "Sì",
     "no": "No",
     "unableDeletePlayer": "Impossibile eliminare il giocatore",
@@ -115,6 +115,7 @@
     "topRemoved": "Top rimossa con successo",
     "unableRemoveTop": "Impossibile rimuovere la top",
     "deleteTop": "Elimina top",
-    "confirmToDeleteTop": "Confermi di voler eliminare la top?"
+    "confirmToDeleteTop": "Confermi di voler eliminare la top?",
+    "image": "Immagine"
   }
 }
