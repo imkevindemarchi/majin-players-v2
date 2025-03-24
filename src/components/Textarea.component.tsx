@@ -88,7 +88,7 @@ const Textarea: FC<IProps> = ({
             }
           }}
           placeholder={placeholder}
-          style={{ backgroundColor: "transparent" }}
+          style={{ backgroundColor: "transparent", height: "200px" }}
           className="border-none outline-none text-base w-full"
         />
       </div>
