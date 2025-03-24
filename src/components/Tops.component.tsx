@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 // Components
 import Card from "./Card.component";
 import IconButton from "./IconButton.component";
+import Modal from "./Modal.component";
 
 // Contexts
 import { LoaderContext, TLoaderContext } from "../providers/loader.provider";
@@ -32,6 +33,10 @@ const Tops: FC<IProps> = ({ data, isDarkMode, getData }) => {
   const { onOpen: openPopup }: TPopupContext = useContext(
     PopupContext
   ) as TPopupContext;
+  const [deleteModal, setDeleteModal] = useState<boolean>(false);
+  const [selectedTop, setSelectedTop] = useState<TTop | null>(null);
+
+  const selectedTopId: string = selectedTop?.id as string;
 
   function getTopsDistinctYears(): number[] {
     return Array.from(
@@ -39,10 +44,11 @@ const Tops: FC<IProps> = ({ data, isDarkMode, getData }) => {
     );
   }
 
-  async function onDeleteTop(topId: string) {
+  async function onDelete() {
+    setDeleteModal(false);
     setIsLoading(true);
 
-    await Promise.resolve(TOP_API.remove(topId)).then(
+    await Promise.resolve(TOP_API.remove(selectedTopId)).then(
       async (response: THTTPResponse) => {
         if (response && response.hasSuccess) {
           openPopup(t("topRemoved"), "success");
@@ -52,6 +58,11 @@ const Tops: FC<IProps> = ({ data, isDarkMode, getData }) => {
     );
 
     setIsLoading(false);
+  }
+
+  function onDeleteTop(top: TTop): void {
+    setDeleteModal(true);
+    setSelectedTop(top);
   }
 
   const list: JSX.Element = (
@@ -125,7 +136,7 @@ const Tops: FC<IProps> = ({ data, isDarkMode, getData }) => {
                           {top?.location}
                         </span>
                       </div>
-                      <IconButton onClick={() => onDeleteTop(top?.id)} small>
+                      <IconButton onClick={() => onDeleteTop(top)} small>
                         <DeleteIcon className="text-primary text-xl" />
                       </IconButton>
                     </div>
@@ -149,6 +160,27 @@ const Tops: FC<IProps> = ({ data, isDarkMode, getData }) => {
     </span>
   );
 
+  const deleteModalComponent: JSX.Element = (
+    <Modal
+      title={t("deleteTop")}
+      isOpen={deleteModal}
+      onClose={() => setDeleteModal(false)}
+      onSubmit={onDelete}
+      onCancel={() => setDeleteModal(false)}
+      submitBtnText={t("yes")}
+      cancelBtnText={t("no")}
+      isDarkMode={isDarkMode}
+    >
+      <span
+        className={`transition-all duration-300 ${
+          isDarkMode ? "text-white" : "text-black"
+        }`}
+      >
+        {t("confirmToDeleteTop")}
+      </span>
+    </Modal>
+  );
+
   useEffect(() => {
     const distinctYears: number[] = getTopsDistinctYears();
     const orderedDistinctYears: number[] = distinctYears.sort((a, b) => b - a);
@@ -158,9 +190,12 @@ const Tops: FC<IProps> = ({ data, isDarkMode, getData }) => {
   }, [data]);
 
   return (
-    <Card isDarkMode={isDarkMode}>
-      {data && data.length > 0 ? list : noData}
-    </Card>
+    <>
+      <Card isDarkMode={isDarkMode}>
+        {data && data.length > 0 ? list : noData}
+      </Card>
+      {deleteModalComponent}
+    </>
   );
 };
 
