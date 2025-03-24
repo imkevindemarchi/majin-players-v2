@@ -257,7 +257,7 @@ const AdminEquipment = () => {
           <div className="w-[31.5%] mobile:w-full">
             <Input
               value={formData.label}
-              onChange={(value: string) => onInputChange("name", value)}
+              onChange={(value: string) => onInputChange("label", value)}
               isDarkMode={isDarkMode}
               placeholder={t("name")}
               width="100%"

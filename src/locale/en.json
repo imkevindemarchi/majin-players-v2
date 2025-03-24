@@ -38,7 +38,7 @@
     "unableLoadTops": "Unable to load tops",
     "invalidEmail": "Enter a valid e-mail address",
     "deletePlayer": "Delete player",
-    "confirmToDelete": "Confirm you want to delete {{name}}?",
+    "confirmToDelete": "Confirm you want to delete ''{{name}}''?",
     "yes": "Yes",
     "no": "No",
     "unableDeletePlayer": "Unable to delete the player",
@@ -115,6 +115,7 @@
     "topRemoved": "Top successfully deleted",
     "unableRemoveTop": "Unable remove the top",
     "deleteTop": "Delete top",
-    "confirmToDeleteTop": "Confirm you want to delete the top?"
+    "confirmToDeleteTop": "Confirm you want to delete the top?",
+    "image": "Image"
   }
 }
