@@ -4,6 +4,7 @@ import { ChangeEvent, FC, JSX, useEffect, useRef, useState } from "react";
 import { ClipLoader as Spinner } from "react-spinners";
 
 interface IProps {
+  autofocus?: boolean;
   value: string | null;
   onChange: (value: string) => void;
   icon?: JSX.Element;
@@ -17,6 +18,7 @@ interface IProps {
 }
 
 const Input: FC<IProps> = ({
+  autofocus,
   value,
   onChange,
   icon,
@@ -77,6 +79,7 @@ const Input: FC<IProps> = ({
         <div className="flex gap-2 items-center w-full">
           {icon}
           <input
+            autoFocus={autofocus}
             type={type}
             value={value || ""}
             onChange={(event: ChangeEvent<HTMLInputElement>) => {

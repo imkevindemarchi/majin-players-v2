@@ -196,6 +196,7 @@ const AdminEquipments: FC = () => {
           <div className="flex justify-end">
             <div className="flex flex-row items-center gap-5 mobile:w-full">
               <Input
+                autofocus
                 value={table.label}
                 onChange={(value: string) =>
                   setTable((prevState) => {
