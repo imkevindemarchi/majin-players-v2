@@ -307,8 +307,8 @@ const Home = () => {
   );
 
   const statistics: JSX.Element = (
-    <div className="mt-[30%] w-full flex flex-col justify-center items-center gap-20 mobile:pt-0">
-      <div className="flex items-center gap-20 mobile:flex-col mobile:justify-center mobile:w-full">
+    <div className="mt-[30%] w-full flex flex-col justify-center items-center gap-20 mobile:pt-0 mobile:gap-10">
+      <div className="flex items-center gap-20 mobile:flex-col mobile:gap-10 mobile:justify-center mobile:w-full">
         <div className="h-72 w-[30vh] mobile:w-full mobile:h-40">
           {totalTopsComponent}
         </div>
