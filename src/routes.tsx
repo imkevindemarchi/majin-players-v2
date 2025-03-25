@@ -14,14 +14,14 @@ import {
 } from "./pages/admin";
 import { Login, Home, NotFound } from "./pages";
 
-export type IRoute = {
+export type TRoute = {
   path: string;
   name: string;
   element: ReactNode;
   isHidden?: boolean;
 };
 
-export const ROUTES: IRoute[] = [
+export const ROUTES: TRoute[] = [
   {
     path: "/log-in",
     name: "login",
@@ -62,7 +62,7 @@ export const ROUTES: IRoute[] = [
   },
 ];
 
-export const ADMIN_ROUTES: IRoute[] = [
+export const ADMIN_ROUTES: TRoute[] = [
   {
     path: "/admin",
     name: "dashboard",

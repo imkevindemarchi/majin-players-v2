@@ -38,7 +38,9 @@ export const AuthProvider = ({ children }: IProps): JSX.Element => {
   const { setState: setIsLoading }: TLoaderContext = useContext(
     LoaderContext
   ) as TLoaderContext;
-  const currentPathSection: string = useLocation().pathname.split("/")[1];
+  const { pathname } = useLocation();
+
+  const currentPathSection: string = pathname.split("/")[1];
   const isAdminSection: boolean = currentPathSection.split("/")[0] === "admin";
   const navigate: NavigateFunction = useNavigate();
 

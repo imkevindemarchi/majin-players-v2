@@ -8,6 +8,7 @@ import Sidebar from "./Sidebar.component";
 import Popup from "./Popup.component";
 import Loader from "./Loader.component";
 import BackToTopButton from "./BackToTopButton.component";
+import Footer from "./Footer.component";
 
 // Contexts
 import { ThemeContext, TThemeContext } from "../providers/theme.provider";
@@ -58,9 +59,13 @@ const Layout: FC<IProps> = ({ children }) => {
 
   const loader: JSX.Element = <Loader isDarkMode={isDarkMode} />;
 
+  const footer: JSX.Element = <Footer />;
+
   const layout: JSX.Element = (
     <div
-      className={`transition-all duration-300 min-h-[100vh] relative w-full h-full pb-40 ${
+      className={`transition-all duration-300 min-h-[100vh] relative w-full h-full ${
+        isAdminSection ? "pb-0" : "pb-80 mobile:pb-[90vh]"
+      } ${
         isDarkMode && isAdminSection
           ? "bg-darkgray3"
           : isAdminSection
@@ -78,10 +83,11 @@ const Layout: FC<IProps> = ({ children }) => {
           isSidebarOpen && "opacity-0"
         }`}
       >
-        <div className="px-60 py-10 h-full mobile:px-5 mobile:py-24">
+        <div className="px-60 py-10 pb-40 h-full mobile:px-5 mobile:py-24">
           {children}
         </div>
       </div>
+      {!isAdminSection && footer}
     </div>
   );
 

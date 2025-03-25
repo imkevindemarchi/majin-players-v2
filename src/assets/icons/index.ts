@@ -21,3 +21,4 @@ export { ArrowUp as ArrowUpIcon } from "./arrow-up.icon";
 export { Login as LoginIcon } from "./login.icon";
 export { Instagram as InstagramIcon } from "./instagram.icon";
 export { Youtube as YoutubeIcon } from "./youtube.icon";
+export { Location as LocationIcon } from "./location.icon";
