@@ -12,9 +12,9 @@ import logoImg from "../assets/images/logo.png";
 import { Input, Button, IconButton } from "../components";
 
 // Contexts
-import { ThemeContext, TThemeContext } from "../providers/Theme.provider";
+import { ThemeContext, TThemeContext } from "../providers/theme.provider";
 import { LoaderContext, TLoaderContext } from "../providers/loader.provider";
-import { PopupContext, TPopupContext } from "../providers/Popup.provider";
+import { PopupContext, TPopupContext } from "../providers/popup.provider";
 import { AuthContext, TAuthContext } from "../providers/auth.provider";
 
 // Icons
@@ -160,7 +160,7 @@ const Login: FC = () => {
         width="100%"
       >
         <span
-          className={`text-lg uppercase transition-all duration-300 ${
+          className={`text-lg transition-all duration-300 ${
             isBtnDisabled && isDarkMode
               ? "text-darkgray2"
               : isBtnDisabled
@@ -168,7 +168,7 @@ const Login: FC = () => {
               : "text-white"
           }`}
         >
-          Log In
+          {t("login")}
         </span>
       </Button>
     </form>

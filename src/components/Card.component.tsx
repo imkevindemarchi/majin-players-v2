@@ -4,13 +4,28 @@ interface IProps {
   children: ReactNode;
   isDarkMode: boolean;
   filled?: boolean;
+  visibleBackground?: boolean;
 }
 
-const Card: FC<IProps> = ({ isDarkMode, filled, children }) => {
+const Card: FC<IProps> = ({
+  isDarkMode,
+  filled,
+  visibleBackground,
+  children,
+}) => {
   return (
     <div
       className={`p-10 rounded-lg shadow-sm w-full h-full transition-all duration-300 mobile:p-5
-        ${isDarkMode && !filled ? "bg-black" : "bg-white"}
+        ${
+          !filled &&
+          (isDarkMode && visibleBackground
+            ? "bg-darkgray"
+            : visibleBackground
+            ? "bg-lightgray"
+            : isDarkMode
+            ? "bg-black"
+            : "bg-white")
+        }
       `}
       style={{
         background: filled

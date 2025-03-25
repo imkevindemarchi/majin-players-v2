@@ -16,6 +16,11 @@ type ILanguage = {
   label: string;
 };
 
+const LANGUAGES: ILanguage[] = [
+  { id: "it", label: "italian" },
+  { id: "en", label: "english" },
+];
+
 const LanguageSelector: FC<IProps> = ({ value, isDarkMode, onChange }) => {
   const [state, setState] = useState<boolean>(false);
   const ref: any | null = useRef(null);
@@ -23,11 +28,8 @@ const LanguageSelector: FC<IProps> = ({ value, isDarkMode, onChange }) => {
     t,
     i18n: { language: currentLanguage },
   } = useTranslation();
+
   const elabValue: string = value === "en" ? "gb" : value;
-  const LANGUAGES: ILanguage[] = [
-    { id: "it", label: "italian" },
-    { id: "en", label: "english" },
-  ];
 
   useClickOutside(ref, () => setState(false));
 

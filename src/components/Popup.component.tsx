@@ -1,7 +1,7 @@
 import React, { FC, useContext } from "react";
 
 // Contexts
-import { PopupContext, TPopupContext } from "../providers/Popup.provider";
+import { PopupContext, TPopupContext } from "../providers/popup.provider";
 
 // Icons
 import { CheckIcon, CloseIcon, ErrorIcon, WarningIcon } from "../assets/icons";

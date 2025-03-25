@@ -26,9 +26,9 @@ import {
 } from "../../components";
 
 // Contexts
-import { ThemeContext, TThemeContext } from "../../providers/Theme.provider";
+import { ThemeContext, TThemeContext } from "../../providers/theme.provider";
 import { LoaderContext, TLoaderContext } from "../../providers/loader.provider";
-import { PopupContext, TPopupContext } from "../../providers/Popup.provider";
+import { PopupContext, TPopupContext } from "../../providers/popup.provider";
 
 // Icons
 import { AddIcon, ResetIcon, SaveIcon } from "../../assets/icons";

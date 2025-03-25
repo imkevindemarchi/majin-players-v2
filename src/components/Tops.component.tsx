@@ -8,7 +8,7 @@ import Modal from "./Modal.component";
 
 // Contexts
 import { LoaderContext, TLoaderContext } from "../providers/loader.provider";
-import { PopupContext, TPopupContext } from "../providers/Popup.provider";
+import { PopupContext, TPopupContext } from "../providers/popup.provider";
 
 // Icons
 import { DeleteIcon } from "../assets/icons";

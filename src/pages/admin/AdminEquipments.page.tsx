@@ -17,8 +17,8 @@ import { Button, Card, Input, Modal, Table } from "../../components";
 
 // Contexts
 import { LoaderContext, TLoaderContext } from "../../providers/loader.provider";
-import { PopupContext, TPopupContext } from "../../providers/Popup.provider";
-import { ThemeContext, TThemeContext } from "../../providers/Theme.provider";
+import { PopupContext, TPopupContext } from "../../providers/popup.provider";
+import { ThemeContext, TThemeContext } from "../../providers/theme.provider";
 
 // Icons
 import { AddIcon, SearchIcon } from "../../assets/icons";

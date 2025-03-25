@@ -120,6 +120,9 @@
     "pageNotFound": "Oops, this page not found!",
     "linkMightBeCorrupted": "The link might be corrupted",
     "pageCouldBeRemoved": "or the page could be removed",
-    "goBackToHome": "Go back to home"
+    "goBackToHome": "Go back to home",
+    "eSportTeam": "eSport team",
+    "homeDescription": "We are a competitive Yu-Gi-Oh! team born from a passion for the game and an ideal: if you want, you can.",
+    "contactUs": "Contact us"
   }
 }

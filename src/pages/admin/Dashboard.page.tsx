@@ -12,9 +12,9 @@ import { MONTHS } from "../../assets/constants";
 import { Card, DoughnutChart, LineChart } from "../../components";
 
 // Contexts
-import { ThemeContext, TThemeContext } from "../../providers/Theme.provider";
+import { ThemeContext, TThemeContext } from "../../providers/theme.provider";
 import { LoaderContext, TLoaderContext } from "../../providers/loader.provider";
-import { PopupContext, TPopupContext } from "../../providers/Popup.provider";
+import { PopupContext, TPopupContext } from "../../providers/popup.provider";
 
 // Types
 import { TLineChartData } from "../../components/LineChart.component";
@@ -73,6 +73,9 @@ const Dashboard: FC = () => {
       process.env.REACT_APP_TERTIARY_COLOR as string,
     ],
   };
+  const lineChartLabels: string[] = MONTHS.map((month: string) => {
+    return t(month);
+  });
   const elabLineChartData: TLineChartData[] = [
     {
       label: previousYear.toString(),
@@ -85,9 +88,6 @@ const Dashboard: FC = () => {
       borderColor: process.env.REACT_APP_SECONDARY_COLOR as string,
     },
   ];
-  const lineChartLabels: string[] = MONTHS.map((month: string) => {
-    return t(month);
-  });
 
   setPageTitle(pageTitle);
 
