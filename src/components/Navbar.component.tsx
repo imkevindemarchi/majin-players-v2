@@ -7,7 +7,7 @@ import { AUTH_API } from "../api";
 
 // Assets
 import logoImg from "../assets/images/logo.png";
-import { ADMIN_ROUTES, IRoute, ROUTES } from "../routes";
+import { ADMIN_ROUTES, TRoute, ROUTES } from "../routes";
 
 // Components
 import IconButton from "./IconButton.component";
@@ -50,10 +50,11 @@ const Navbar: FC<IProps> = ({ isAdminSection }) => {
   const { onOpen: openPopup }: TPopupContext = useContext(
     PopupContext
   ) as TPopupContext;
+  const { pathname } = useLocation();
 
-  const currentPaths: string[] = useLocation().pathname.split("/");
+  const currentPaths: string[] = pathname.split("/");
   const currentPathSection: string = currentPaths[isAdminSection ? 2 : 1];
-  const routes: IRoute[] = isAdminSection ? ADMIN_ROUTES : ROUTES;
+  const routes: TRoute[] = isAdminSection ? ADMIN_ROUTES : ROUTES;
 
   function goToHome(): void {
     navigate(isAdminSection ? "/admin" : "/");
@@ -89,7 +90,7 @@ const Navbar: FC<IProps> = ({ isAdminSection }) => {
 
   const routesComponent: JSX.Element = (
     <div className="flex">
-      {routes.map((route: IRoute, index: number) => {
+      {routes.map((route: TRoute, index: number) => {
         const isRouteHidden: boolean = route.isHidden ? true : false;
         const routePathSection: string =
           route.path.split("/")[isAdminSection ? 2 : 1];
