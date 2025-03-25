@@ -1,4 +1,4 @@
-import { FC, JSX, useContext } from "react";
+import { FC, JSX, useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router";
 
 // Components
@@ -26,6 +26,7 @@ const Layout: FC<IProps> = ({ children }) => {
     onStateChange: onSidebarStateChange,
   }: TSidebarContext = useContext(SidebarContext) as TSidebarContext;
   const currentPathSection: string = useLocation().pathname.split("/")[1];
+  const [is404Path, setIs404Path] = useState<boolean>(false);
 
   const isLoginPage: boolean = currentPathSection === "log-in";
 
@@ -80,9 +81,17 @@ const Layout: FC<IProps> = ({ children }) => {
     <BackToTopButton isDarkMode={isDarkMode} />
   );
 
+  useEffect(() => {
+    const currentPageTitle: string = document.title.split("-")[1];
+    const is404Path: boolean = currentPageTitle?.trim() === "404";
+    setIs404Path(is404Path);
+
+    // eslint-disable-next-line
+  }, [document.title]);
+
   return (
     <div className="w-full h-full relative">
-      {isLoginPage ? loginLayout : layout}
+      {isLoginPage ? loginLayout : !is404Path ? layout : children}
       {loader}
       {popup}
       {backToTopButton}

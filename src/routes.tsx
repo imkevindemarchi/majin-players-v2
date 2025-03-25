@@ -12,7 +12,7 @@ import {
   AdminEquipments,
   AdminEquipment,
 } from "./pages/admin";
-import { Login, Home } from "./pages";
+import { Login, Home, NotFound } from "./pages";
 
 export type IRoute = {
   path: string;
@@ -53,6 +53,12 @@ export const ROUTES: IRoute[] = [
     path: "/contacts",
     name: "contacts",
     element: <Home />,
+  },
+  {
+    path: "*",
+    name: "not-found",
+    element: <NotFound />,
+    isHidden: true,
   },
 ];
 
