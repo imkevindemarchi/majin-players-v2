@@ -10,8 +10,8 @@ import Loader from "./Loader.component";
 import BackToTopButton from "./BackToTopButton.component";
 
 // Contexts
-import { ThemeContext, TThemeContext } from "../providers/Theme.provider";
-import { SidebarContext, TSidebarContext } from "../providers/Sidebar.provider";
+import { ThemeContext, TThemeContext } from "../providers/theme.provider";
+import { SidebarContext, TSidebarContext } from "../providers/sidebar.provider";
 
 interface IProps {
   children: JSX.Element;
@@ -25,12 +25,14 @@ const Layout: FC<IProps> = ({ children }) => {
     isOpen: isSidebarOpen,
     onStateChange: onSidebarStateChange,
   }: TSidebarContext = useContext(SidebarContext) as TSidebarContext;
-  const currentPathSection: string = useLocation().pathname.split("/")[1];
+  const { pathname } = useLocation();
+  const currentPathSection: string = pathname.split("/")[1];
   const [is404Path, setIs404Path] = useState<boolean>(false);
 
   const isLoginPage: boolean = currentPathSection === "log-in";
+  const isAdminSection: boolean = currentPathSection === "admin";
 
-  const navbar: JSX.Element = <Navbar />;
+  const navbar: JSX.Element = <Navbar isAdminSection={isAdminSection} />;
 
   const hamburger: JSX.Element = (
     <Hamburger
@@ -40,7 +42,7 @@ const Layout: FC<IProps> = ({ children }) => {
     />
   );
 
-  const sidebar: JSX.Element = <Sidebar />;
+  const sidebar: JSX.Element = <Sidebar isAdminSection={isAdminSection} />;
 
   const loginLayout: JSX.Element = (
     <div
@@ -59,7 +61,13 @@ const Layout: FC<IProps> = ({ children }) => {
   const layout: JSX.Element = (
     <div
       className={`transition-all duration-300 min-h-[100vh] relative w-full h-full pb-40 ${
-        isDarkMode ? "bg-darkgray3" : "bg-lightgray2"
+        isDarkMode && isAdminSection
+          ? "bg-darkgray3"
+          : isAdminSection
+          ? "bg-lightgray2"
+          : isDarkMode
+          ? "bg-black"
+          : "bg-white"
       }`}
     >
       {navbar}
@@ -87,7 +95,7 @@ const Layout: FC<IProps> = ({ children }) => {
     setIs404Path(is404Path);
 
     // eslint-disable-next-line
-  }, [document.title]);
+  }, [document.title, pathname]);
 
   return (
     <div className="w-full h-full relative">

@@ -15,22 +15,26 @@ import LanguageSelector from "./LanguageSelector.component";
 
 // Contexts
 import { ThemeContext } from "../providers";
-import { SidebarContext, TSidebarContext } from "../providers/Sidebar.provider";
+import { SidebarContext, TSidebarContext } from "../providers/sidebar.provider";
 import { LoaderContext, TLoaderContext } from "../providers/loader.provider";
 import { AuthContext, TAuthContext } from "../providers/auth.provider";
-import { PopupContext, TPopupContext } from "../providers/Popup.provider";
+import { PopupContext, TPopupContext } from "../providers/popup.provider";
 
 // Icons
-import { SunIcon, MoonIcon, LogoutIcon } from "../assets/icons";
+import { SunIcon, MoonIcon, LogoutIcon, LoginIcon } from "../assets/icons";
 
 // Types
-import { TThemeContext } from "../providers/Theme.provider";
+import { TThemeContext } from "../providers/theme.provider";
 import { THTTPResponse } from "../types";
 
 // Utils
 import { removeFromStorage, setToStorage } from "../utils";
 
-const Sidebar: FC = () => {
+interface IProps {
+  isAdminSection: boolean;
+}
+
+const Sidebar: FC<IProps> = ({ isAdminSection }) => {
   const navigate: NavigateFunction = useNavigate();
   const { isDarkMode, onStateChange: onThemeChange }: TThemeContext =
     useContext(ThemeContext) as TThemeContext;
@@ -51,13 +55,31 @@ const Sidebar: FC = () => {
   ) as TPopupContext;
 
   const currentPaths: string[] = useLocation().pathname.split("/");
-  const isAdminSection: boolean = currentPaths[1] === "admin";
   const currentPathSection: string = currentPaths[isAdminSection ? 2 : 1];
   const routes: IRoute[] = isAdminSection ? ADMIN_ROUTES : ROUTES;
 
   function goToHome(): void {
     navigate(isAdminSection ? "/admin" : "/");
     onSidebarStateChange();
+  }
+
+  function onLanguageChange(countryCode: string): void {
+    changeLanguage(countryCode);
+    setToStorage("language", countryCode);
+  }
+  async function onLogout() {
+    setIsLoading(true);
+
+    await Promise.resolve(AUTH_API.logout()).then((response: THTTPResponse) => {
+      if (response.hasSuccess) {
+        navigate("/log-in");
+        removeFromStorage("token");
+        setIsUserAuthenticated(false);
+      } else openPopup(t("logoutError"), "error");
+    });
+    onSidebarStateChange();
+
+    setIsLoading(false);
   }
 
   const logo: JSX.Element = (
@@ -106,10 +128,15 @@ const Sidebar: FC = () => {
     </div>
   );
 
-  function onLanguageChange(countryCode: string): void {
-    changeLanguage(countryCode);
-    setToStorage("language", countryCode);
-  }
+  const loginIcon: JSX.Element = (
+    <LoginIcon
+      onClick={() => {
+        navigate("/admin");
+        onSidebarStateChange();
+      }}
+      className="text-primary text-2xl cursor-pointer hover:opacity-50 transition-all duration-300"
+    />
+  );
 
   const languageSelector: JSX.Element = (
     <LanguageSelector
@@ -128,21 +155,6 @@ const Sidebar: FC = () => {
       )}
     </IconButton>
   );
-
-  async function onLogout() {
-    setIsLoading(true);
-
-    await Promise.resolve(AUTH_API.logout()).then((response: THTTPResponse) => {
-      if (response.hasSuccess) {
-        navigate("/log-in");
-        removeFromStorage("token");
-        setIsUserAuthenticated(false);
-      } else openPopup(t("logoutError"), "error");
-    });
-    onSidebarStateChange();
-
-    setIsLoading(false);
-  }
 
   const logoutIcon: JSX.Element = (
     <LogoutIcon
@@ -165,6 +177,7 @@ const Sidebar: FC = () => {
       <div className="flex gap-5 items-center">
         {themeIcon}
         {isAdminSection && logoutIcon}
+        {!isAdminSection && loginIcon}
       </div>
     </div>
   );
