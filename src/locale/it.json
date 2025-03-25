@@ -116,6 +116,10 @@
     "unableRemoveTop": "Impossibile rimuovere la top",
     "deleteTop": "Elimina top",
     "confirmToDeleteTop": "Confermi di voler eliminare la top?",
-    "image": "Immagine"
+    "image": "Immagine",
+    "pageNotFound": "Oops, questa pagina non è stata trovata!",
+    "linkMightBeCorrupted": "Il link potrebbe essere corrotto",
+    "pageCouldBeRemoved": "o la pagina potrebbe essere stata rimossa",
+    "goBackToHome": "Torna alla home"
   }
 }
