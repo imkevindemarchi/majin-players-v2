@@ -81,41 +81,44 @@ const Footer: FC = () => {
 
   const secondColumn: JSX.Element = (
     <Column title={t("links")}>
-      <Link
-        to="/"
-        className={`transition-all duration-300 p-1 rounded-full flex justify-center mobile:justify-start px-5 max-w-min ${
-          isDarkMode ? "text-white" : "text-black"
-        } ${
-          pathname === "/"
-            ? "bg-primary hover:cursor-default pointer-events-none text-white"
-            : "bg-none hover:text-primary"
-        }`}
-      >
-        {t("home")}
-      </Link>
-      {ROUTES.map((route: TRoute, index: number) => {
-        const isRouteVisible: boolean = route.isHidden ? true : false;
-        const routePathSection: string = route.path.split("/")[1];
-        const isRouteActive: boolean = routePathSection === currentPathSection;
+      <div className="flex justify-center flex-col items-center mobile:justify-start mobile:items-start">
+        <Link
+          to="/"
+          className={`transition-all duration-300 p-1 rounded-full flex justify-center mobile:justify-start px-5 max-w-min ${
+            isDarkMode ? "text-white" : "text-black"
+          } ${
+            pathname === "/"
+              ? "bg-primary hover:cursor-default pointer-events-none text-white"
+              : "bg-none hover:text-primary"
+          }`}
+        >
+          {t("home")}
+        </Link>
+        {ROUTES.map((route: TRoute, index: number) => {
+          const isRouteVisible: boolean = route.isHidden ? true : false;
+          const routePathSection: string = route.path.split("/")[1];
+          const isRouteActive: boolean =
+            routePathSection === currentPathSection;
 
-        return (
-          !isRouteVisible && (
-            <Link
-              key={index}
-              to={route.path}
-              className={`transition-all duration-300 hover:text-primary p-1 rounded-full flex justify-center mobile:justify-start px-5 max-w-min ${
-                isDarkMode ? "text-white" : "text-black"
-              } ${
-                isRouteActive
-                  ? "bg-primary hover:cursor-default pointer-events-none text-white"
-                  : "bg-none hover:text-primary"
-              }`}
-            >
-              {t(route.name)}
-            </Link>
-          )
-        );
-      })}
+          return (
+            !isRouteVisible && (
+              <Link
+                key={index}
+                to={route.path}
+                className={`transition-all duration-300 hover:text-primary p-1 rounded-full flex justify-center mobile:justify-start px-5 max-w-min ${
+                  isDarkMode ? "text-white" : "text-black"
+                } ${
+                  isRouteActive
+                    ? "bg-primary hover:cursor-default pointer-events-none text-white"
+                    : "bg-none hover:text-primary"
+                }`}
+              >
+                {t(route.name)}
+              </Link>
+            )
+          );
+        })}
+      </div>
     </Column>
   );
 
