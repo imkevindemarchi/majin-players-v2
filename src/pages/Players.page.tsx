@@ -21,7 +21,7 @@ import { TTop } from "../types/top.type";
 import { TPlayer } from "../types/player.type";
 
 // Utils
-import { setPageTitle } from "../utils";
+import { setPageTitle, sortArray } from "../utils";
 
 const Players: FC = () => {
   const { t } = useTranslation();
@@ -38,16 +38,19 @@ const Players: FC = () => {
   ) as TThemeContext;
   const [filter, setFilter] = useState<string | null>(null);
 
-  const filteredPlayers: TPlayer[] = players.filter((player: TPlayer) => {
-    return (
-      !filter ||
-      filter.trim() === "" ||
-      player.name
-        ?.toLowerCase()
-        ?.trim()
-        ?.includes(filter?.toLowerCase()?.trim() as string)
-    );
-  });
+  const filteredPlayers: TPlayer[] = sortArray(
+    players.filter((player: TPlayer) => {
+      return (
+        !filter ||
+        filter.trim() === "" ||
+        player.name
+          ?.toLowerCase()
+          ?.trim()
+          ?.includes(filter?.toLowerCase()?.trim() as string)
+      );
+    }),
+    "name"
+  );
 
   setPageTitle(t("players"));
 

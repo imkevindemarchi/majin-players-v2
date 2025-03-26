@@ -11,3 +11,4 @@ export {
   validateFormObject as validateFormDate,
 } from "./validation.util";
 export { formatDateForDatepicker, formatDateFromDB } from "./format.util";
+export { sortArray } from "./array.util";
