@@ -22,9 +22,10 @@ interface IProps {
   data: TTop[] | null;
   isDarkMode: boolean;
   getData: () => void;
+  isAdmin?: boolean;
 }
 
-const Tops: FC<IProps> = ({ data, isDarkMode, getData }) => {
+const Tops: FC<IProps> = ({ data, isDarkMode, getData, isAdmin }) => {
   const { t } = useTranslation();
   const [years, setYears] = useState<number[] | null>(null);
   const { setState: setIsLoading }: TLoaderContext = useContext(
@@ -136,9 +137,11 @@ const Tops: FC<IProps> = ({ data, isDarkMode, getData }) => {
                           {top?.location}
                         </span>
                       </div>
-                      <IconButton onClick={() => onDeleteTop(top)} small>
-                        <DeleteIcon className="text-primary text-xl" />
-                      </IconButton>
+                      {isAdmin && (
+                        <IconButton onClick={() => onDeleteTop(top)} small>
+                          <DeleteIcon className="text-primary text-xl" />
+                        </IconButton>
+                      )}
                     </div>
                   )
                 );

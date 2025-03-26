@@ -15,7 +15,7 @@ const Card: FC<IProps> = ({
 }) => {
   return (
     <div
-      className={`p-10 rounded-lg shadow-sm w-full h-full transition-all duration-300 mobile:p-5
+      className={`p-10 rounded-3xl shadow-sm w-full h-full transition-all duration-300 mobile:p-5
         ${
           !filled &&
           (isDarkMode && visibleBackground

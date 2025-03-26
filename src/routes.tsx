@@ -12,7 +12,7 @@ import {
   AdminEquipments,
   AdminEquipment,
 } from "./pages/admin";
-import { Login, Home, NotFound, Players } from "./pages";
+import { Login, Home, NotFound, Players, Player } from "./pages";
 
 export type TRoute = {
   path: string;
@@ -38,6 +38,12 @@ export const ROUTES: TRoute[] = [
     path: "/players",
     name: "players",
     element: <Players />,
+  },
+  {
+    path: "/players/:playerId",
+    name: "player",
+    element: <Player />,
+    isHidden: true,
   },
   {
     path: "/equipments",
