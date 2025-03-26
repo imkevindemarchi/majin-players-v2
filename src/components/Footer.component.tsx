@@ -57,7 +57,7 @@ const Footer: FC = () => {
     );
   };
 
-  const firstColumn: JSX.Element = (
+  const informations: JSX.Element = (
     <Column showLogo title={process.env.REACT_APP_WEBSITE_NAME as string}>
       <a
         href={`mailto: ${process.env.REACT_APP_EMAIL}`}
@@ -79,7 +79,7 @@ const Footer: FC = () => {
     </Column>
   );
 
-  const secondColumn: JSX.Element = (
+  const links: JSX.Element = (
     <Column title={t("links")}>
       <div className="flex justify-center flex-col items-center mobile:justify-start mobile:items-start">
         <Link
@@ -122,7 +122,7 @@ const Footer: FC = () => {
     </Column>
   );
 
-  const thirdColumn: JSX.Element = (
+  const socials: JSX.Element = (
     <Column title={t("socials")}>
       <div className="flex items-center gap-5">
         {SOCIALS.map((social: TSocial, index: number) => {
@@ -132,7 +132,7 @@ const Footer: FC = () => {
               href={social.link}
               target="_blank"
               rel="noreferrer"
-              className={`text-3xl transition-all duration-300 hover:opacity-50 text-primary rounded-full p-3 bg-primary-transparent`}
+              className={`text-3xl transition-all duration-300 hover:opacity-50 mobile:hover:opacity-100 text-primary rounded-full p-3 bg-primary-transparent`}
             >
               {social.name === SOCIAL_NAMES.instagram ? (
                 <InstagramIcon />
@@ -159,9 +159,9 @@ const Footer: FC = () => {
   return (
     <div className="absolute bottom-0 w-full py-20 px-40 mobile:px-5 flex flex-col gap-10">
       <div className="flex justify-between mobile:flex-col mobile:gap-10">
-        {firstColumn}
-        {secondColumn}
-        {thirdColumn}
+        {informations}
+        {links}
+        {socials}
       </div>
       {copyright}
     </div>
