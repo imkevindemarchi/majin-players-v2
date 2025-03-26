@@ -10,4 +10,4 @@ export {
   validateFormImage,
   validateFormObject as validateFormDate,
 } from "./validation.util";
-export { formatDateForDatepicker } from "./format.util";
+export { formatDateForDatepicker, formatDateFromDB } from "./format.util";

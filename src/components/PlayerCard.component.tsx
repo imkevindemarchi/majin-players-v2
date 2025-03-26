@@ -29,7 +29,7 @@ const PlayerCard: FC<IProps> = ({ data, isDarkMode, tops, ...props }) => {
 
   return (
     <div
-      className={`transition-all duration-300 rounded-xl flex justify-between items-center flex-col gap-2 w-60 py-5 px-5 h-[30vh] mobile:h-[40vh] mobile:w-[22vh] mobile:px-3 mobile:py-3 ${
+      className={`transition-all duration-300 rounded-3xl flex justify-between items-center flex-col gap-2 w-60 py-5 px-5 h-[30vh] mobile:h-[40vh] mobile:w-[22vh] mobile:px-3 mobile:py-3 ${
         isDarkMode ? "bg-darkgray" : "bg-lightgray"
       }`}
       {...props}

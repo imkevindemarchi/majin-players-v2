@@ -22,6 +22,10 @@ input[type="file"] {
   display: none;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 /* Calendar */
 .data-\[disabled\=true\]\:transition-none[data-disabled="true"] {
   opacity: 0.3;

@@ -614,7 +614,7 @@ const AdminPlayer = () => {
   );
 
   const topsComponent: JSX.Element = (
-    <Tops data={tops} isDarkMode={isDarkMode} getData={getData} />
+    <Tops data={tops} isDarkMode={isDarkMode} getData={getData} isAdmin />
   );
 
   useEffect(() => {
