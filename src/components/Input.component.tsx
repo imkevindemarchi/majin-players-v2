@@ -44,6 +44,8 @@ const Input: FC<IProps> = ({
     if (inputRef.current) {
       inputRef.current.style.borderColor = errorMessage
         ? "#ff0000"
+        : autofocus
+        ? (process.env.REACT_APP_PRIMARY_COLOR as string)
         : isDarkMode
         ? "#4d4d4d"
         : "#ececec";
