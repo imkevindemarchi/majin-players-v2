@@ -22,3 +22,4 @@ export { default as ImageSelector } from "./ImageSelector.component";
 export { default as Tops } from "./Tops.component";
 export { default as BackToTopButton } from "./BackToTopButton.component";
 export { default as Footer } from "./Footer.component";
+export { default as PlayerCard } from "./PlayerCard.component";
