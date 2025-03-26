@@ -1,4 +1,4 @@
-import React, { JSX, useContext, useEffect, useState } from "react";
+import React, { FC, JSX, useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { NavigateFunction, useNavigate } from "react-router";
 import { DateValue } from "@heroui/react";
@@ -35,7 +35,7 @@ type TCurrentTopDeck = {
   elementi: TTop[];
 };
 
-const Home = () => {
+const Home: FC = () => {
   const { t } = useTranslation();
   const { isDarkMode }: TThemeContext = useContext(
     ThemeContext
