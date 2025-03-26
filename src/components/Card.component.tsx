@@ -12,6 +12,7 @@ const Card: FC<IProps> = ({
   filled,
   visibleBackground,
   children,
+  ...props
 }) => {
   return (
     <div
@@ -32,6 +33,7 @@ const Card: FC<IProps> = ({
           ? `linear-gradient(to right,  ${process.env.REACT_APP_PRIMARY_COLOR} 50%, ${process.env.REACT_APP_SECONDARY_COLOR} 100%)`
           : "",
       }}
+      {...props}
     >
       {children}
     </div>
