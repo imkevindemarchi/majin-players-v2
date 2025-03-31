@@ -179,22 +179,22 @@ const Dashboard: FC = () => {
             previousYearLineChartData[t(month)] =
               splittedPreviousYearTopsForMonth[index + 1]?.length;
           });
+
           const currentYearLineChartData: any = {};
           MONTHS.forEach((month: string, index: number) => {
             currentYearLineChartData[t(month)] =
               splittedCurrentYearTopsForMonth[index + 1]?.length;
           });
+
           setPreviousYearLineChartData(previousYearLineChartData);
           setCurrentYearLineChartData(currentYearLineChartData);
 
           setTotalTops(response[0]?.totalRecords as number);
         } else openPopup(t("unableLoadTops"), "error");
 
-        if (response[1] && response[1].hasSuccess) {
+        if (response[1] && response[1].hasSuccess)
           setTotalPlayers(response[1]?.totalRecords as number);
-
-          setTotalPlayers(response[1]?.totalRecords as number);
-        } else openPopup(t("unableLoadPlayers"), "error");
+        else openPopup(t("unableLoadPlayers"), "error");
       }
     );
 

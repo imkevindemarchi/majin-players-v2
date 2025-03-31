@@ -1,4 +1,11 @@
-import React, { FormEvent, JSX, useContext, useEffect, useState } from "react";
+import React, {
+  FC,
+  FormEvent,
+  JSX,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 import { NavigateFunction, useNavigate, useParams } from "react-router";
 
@@ -39,7 +46,7 @@ const defaultErrorsState: TErrors = {
   },
 };
 
-const AdminTournament = () => {
+const AdminTournament: FC = () => {
   const { isDarkMode }: TThemeContext = useContext(
     ThemeContext
   ) as TThemeContext;

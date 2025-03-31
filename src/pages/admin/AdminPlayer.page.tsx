@@ -1,4 +1,11 @@
-import React, { FormEvent, JSX, useContext, useEffect, useState } from "react";
+import React, {
+  FC,
+  FormEvent,
+  JSX,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 import { NavigateFunction, useNavigate, useParams } from "react-router";
 import { DateValue } from "@heroui/react";
@@ -123,7 +130,7 @@ const defaultTopErrorsState: TTopErrors = {
   },
 };
 
-const AdminPlayer = () => {
+const AdminPlayer: FC = () => {
   const { isDarkMode }: TThemeContext = useContext(
     ThemeContext
   ) as TThemeContext;
@@ -154,7 +161,7 @@ const AdminPlayer = () => {
 
     await Promise.resolve(DECK_API.getAll()).then((response: THTTPResponse) => {
       if (response && response.hasSuccess) setDecks(response.data);
-      else openPopup(t("unableLoadPlayers"), "error");
+      else openPopup(t("unableLoadTops"), "error");
     });
 
     await Promise.resolve(TOURNAMENT_API.getAll()).then(
@@ -174,7 +181,7 @@ const AdminPlayer = () => {
         else openPopup(t("unableLoadPlayer"), "error");
 
         if (response[1] && response[1].hasSuccess) setTops(response[1].data);
-        else openPopup(t("unableLoadPlayer"), "error");
+        else openPopup(t("unableLoadTops"), "error");
       });
 
     setIsLoading(false);
@@ -298,6 +305,100 @@ const AdminPlayer = () => {
   function onCancel(): void {
     setFormData(defaultState);
     setErrors(defaultErrorsState);
+  }
+
+  function onTopInputChange(propLabel: string, value: any): void {
+    setTopFormData((prevState: any) => {
+      return { ...prevState, [propLabel]: value };
+    });
+    setTopErrors((prevState: any) => {
+      return { ...prevState, [propLabel]: { isValid: true, message: null } };
+    });
+  }
+
+  function validateTopForm(): boolean {
+    const isDateValid: TValidation = validateFormObject(topFormData.date, t);
+    const isRatingValid: TValidation = validateFormField(
+      topFormData.rating as string,
+      t
+    );
+    const isDeckValid: TValidation = validateFormObject(topFormData.deck, t);
+    const isTournamentValid: TValidation = validateFormObject(
+      topFormData.tournament,
+      t
+    );
+    const isLocationValid: TValidation = validateFormObject(
+      topFormData.location,
+      t
+    );
+
+    const isFormValid: boolean =
+      isDateValid.isValid &&
+      isRatingValid.isValid &&
+      isDeckValid.isValid &&
+      isTournamentValid.isValid &&
+      isLocationValid.isValid;
+
+    if (isFormValid) return true;
+    else {
+      setTopErrors((prevState: any) => ({
+        ...prevState,
+        date: {
+          isValid: isDateValid.isValid,
+          message: isDateValid.message,
+        },
+        rating: {
+          isValid: isRatingValid.isValid,
+          message: isRatingValid.message,
+        },
+        deck: {
+          isValid: isDeckValid.isValid,
+          message: isDeckValid.message,
+        },
+        tournament: {
+          isValid: isTournamentValid.isValid,
+          message: isTournamentValid.message,
+        },
+        location: {
+          isValid: isLocationValid.isValid,
+          message: isLocationValid.message,
+        },
+      }));
+
+      return false;
+    }
+  }
+
+  async function onAddTop(event: FormEvent): Promise<void> {
+    event.preventDefault();
+
+    const isFormValid: boolean = validateTopForm();
+
+    if (!isFormValid) openPopup(t("invalidData"), "warning");
+    else {
+      setIsLoading(true);
+
+      const data: Partial<TTop> = {
+        date: topFormData.date,
+        rating: topFormData.rating,
+        deck: topFormData.deck,
+        tournament: topFormData.tournament,
+        location: topFormData.location,
+        playerId,
+      };
+
+      await Promise.resolve(TOP_API.add(data)).then(
+        async (response: THTTPResponse) => {
+          if (response && response.hasSuccess) {
+            setTopFormData(topDefaultState);
+            openPopup(t("topSuccessfullyAdded"), "success");
+            await getData();
+          } else openPopup(t("unableAddTop"), "error");
+        }
+      );
+
+      setIsLoading(false);
+    }
   }
 
   const title = (title: string): JSX.Element => (
@@ -453,100 +554,6 @@ const AdminPlayer = () => {
       </div>
     </Card>
   );
-
-  function onTopInputChange(propLabel: string, value: any): void {
-    setTopFormData((prevState: any) => {
-      return { ...prevState, [propLabel]: value };
-    });
-    setTopErrors((prevState: any) => {
-      return { ...prevState, [propLabel]: { isValid: true, message: null } };
-    });
-  }
-
-  function validateTopForm(): boolean {
-    const isDateValid: TValidation = validateFormObject(topFormData.date, t);
-    const isRatingValid: TValidation = validateFormField(
-      topFormData.rating as string,
-      t
-    );
-    const isDeckValid: TValidation = validateFormObject(topFormData.deck, t);
-    const isTournamentValid: TValidation = validateFormObject(
-      topFormData.tournament,
-      t
-    );
-    const isLocationValid: TValidation = validateFormObject(
-      topFormData.location,
-      t
-    );
-
-    const isFormValid: boolean =
-      isDateValid.isValid &&
-      isRatingValid.isValid &&
-      isDeckValid.isValid &&
-      isTournamentValid.isValid &&
-      isLocationValid.isValid;
-
-    if (isFormValid) return true;
-    else {
-      setTopErrors((prevState: any) => ({
-        ...prevState,
-        date: {
-          isValid: isDateValid.isValid,
-          message: isDateValid.message,
-        },
-        rating: {
-          isValid: isRatingValid.isValid,
-          message: isRatingValid.message,
-        },
-        deck: {
-          isValid: isDeckValid.isValid,
-          message: isDeckValid.message,
-        },
-        tournament: {
-          isValid: isTournamentValid.isValid,
-          message: isTournamentValid.message,
-        },
-        location: {
-          isValid: isLocationValid.isValid,
-          message: isLocationValid.message,
-        },
-      }));
-
-      return false;
-    }
-  }
-
-  async function onAddTop(event: FormEvent): Promise<void> {
-    event.preventDefault();
-
-    const isFormValid: boolean = validateTopForm();
-
-    if (!isFormValid) openPopup(t("invalidData"), "warning");
-    else {
-      setIsLoading(true);
-
-      const data: Partial<TTop> = {
-        date: topFormData.date,
-        rating: topFormData.rating,
-        deck: topFormData.deck,
-        tournament: topFormData.tournament,
-        location: topFormData.location,
-        playerId,
-      };
-
-      await Promise.resolve(TOP_API.add(data)).then(
-        async (response: THTTPResponse) => {
-          if (response && response.hasSuccess) {
-            setTopFormData(topDefaultState);
-            openPopup(t("topSuccessfullyAdded"), "success");
-            await getData();
-          } else openPopup(t("unableAddTop"), "error");
-        }
-      );
-
-      setIsLoading(false);
-    }
-  }
 
   const topsForm: JSX.Element = (
     <Card isDarkMode={isDarkMode}>
