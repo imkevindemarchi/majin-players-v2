@@ -130,6 +130,7 @@
     "tops": "Top",
     "goBack": "Torna indietro",
     "contactsTitle": "Dove puoi trovarci?",
-    "contactsDescription": "Di seguito puoi trovare i link ai nostri canali social."
+    "contactsDescription": "Di seguito puoi trovare i link ai nostri canali social.",
+    "unableUpdateImage": "Impossibile aggiornare l'immagine"
   }
 }

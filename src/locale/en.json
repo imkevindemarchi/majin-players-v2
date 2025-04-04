@@ -130,6 +130,7 @@
     "tops": "Tops",
     "goBack": "Go back",
     "contactsTitle": "Where can you find us?",
-    "contactsDescription": "Below you can find links to our social channels."
+    "contactsDescription": "Below you can find links to our social channels.",
+    "unableUpdateImage": "Unable to update the image"
   }
 }
