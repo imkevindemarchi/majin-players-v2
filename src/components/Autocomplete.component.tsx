@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, JSX, useEffect, useRef, useState } from "react";
+import { ChangeEvent, FC, ReactNode, useEffect, useRef, useState } from "react";
 
 // Spinner
 import { useClickOutside } from "../hooks";
@@ -8,8 +8,8 @@ type TValue = { id: string | null; label: string | null };
 interface IProps {
   value: TValue;
   onChange: (value: TValue) => void;
-  icon?: JSX.Element;
-  endIcon?: JSX.Element;
+  icon?: ReactNode;
+  endIcon?: ReactNode;
   placeholder: string;
   type?: "text" | "password";
   isDarkMode?: boolean;
@@ -35,7 +35,7 @@ const Autocomplete: FC<IProps> = ({
   const [state, setState] = useState<string | null>(value?.label);
   const [dropdown, setDropdown] = useState<boolean>(false);
 
-  const error: JSX.Element = errorMessage ? (
+  const error: ReactNode = errorMessage ? (
     <span className="text-red">{errorMessage}</span>
   ) : (
     <></>

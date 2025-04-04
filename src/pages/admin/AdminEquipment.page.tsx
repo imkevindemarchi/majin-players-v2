@@ -1,10 +1,10 @@
 import React, {
   FormEvent,
-  JSX,
   useContext,
   useEffect,
   useState,
   FC,
+  ReactNode,
 } from "react";
 import { useTranslation } from "react-i18next";
 import { NavigateFunction, useNavigate, useParams } from "react-router";
@@ -192,13 +192,13 @@ const AdminEquipment: FC = () => {
     setErrors(defaultErrorsState);
   }
 
-  const title: JSX.Element = (
+  const title: ReactNode = (
     <span className="text-primary text-2xl">{t("equipment")}</span>
   );
 
-  const breadcrumb: JSX.Element = <Breadcrumb isDarkMode={isDarkMode} />;
+  const breadcrumb: ReactNode = <Breadcrumb isDarkMode={isDarkMode} />;
 
-  const buttons: JSX.Element = (
+  const buttons: ReactNode = (
     <div className="flex justify-end">
       <div className="flex gap-5 mobile:w-full mobile:justify-between">
         <Button onClick={onCancel} styleType="secondary">
@@ -217,7 +217,7 @@ const AdminEquipment: FC = () => {
     </div>
   );
 
-  const form: JSX.Element = (
+  const form: ReactNode = (
     <Card isDarkMode={isDarkMode}>
       <div className="flex flex-col gap-5">
         <div className="flex gap-2 items-center justify-center mobile:flex-col">

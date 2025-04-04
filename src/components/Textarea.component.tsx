@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, JSX, useEffect, useRef, useState } from "react";
+import { ChangeEvent, FC, ReactNode, useEffect, useRef, useState } from "react";
 
 // Spinner
 import { ClipLoader as Spinner } from "react-spinners";
@@ -6,8 +6,8 @@ import { ClipLoader as Spinner } from "react-spinners";
 interface IProps {
   value: string | null;
   onChange: (value: string) => void;
-  icon?: JSX.Element;
-  endIcon?: JSX.Element;
+  icon?: ReactNode;
+  endIcon?: ReactNode;
   placeholder: string;
   isDarkMode?: boolean;
   onSearch?: () => Promise<void>;

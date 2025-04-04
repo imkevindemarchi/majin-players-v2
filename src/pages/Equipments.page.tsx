@@ -1,4 +1,4 @@
-import React, { FC, JSX, useContext, useEffect, useState } from "react";
+import React, { FC, ReactNode, useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 // Api
@@ -44,7 +44,7 @@ const Equipments: FC = () => {
     setIsLoading(false);
   }
 
-  const list: JSX.Element = (
+  const list: ReactNode = (
     <div className="flex items-center flex-wrap justify-center gap-10">
       {equipments.map((equipment: TEquipment, index: number) => {
         return (

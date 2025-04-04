@@ -1,7 +1,7 @@
 import React, {
   FC,
   FormEvent,
-  JSX,
+  ReactNode,
   useContext,
   useEffect,
   useState,
@@ -401,13 +401,13 @@ const AdminPlayer: FC = () => {
     }
   }
 
-  const title = (title: string): JSX.Element => (
+  const title = (title: string): ReactNode => (
     <span className="text-primary text-2xl">{title}</span>
   );
 
-  const breadcrumb: JSX.Element = <Breadcrumb isDarkMode={isDarkMode} />;
+  const breadcrumb: ReactNode = <Breadcrumb isDarkMode={isDarkMode} />;
 
-  const buttons: JSX.Element = (
+  const buttons: ReactNode = (
     <div className="flex justify-end">
       <div className="flex gap-5 mobile:w-full mobile:justify-between">
         <Button onClick={onCancel} styleType="secondary">
@@ -426,7 +426,7 @@ const AdminPlayer: FC = () => {
     </div>
   );
 
-  const form: JSX.Element = (
+  const form: ReactNode = (
     <Card isDarkMode={isDarkMode}>
       <div className="flex flex-col gap-5">
         <div className="flex gap-2 items-center mobile:flex-col">
@@ -555,7 +555,7 @@ const AdminPlayer: FC = () => {
     </Card>
   );
 
-  const topsForm: JSX.Element = (
+  const topsForm: ReactNode = (
     <Card isDarkMode={isDarkMode}>
       <form
         onSubmit={onAddTop}
@@ -620,7 +620,7 @@ const AdminPlayer: FC = () => {
     </Card>
   );
 
-  const topsComponent: JSX.Element = (
+  const topsComponent: ReactNode = (
     <Tops data={tops} isDarkMode={isDarkMode} getData={getData} isAdmin />
   );
 

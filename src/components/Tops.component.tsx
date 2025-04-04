@@ -1,4 +1,4 @@
-import React, { FC, JSX, useContext, useEffect, useState } from "react";
+import React, { FC, ReactNode, useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 // Components
@@ -66,7 +66,7 @@ const Tops: FC<IProps> = ({ data, isDarkMode, getData, isAdmin }) => {
     setSelectedTop(top);
   }
 
-  const list: JSX.Element = (
+  const list: ReactNode = (
     <div className="flex flex-col gap-5">
       {years?.map((year: number, index: number) => {
         return (
@@ -153,7 +153,7 @@ const Tops: FC<IProps> = ({ data, isDarkMode, getData, isAdmin }) => {
     </div>
   );
 
-  const noData: JSX.Element = (
+  const noData: ReactNode = (
     <span
       className={`transition-all duration-300 ${
         isDarkMode ? "text-white" : "text-black"
@@ -163,7 +163,7 @@ const Tops: FC<IProps> = ({ data, isDarkMode, getData, isAdmin }) => {
     </span>
   );
 
-  const deleteModalComponent: JSX.Element = (
+  const deleteModalComponent: ReactNode = (
     <Modal
       title={t("deleteTop")}
       isOpen={deleteModal}

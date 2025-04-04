@@ -1,4 +1,4 @@
-import { createContext, JSX, ReactNode, useState } from "react";
+import { createContext, ReactNode, useState } from "react";
 
 // Utils
 import { getFromStorage, setToStorage } from "../utils";
@@ -16,7 +16,7 @@ type TTheme = "light" | "dark";
 
 export const ThemeContext = createContext<TThemeContext | null>(null);
 
-export const ThemeProvider = ({ children }: IProps): JSX.Element => {
+export const ThemeProvider = ({ children }: IProps): ReactNode => {
   const [state, setState] = useState<TTheme>(
     getFromStorage("theme") || "light"
   );

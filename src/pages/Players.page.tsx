@@ -1,4 +1,4 @@
-import React, { FC, JSX, useContext, useEffect, useState } from "react";
+import React, { FC, ReactNode, useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 // Api
@@ -71,7 +71,7 @@ const Players: FC = () => {
     setIsLoading(false);
   }
 
-  const input: JSX.Element = (
+  const input: ReactNode = (
     <Input
       autofocus
       value={filter}
@@ -83,7 +83,7 @@ const Players: FC = () => {
     />
   );
 
-  const list: JSX.Element = (
+  const list: ReactNode = (
     <div className="flex items-center gap-10 flex-wrap justify-center mobile:gap-5">
       {filteredPlayers.map((player: TPlayer, index: number) => {
         return (

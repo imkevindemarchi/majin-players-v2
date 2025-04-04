@@ -1,4 +1,4 @@
-import { FC, JSX, useContext, useEffect, useState } from "react";
+import { FC, ReactNode, useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router";
 
 // Components
@@ -15,7 +15,7 @@ import { ThemeContext, TThemeContext } from "../providers/theme.provider";
 import { SidebarContext, TSidebarContext } from "../providers/sidebar.provider";
 
 interface IProps {
-  children: JSX.Element;
+  children: ReactNode;
 }
 
 const Layout: FC<IProps> = ({ children }) => {
@@ -33,9 +33,9 @@ const Layout: FC<IProps> = ({ children }) => {
   const isLoginPage: boolean = currentPathSection === "log-in";
   const isAdminSection: boolean = currentPathSection === "admin";
 
-  const navbar: JSX.Element = <Navbar isAdminSection={isAdminSection} />;
+  const navbar: ReactNode = <Navbar isAdminSection={isAdminSection} />;
 
-  const hamburger: JSX.Element = (
+  const hamburger: ReactNode = (
     <Hamburger
       onClick={onSidebarStateChange}
       isActive={isSidebarOpen}
@@ -43,9 +43,9 @@ const Layout: FC<IProps> = ({ children }) => {
     />
   );
 
-  const sidebar: JSX.Element = <Sidebar isAdminSection={isAdminSection} />;
+  const sidebar: ReactNode = <Sidebar isAdminSection={isAdminSection} />;
 
-  const loginLayout: JSX.Element = (
+  const loginLayout: ReactNode = (
     <div
       className={`transition-all duration-300 min-h-[100vh] ${
         isDarkMode ? "bg-black" : "bg-white"
@@ -55,16 +55,16 @@ const Layout: FC<IProps> = ({ children }) => {
     </div>
   );
 
-  const popup: JSX.Element = <Popup />;
+  const popup: ReactNode = <Popup />;
 
-  const loader: JSX.Element = <Loader isDarkMode={isDarkMode} />;
+  const loader: ReactNode = <Loader isDarkMode={isDarkMode} />;
 
-  const footer: JSX.Element = <Footer />;
+  const footer: ReactNode = <Footer />;
 
-  const layout: JSX.Element = (
+  const layout: ReactNode = (
     <div
       className={`transition-all duration-300 min-h-[100vh] relative w-full h-full ${
-        isAdminSection ? "pb-0" : "pb-80 mobile:pb-[90vh]"
+        isAdminSection ? "pb-0" : "pb-80 mobile:pb-[75vh]"
       } ${
         isDarkMode && isAdminSection
           ? "bg-darkgray3"
@@ -91,7 +91,7 @@ const Layout: FC<IProps> = ({ children }) => {
     </div>
   );
 
-  const backToTopButton: JSX.Element = (
+  const backToTopButton: ReactNode = (
     <BackToTopButton isDarkMode={isDarkMode} />
   );
 

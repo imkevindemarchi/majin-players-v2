@@ -1,4 +1,4 @@
-import React, { FC, JSX, useContext, useEffect, useState } from "react";
+import React, { FC, ReactNode, useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { NavigateFunction, useNavigate, useParams } from "react-router";
 import { DateValue } from "@heroui/react";
@@ -73,7 +73,7 @@ const Player: FC = () => {
     setIsLoading(false);
   }
 
-  const goBackButton: JSX.Element = (
+  const goBackButton: ReactNode = (
     <div className="w-full flex justify-start">
       <button
         onClick={() => navigate("/players")}
@@ -102,7 +102,7 @@ const Player: FC = () => {
     );
   };
 
-  const card: JSX.Element = (
+  const card: ReactNode = (
     <Card visibleBackground isDarkMode={isDarkMode}>
       <div className="flex gap-5 h-[50vh] relative mobile:flex-col mobile:h-[130vh] mobile:justify-center mobile:items-center">
         <img
@@ -166,11 +166,11 @@ const Player: FC = () => {
     </Card>
   );
 
-  const topsTitle: JSX.Element = (
+  const topsTitle: ReactNode = (
     <span className="text-primary text-2xl">{t("playerTops")}</span>
   );
 
-  const topsCard: JSX.Element = (
+  const topsCard: ReactNode = (
     <Card visibleBackground isDarkMode={isDarkMode}>
       <Tops data={playerTops} isDarkMode={isDarkMode} getData={getData} />
     </Card>

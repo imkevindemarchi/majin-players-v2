@@ -1,4 +1,4 @@
-import React, { FC, JSX, ReactNode, useContext } from "react";
+import React, { FC, ReactNode, useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router";
 
@@ -57,7 +57,7 @@ const Footer: FC = () => {
     );
   };
 
-  const informations: JSX.Element = (
+  const informations: ReactNode = (
     <Column showLogo title={process.env.REACT_APP_WEBSITE_NAME as string}>
       <a
         href={`mailto: ${process.env.REACT_APP_EMAIL}`}
@@ -79,7 +79,7 @@ const Footer: FC = () => {
     </Column>
   );
 
-  const links: JSX.Element = (
+  const links: ReactNode = (
     <Column title={t("links")}>
       <div className="flex justify-center flex-col items-center mobile:justify-start mobile:items-start">
         <Link
@@ -122,7 +122,7 @@ const Footer: FC = () => {
     </Column>
   );
 
-  const socials: JSX.Element = (
+  const socials: ReactNode = (
     <Column title={t("socials")}>
       <div className="flex items-center gap-5">
         {SOCIALS.map((social: TSocial, index: number) => {
@@ -146,7 +146,7 @@ const Footer: FC = () => {
     </Column>
   );
 
-  const copyright: JSX.Element = (
+  const copyright: ReactNode = (
     <span
       className={`transition-all duration-300 mobile:text-center text-sm ${
         isDarkMode ? "text-darkgray2" : "text-gray"

@@ -1,4 +1,4 @@
-import React, { FC, JSX, ReactNode } from "react";
+import React, { FC, ReactNode } from "react";
 
 // Components
 import Backdrop from "./Backdrop.component";
@@ -31,7 +31,7 @@ const Modal: FC<IProps> = ({
   cancelBtnText,
   children,
 }) => {
-  const header: JSX.Element = (
+  const header: ReactNode = (
     <div className="w-full flex justify-between items-center">
       <span
         className={`transition-all duration-300 text-2xl font-bold ${
@@ -46,7 +46,7 @@ const Modal: FC<IProps> = ({
     </div>
   );
 
-  const footer: JSX.Element = (
+  const footer: ReactNode = (
     <div className="flex justify-end">
       <div className="flex flex-row items-center gap-5">
         {onCancel && (

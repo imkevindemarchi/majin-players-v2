@@ -1,4 +1,4 @@
-import { FC, JSX, useEffect, useRef, useState } from "react";
+import { FC, ReactNode, useEffect, useRef, useState } from "react";
 import { Calendar, DateValue } from "@heroui/react";
 import { useTranslation } from "react-i18next";
 import { I18nProvider } from "@react-aria/i18n";
@@ -13,8 +13,8 @@ import { formatDateForDatepicker } from "../utils";
 interface IProps {
   value: DateValue | null;
   onChange: (value: DateValue) => void;
-  icon?: JSX.Element;
-  endIcon?: JSX.Element;
+  icon?: ReactNode;
+  endIcon?: ReactNode;
   placeholder: string;
   type?: "text" | "password";
   isDarkMode?: boolean;
@@ -43,7 +43,7 @@ const DatePicker: FC<IProps> = ({
 
   const locale: string = `${currentLanguage}-${currentLanguage.toUpperCase()}-u-ca`;
 
-  const error: JSX.Element = errorMessage ? (
+  const error: ReactNode = errorMessage ? (
     <span className="text-red">{errorMessage}</span>
   ) : (
     <></>

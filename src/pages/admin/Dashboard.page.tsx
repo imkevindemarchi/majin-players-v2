@@ -1,4 +1,4 @@
-import React, { FC, JSX, useContext, useEffect, useState } from "react";
+import React, { FC, ReactNode, useContext, useEffect, useState } from "react";
 import { DateValue } from "@heroui/react";
 
 // Api
@@ -201,11 +201,11 @@ const Dashboard: FC = () => {
     setIsLoading(false);
   }
 
-  const title: JSX.Element = (
+  const title: ReactNode = (
     <span className="text-primary text-2xl">{pageTitle}</span>
   );
 
-  const totalTopsComponent: JSX.Element = (
+  const totalTopsComponent: ReactNode = (
     <Card filled isDarkMode={isDarkMode}>
       <div
         className={`flex flex-col transition-all duration-300 ${
@@ -218,7 +218,7 @@ const Dashboard: FC = () => {
     </Card>
   );
 
-  const tops: JSX.Element = (
+  const tops: ReactNode = (
     <Card isDarkMode={isDarkMode}>
       <LineChart
         labels={lineChartLabels}
@@ -228,7 +228,7 @@ const Dashboard: FC = () => {
     </Card>
   );
 
-  const bestDecks: JSX.Element = (
+  const bestDecks: ReactNode = (
     <Card isDarkMode={isDarkMode}>
       <DoughnutChart
         labels={elabDoughnutChartLabels}
@@ -238,7 +238,7 @@ const Dashboard: FC = () => {
     </Card>
   );
 
-  const totalPlayersComponent: JSX.Element = (
+  const totalPlayersComponent: ReactNode = (
     <Card isDarkMode={isDarkMode}>
       <div
         className={`flex flex-col transition-all duration-300 ${

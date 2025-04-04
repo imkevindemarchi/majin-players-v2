@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, JSX, MouseEvent, useRef } from "react";
+import React, { ChangeEvent, FC, MouseEvent, ReactNode, useRef } from "react";
 
 // Components
 import IconButton from "./IconButton.component";
@@ -27,19 +27,19 @@ const ImageSelector: FC<IProps> = ({ file, onChange, errorMessage }) => {
     }
   }
 
-  const iconButton: JSX.Element = (
+  const iconButton: ReactNode = (
     <IconButton onClick={onIconButtonClick} big>
       <ImageIcon className="text-primary text-xl" />
     </IconButton>
   );
 
-  const fileName: JSX.Element = file ? (
+  const fileName: ReactNode = file ? (
     <span className="text-primary">{file?.name}</span>
   ) : (
     <></>
   );
 
-  const input: JSX.Element = (
+  const input: ReactNode = (
     <input
       ref={hiddenFileInput}
       type="file"
@@ -49,7 +49,7 @@ const ImageSelector: FC<IProps> = ({ file, onChange, errorMessage }) => {
     />
   );
 
-  const error: JSX.Element = errorMessage ? (
+  const error: ReactNode = errorMessage ? (
     <span className="text-red">{errorMessage}</span>
   ) : (
     <></>

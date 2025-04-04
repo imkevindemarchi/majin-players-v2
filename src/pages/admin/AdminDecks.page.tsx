@@ -1,4 +1,4 @@
-import React, { FC, JSX, useContext, useEffect, useState } from "react";
+import React, { FC, ReactNode, useContext, useEffect, useState } from "react";
 import {
   NavigateFunction,
   useLocation,
@@ -135,11 +135,11 @@ const AdminDecks: FC = () => {
     navigate(`${pathname}/edit/${rowData.id}`);
   }
 
-  const title: JSX.Element = (
+  const title: ReactNode = (
     <span className="text-primary text-2xl">{pageTitle}</span>
   );
 
-  const deleteModalComponent: JSX.Element = (
+  const deleteModalComponent: ReactNode = (
     <Modal
       title={t("deleteDeck")}
       isOpen={deleteModal}

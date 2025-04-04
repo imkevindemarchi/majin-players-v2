@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, JSX, useEffect, useRef, useState } from "react";
+import { ChangeEvent, FC, ReactNode, useEffect, useRef, useState } from "react";
 
 // Spinner
 import { ClipLoader as Spinner } from "react-spinners";
@@ -7,8 +7,8 @@ interface IProps {
   autofocus?: boolean;
   value: string | null;
   onChange: (value: string) => void;
-  icon?: JSX.Element;
-  endIcon?: JSX.Element;
+  icon?: ReactNode;
+  endIcon?: ReactNode;
   placeholder: string;
   type?: "text" | "password";
   isDarkMode?: boolean;
@@ -34,7 +34,7 @@ const Input: FC<IProps> = ({
   const [isValueChanged, setIsValueChanged] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const error: JSX.Element = errorMessage ? (
+  const error: ReactNode = errorMessage ? (
     <span className="text-red">{errorMessage}</span>
   ) : (
     <></>

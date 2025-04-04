@@ -1,4 +1,4 @@
-import React, { FC, JSX, useContext, useEffect, useState } from "react";
+import React, { FC, ReactNode, useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { NavigateFunction, useNavigate } from "react-router";
 import { DateValue } from "@heroui/react";
@@ -192,7 +192,7 @@ const Home: FC = () => {
     setIsLoading(false);
   }
 
-  const socialsShape: JSX.Element = (
+  const socialsShape: ReactNode = (
     <div
       className="w-[15%] h-[70vh] absolute left-0 flex flex-col gap-5 items-center justify-center mobile:hidden"
       style={{
@@ -224,7 +224,7 @@ const Home: FC = () => {
     </div>
   );
 
-  const descriptions: JSX.Element = (
+  const descriptions: ReactNode = (
     <div className="px-[10%] flex flex-col mobile:px-0">
       <span
         className={`text-[3em] font-bold transition-all duration-300 ${
@@ -263,7 +263,7 @@ const Home: FC = () => {
     </div>
   );
 
-  const rightShape: JSX.Element = (
+  const rightShape: ReactNode = (
     <div
       className="w-[15%] h-[70vh] absolute right-0 top-[30vh] flex flex-col gap-5 items-center justify-center mobile:hidden"
       style={{
@@ -273,7 +273,7 @@ const Home: FC = () => {
     />
   );
 
-  const totalTopsComponent: JSX.Element = (
+  const totalTopsComponent: ReactNode = (
     <Card filled isDarkMode={isDarkMode} visibleBackground>
       <div
         className={`flex flex-col transition-all duration-300 ${
@@ -286,7 +286,7 @@ const Home: FC = () => {
     </Card>
   );
 
-  const bestDecks: JSX.Element = (
+  const bestDecks: ReactNode = (
     <Card isDarkMode={isDarkMode} visibleBackground>
       <DoughnutChart
         labels={elabDoughnutChartLabels}
@@ -296,7 +296,7 @@ const Home: FC = () => {
     </Card>
   );
 
-  const tops: JSX.Element = (
+  const tops: ReactNode = (
     <Card isDarkMode={isDarkMode} visibleBackground>
       <LineChart
         labels={lineChartLabels}
@@ -306,7 +306,7 @@ const Home: FC = () => {
     </Card>
   );
 
-  const statistics: JSX.Element = (
+  const statistics: ReactNode = (
     <div className="mt-[30%] w-full flex flex-col justify-center items-center gap-20 mobile:pt-0 mobile:gap-10">
       <div className="flex items-center gap-20 mobile:flex-col mobile:gap-10 mobile:justify-center mobile:w-full">
         <div className="h-72 w-[30vh] mobile:w-full mobile:h-40">

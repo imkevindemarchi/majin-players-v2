@@ -1,4 +1,4 @@
-import { FC, FormEvent, JSX, useContext, useState } from "react";
+import { FC, FormEvent, ReactNode, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { NavigateFunction, useNavigate } from "react-router";
 
@@ -119,11 +119,11 @@ const Login: FC = () => {
     else return false;
   }
 
-  const logo: JSX.Element = (
+  const logo: ReactNode = (
     <img src={logoImg} alt={t("imgNotFound")} className="w-40" />
   );
 
-  const form: JSX.Element = (
+  const form: ReactNode = (
     <form onSubmit={onSubmit} className="flex flex-col gap-3 mobile:w-full">
       <Input
         value={formData?.email}
@@ -174,7 +174,7 @@ const Login: FC = () => {
     </form>
   );
 
-  const themeIcon: JSX.Element = (
+  const themeIcon: ReactNode = (
     <IconButton onClick={onThemeChange}>
       {isDarkMode ? (
         <MoonIcon className="text-primary text-2xl" />
@@ -184,7 +184,7 @@ const Login: FC = () => {
     </IconButton>
   );
 
-  const firstContainer: JSX.Element = (
+  const firstContainer: ReactNode = (
     <div className="w-[65%] mobile:w-[90%] h-full flex justify-center items-center flex-col gap-10">
       {logo}
       {themeIcon}
@@ -192,7 +192,7 @@ const Login: FC = () => {
     </div>
   );
 
-  const secondContainer: JSX.Element = (
+  const secondContainer: ReactNode = (
     <div className="w-[35%] mobile:hidden h-full flex justify-center items-center transition-all duration-300 bg-primary">
       <span className="text-white font-bold text-[4em]">
         {process.env.REACT_APP_WEBSITE_NAME}

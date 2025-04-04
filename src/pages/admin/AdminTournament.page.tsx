@@ -1,7 +1,7 @@
 import React, {
   FC,
   FormEvent,
-  JSX,
+  ReactNode,
   useContext,
   useEffect,
   useState,
@@ -151,13 +151,13 @@ const AdminTournament: FC = () => {
     setErrors(defaultErrorsState);
   }
 
-  const title: JSX.Element = (
+  const title: ReactNode = (
     <span className="text-primary text-2xl">{t("tournament")}</span>
   );
 
-  const breadcrumb: JSX.Element = <Breadcrumb isDarkMode={isDarkMode} />;
+  const breadcrumb: ReactNode = <Breadcrumb isDarkMode={isDarkMode} />;
 
-  const buttons: JSX.Element = (
+  const buttons: ReactNode = (
     <div className="flex justify-end">
       <div className="flex gap-5 mobile:w-full mobile:justify-between">
         <Button onClick={onCancel} styleType="secondary">
@@ -176,7 +176,7 @@ const AdminTournament: FC = () => {
     </div>
   );
 
-  const form: JSX.Element = (
+  const form: ReactNode = (
     <Card isDarkMode={isDarkMode}>
       <div className="flex flex-col gap-5">
         <div className="flex gap-2 items-center mobile:flex-col">

@@ -1,4 +1,4 @@
-import { FC, JSX, useContext } from "react";
+import { FC, ReactNode, useContext } from "react";
 import { Link, NavigateFunction, useLocation, useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
 
@@ -79,7 +79,7 @@ const Navbar: FC<IProps> = ({ isAdminSection }) => {
     setIsLoading(false);
   }
 
-  const logo: JSX.Element = (
+  const logo: ReactNode = (
     <img
       src={logoImg}
       alt={t("imgNotFound")}
@@ -88,7 +88,7 @@ const Navbar: FC<IProps> = ({ isAdminSection }) => {
     />
   );
 
-  const routesComponent: JSX.Element = (
+  const routesComponent: ReactNode = (
     <div className="flex">
       {routes.map((route: TRoute, index: number) => {
         const isRouteHidden: boolean = route.isHidden ? true : false;
@@ -124,7 +124,7 @@ const Navbar: FC<IProps> = ({ isAdminSection }) => {
     </div>
   );
 
-  const loginIcon: JSX.Element = (
+  const loginIcon: ReactNode = (
     <div
       onClick={() => navigate("/admin")}
       className="flex items-center gap-1 cursor-pointer hover:opacity-50 transition-all duration-300"
@@ -134,7 +134,7 @@ const Navbar: FC<IProps> = ({ isAdminSection }) => {
     </div>
   );
 
-  const languageSelector: JSX.Element = (
+  const languageSelector: ReactNode = (
     <LanguageSelector
       value={language}
       onChange={onLanguageChange}
@@ -142,7 +142,7 @@ const Navbar: FC<IProps> = ({ isAdminSection }) => {
     />
   );
 
-  const themeIcon: JSX.Element = (
+  const themeIcon: ReactNode = (
     <IconButton onClick={onThemeChange}>
       {isDarkMode ? (
         <MoonIcon className="text-primary text-2xl" />
@@ -152,7 +152,7 @@ const Navbar: FC<IProps> = ({ isAdminSection }) => {
     </IconButton>
   );
 
-  const logoutIcon: JSX.Element = (
+  const logoutIcon: ReactNode = (
     <LogoutIcon
       onClick={onLogout}
       className="text-primary text-2xl cursor-pointer hover:opacity-50 transition-all duration-300"
