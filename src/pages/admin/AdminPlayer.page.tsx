@@ -272,10 +272,19 @@ const AdminPlayer: FC = () => {
             if (playerRes && playerRes.hasSuccess)
               if (isImageUpdated && formData.image)
                 await Promise.resolve(IMAGES_API.delete(playerRes.data)).then(
-                  (imageRes: THTTPResponse) => {
-                    if (imageRes && imageRes.hasSuccess)
-                      openPopup(t("playerSuccessfullyUpdated"), "success");
-                    else openPopup(t("unableRemoveImage"), "error");
+                  async (deletedImageRes: THTTPResponse) => {
+                    if (deletedImageRes && deletedImageRes.hasSuccess) {
+                      await Promise.resolve(
+                        IMAGES_API.add(
+                          formData.id as string,
+                          formData.image as File
+                        )
+                      ).then((imageRes: THTTPResponse) => {
+                        if (imageRes && imageRes.hasSuccess)
+                          openPopup(t("playerSuccessfullyUpdated"), "success");
+                        else openPopup(t("unableUpdateImage"), "error");
+                      });
+                    } else openPopup(t("unableRemoveImage"), "error");
                   }
                 );
               else openPopup(t("playerSuccessfullyUpdated"), "success");
